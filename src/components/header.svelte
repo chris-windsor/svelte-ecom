@@ -15,6 +15,7 @@
 	import logo from '../logo.svg';
 	import AnnouncementBanner from './announcementBanner.svelte';
 	import Mobiledrawer from './mobileDrawer.svelte';
+	import { cart } from '../stores/cart';
 
 	const navigation = {
 		categories: [
@@ -278,7 +279,7 @@
 											class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
 										/>
 										<span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
-											>{userStore.cart.length}</span
+											>{$cart.items.length}</span
 										>
 										<span class="sr-only">items in cart, view bag</span>
 									</a>

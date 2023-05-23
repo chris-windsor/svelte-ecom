@@ -16,6 +16,7 @@
 	},
 	"devDependencies": {
 		"@babeard/svelte-heroicons": "^2.0.0-rc.0",
+		"@macfja/svelte-persistent-store": "^2.3.0",
 		"@playwright/test": "^1.28.1",
 		"@rgossiaux/svelte-headlessui": "^1.0.2",
 		"@sveltejs/adapter-auto": "^2.0.0",

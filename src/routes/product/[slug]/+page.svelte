@@ -4,6 +4,7 @@
 	import { CurrencyDollarIcon, GlobeAmericasIcon } from '@babeard/svelte-heroicons/outline';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 	import Breadcrumbs from '../../../components/breadcrumbs.svelte';
+	import { addProductToCart } from '../../../stores/cart';
 
 	export let data: PageData;
 
@@ -48,7 +49,9 @@
 	let selectedSize = product2.sizes[0];
 	let selectedColor = product2.colors[1];
 
-	const addToCart = () => {};
+	const addToCart = () => {
+		addProductToCart(product);
+	};
 </script>
 
 <div class="bg-white">
