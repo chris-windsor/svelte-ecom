@@ -1,7 +1,7 @@
 import wretch from 'wretch';
 import { throttlingCache } from 'wretch/middlewares';
 
-const retriever = wretch('http://localhost:4567/api');
+const retriever = wretch('http://127.0.0.1:4567/api');
 
 retriever.middlewares([
 	throttlingCache({

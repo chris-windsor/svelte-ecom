@@ -1,9 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
-import retriever from '../../../utils/wretch.js';
-import { RESPONSE_SUCCESS_DESCRIPTOR } from '../../../utils/constants.js';
+import retriever from '../../../../utils/wretch.js';
+import { RESPONSE_SUCCESS_DESCRIPTOR } from '../../../../utils/constants.js';
 
-type LoginResponse = {
-	token: string;
+type RegisterResponse = {
 	status: string;
 };
 
@@ -11,28 +10,24 @@ type LoginResponse = {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
+		const name = data.get('name');
 		const email = data.get('email');
 		const password = data.get('password');
 
 		const resp = await retriever
 			.json({
+				name,
 				email,
 				password
 			})
-			.url('/auth/login')
+			.url('/auth/register')
 			.post()
-			.json<LoginResponse>();
+			.json<RegisterResponse>();
 
 		if (resp.status !== RESPONSE_SUCCESS_DESCRIPTOR) {
 			return fail(400);
 		}
 
-		cookies.set('token', resp.token, {
-			domain: 'localhost',
-			path: '/',
-			secure: false,
-			sameSite: 'lax'
-		});
-		throw redirect(303, '/account');
+		throw redirect(302, '/auth/signin');
 	}
 };

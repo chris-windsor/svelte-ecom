@@ -16,6 +16,7 @@
 	import AnnouncementBanner from './announcementBanner.svelte';
 	import Mobiledrawer from './mobileDrawer.svelte';
 	import { cart } from '../stores/cart';
+	import { companyName } from '../config.json';
 
 	const navigation = {
 		categories: [
@@ -83,7 +84,6 @@
 	};
 
 	let show = false;
-	let userStore = { cart: [] };
 </script>
 
 <Mobiledrawer {show} {navigation} />
@@ -96,8 +96,8 @@
 				<div class="border-b border-gray-200">
 					<div class="flex h-16 items-center justify-between">
 						<div class="hidden lg:flex lg:items-center">
-							<a href="/">
-								<span class="sr-only">Your Company</span>
+							<a href="/" data-sveltekit-preload-data>
+								<span class="sr-only">{companyName}</span>
 								<img alt="" class="h-8 w-auto" src={logo} />
 							</a>
 						</div>
@@ -251,8 +251,8 @@
 								<MagnifyingGlassIcon aria-hidden="true" class="h-6 w-6" />
 							</a>
 						</div>
-						<a class="lg:hidden" href="/">
-							<span class="sr-only">Your Company</span>
+						<a class="lg:hidden" href="/" data-sveltekit-preload-data>
+							<span class="sr-only">{companyName}</span>
 							<img alt="" class="h-8 w-auto" src={logo} />
 						</a>
 						<div class="flex flex-1 items-center justify-end">

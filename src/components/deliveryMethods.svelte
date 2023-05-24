@@ -9,12 +9,12 @@
 	import { setSelectedShippingMethod, cart } from '../stores/cart';
 
 	const deliveryMethods = [
-		{ id: 1, title: 'USPS First Class Mail', turnaround: '4–10 business days', price: '$6.00' },
-		{ id: 3, title: 'UPS Ground', turnaround: '1–6 business days', price: '$11.00' },
-		{ id: 2, title: 'USPS Priority Mail', turnaround: '1-3 business days', price: '$15.00' },
-		{ id: 4, title: 'UPS 3 Day Select', turnaround: '3 business days', price: '$19.00' },
-		{ id: 5, title: 'UPS 2nd Day Air', turnaround: '2 business days', price: '$36.00' },
-		{ id: 6, title: 'UPS Next Day Air', turnaround: '1 business days', price: '$57.00' }
+		{ id: 1, title: 'USPS First Class Mail', turnaround: '4-10 business days', price: 6.0 },
+		{ id: 3, title: 'UPS Ground', turnaround: '1-6 business days', price: 11.0 },
+		{ id: 2, title: 'USPS Priority Mail', turnaround: '1-3 business days', price: 15.0 },
+		{ id: 4, title: 'UPS 3 Day Select', turnaround: '3 business days', price: 19.0 },
+		{ id: 5, title: 'UPS 2nd Day Air', turnaround: '2 business days', price: 36.0 },
+		{ id: 6, title: 'UPS Next Day Air', turnaround: '1 business days', price: 57.0 }
 	];
 </script>
 
@@ -46,7 +46,7 @@
 									>{deliveryMethod.turnaround}</RadioGroupDescription
 								>
 								<RadioGroupDescription as="span" class="mt-6 text-sm font-medium text-gray-900"
-									>{deliveryMethod.price}</RadioGroupDescription
+									>${deliveryMethod.price.toFixed(2)}</RadioGroupDescription
 								>
 							</span>
 						</span>

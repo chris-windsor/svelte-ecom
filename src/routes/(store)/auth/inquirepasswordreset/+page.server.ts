@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
-import retriever from '../../../utils/wretch.js';
-import { RESPONSE_SUCCESS_DESCRIPTOR } from '../../../utils/constants.js';
+import retriever from '../../../../utils/wretch.js';
+import { RESPONSE_SUCCESS_DESCRIPTOR } from '../../../../utils/constants.js';
 
-type RegisterResponse = {
+type InquirePasswordResetResponse = {
 	status: string;
 };
 
@@ -10,19 +10,15 @@ type RegisterResponse = {
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
-		const name = data.get('name');
 		const email = data.get('email');
-		const password = data.get('password');
 
 		const resp = await retriever
 			.json({
-				name,
-				email,
-				password
+				email
 			})
-			.url('/auth/register')
+			.url('/auth/inquire_password_reset')
 			.post()
-			.json<RegisterResponse>();
+			.json<InquirePasswordResetResponse>();
 
 		if (resp.status !== RESPONSE_SUCCESS_DESCRIPTOR) {
 			return fail(400);

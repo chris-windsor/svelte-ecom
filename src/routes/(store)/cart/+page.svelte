@@ -1,6 +1,9 @@
 <script>
-	import CartItems from '../../components/cartItems.svelte';
-	import { showTaxes } from '../../config.json';
+	import CartItems from '../../../components/cartItems.svelte';
+	import { showTaxes } from '../../../config.json';
+	import { cart } from '../../../stores/cart';
+
+	$: selectedShippingMethod = $cart.selectedShippingMethod;
 </script>
 
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
@@ -20,10 +23,14 @@
 							<dt class="text-sm">Subtotal</dt>
 							<dd class="text-sm font-medium text-gray-900">$64.00</dd>
 						</div>
-						<div class="flex items-center justify-between">
-							<dt class="text-sm">Shipping</dt>
-							<dd class="text-sm font-medium text-gray-900">$5.00</dd>
-						</div>
+						{#if selectedShippingMethod}
+							<div class="flex items-center justify-between">
+								<dt class="text-sm">Shipping ({selectedShippingMethod.title})</dt>
+								<dd class="text-sm font-medium text-gray-900">
+									${selectedShippingMethod.price.toFixed(2)}
+								</dd>
+							</div>
+						{/if}
 						{#if showTaxes}
 							<div class="flex items-center justify-between">
 								<dt class="text-sm">Taxes</dt>

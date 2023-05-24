@@ -1,8 +1,8 @@
 <script lang="ts">
-	import CartItems from '../../components/cartItems.svelte';
-	import DeliveryMethods from '../../components/deliveryMethods.svelte';
-	import { limitToUSA, showTaxes } from '../../config.json';
-	import { cart } from '../../stores/cart';
+	import CartItems from '../../../components/cartItems.svelte';
+	import DeliveryMethods from '../../../components/deliveryMethods.svelte';
+	import { limitToUSA, showTaxes } from '../../../config.json';
+	import { cart } from '../../../stores/cart';
 
 	const paymentMethods = [
 		{ id: 'credit-card', title: 'Credit Card' },
@@ -274,7 +274,9 @@
 						{#if selectedShippingMethod}
 							<div class="flex items-center justify-between">
 								<dt class="text-sm">Shipping ({selectedShippingMethod.title})</dt>
-								<dd class="text-sm font-medium text-gray-900">{selectedShippingMethod.price}</dd>
+								<dd class="text-sm font-medium text-gray-900">
+									${selectedShippingMethod.price.toFixed(2)}
+								</dd>
 							</div>
 						{/if}
 						{#if showTaxes}

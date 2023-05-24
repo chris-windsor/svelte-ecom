@@ -3,12 +3,12 @@
 	import { StarIcon } from '@babeard/svelte-heroicons/solid';
 	import { CurrencyDollarIcon, GlobeAmericasIcon } from '@babeard/svelte-heroicons/outline';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
-	import Breadcrumbs from '../../../components/breadcrumbs.svelte';
-	import { addProductToCart } from '../../../stores/cart';
+	import Breadcrumbs from '../../../../components/breadcrumbs.svelte';
+	import { addProductToCart } from '../../../../stores/cart';
 
 	export let data: PageData;
 
-	const { product } = data;
+	const { product }: any = data;
 	const reviews = { average: 4, totalCount: 13 };
 
 	const product2 = {

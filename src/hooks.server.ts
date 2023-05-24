@@ -27,6 +27,6 @@ export async function handle({ event, resolve }) {
 /** @type {import('@sveltejs/kit').HandleServerError} */
 export async function handleError({ error, event }) {
 	return {
-		message: 'hmmph!'
+		message: error.message
 	};
 }

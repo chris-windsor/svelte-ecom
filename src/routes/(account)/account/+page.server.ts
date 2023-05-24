@@ -8,10 +8,13 @@ type AuthToken = {
 };
 
 export const load = (async ({ cookies }) => {
-	const decoded_token = jwt_decode<AuthToken>(cookies.get('token') || '');
+	const token = cookies.get('token');
+
+	const decoded_token = jwt_decode<AuthToken>(token || '');
 
 	const now = Date.now();
 	if (decoded_token.exp * 1000 < now) {
+		cookies.delete('token');
 		throw redirect(302, '/auth/signin');
 	}
 

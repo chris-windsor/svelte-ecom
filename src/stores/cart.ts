@@ -14,15 +14,22 @@ type Product = {
 	cartId: string;
 };
 
+type ShippingMethod = {
+	id: number;
+	title: string;
+	turnaround: string;
+	price: number;
+};
+
 type Cart = Writable<{
 	items: Product[];
-	selectedShippingMethod: any;
+	selectedShippingMethod: ShippingMethod | null;
 }>;
 
 export const cart: Cart = persist(
 	writable({
 		items: [],
-		selectedShippingMethod: {}
+		selectedShippingMethod: null
 	}),
 	createSessionStorage(),
 	'cart'
