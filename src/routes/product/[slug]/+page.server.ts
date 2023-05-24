@@ -1,8 +1,7 @@
+import retriever from '../../../utils/wretch';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {
-	const data = await fetch(`http://127.0.0.1:4567/api/product/${params.slug}`).then((res) =>
-		res.json()
-	);
+	const data = await retriever.url(`/product/${params.slug}`).get().json();
 	return data;
 }) satisfies PageServerLoad;
