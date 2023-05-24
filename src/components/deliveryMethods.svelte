@@ -7,8 +7,16 @@
 		RadioGroupOption
 	} from '@rgossiaux/svelte-headlessui';
 	import { setSelectedShippingMethod, cart } from '../stores/cart';
+	import { onMount } from 'svelte';
 
-	const deliveryMethods = [
+	type DeliveryMethod = {
+		id: number;
+		title: string;
+		turnaround: string;
+		price: number;
+	};
+
+	const deliveryMethods: DeliveryMethod[] = [
 		{ id: 1, title: 'USPS First Class Mail', turnaround: '4-10 business days', price: 6.0 },
 		{ id: 3, title: 'UPS Ground', turnaround: '1-6 business days', price: 11.0 },
 		{ id: 2, title: 'USPS Priority Mail', turnaround: '1-3 business days', price: 15.0 },
@@ -16,15 +24,20 @@
 		{ id: 5, title: 'UPS 2nd Day Air', turnaround: '2 business days', price: 36.0 },
 		{ id: 6, title: 'UPS Next Day Air', turnaround: '1 business days', price: 57.0 }
 	];
+
+	let selectedMethod: any;
+	$: selectedMethod = $cart.selectedShippingMethod;
+
+	onMount(() => {
+		selectedMethod = deliveryMethods.find(
+			(method) => method.id === ($cart.selectedShippingMethod?.id || 1)
+		);
+	});
 </script>
 
 <div class="mt-10 border-t border-gray-200 pt-10">
-	<RadioGroup
-		value={$cart.selectedShippingMethod}
-		on:change={(e) => setSelectedShippingMethod(e.detail)}
-	>
+	<RadioGroup value={selectedMethod} on:change={(e) => setSelectedShippingMethod(e.detail)}>
 		<RadioGroupLabel class="text-lg font-medium text-gray-900">Delivery method</RadioGroupLabel>
-
 		<div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
 			{#each deliveryMethods as deliveryMethod}
 				<RadioGroupOption value={deliveryMethod} as="div" let:active let:checked>

@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { CheckIcon, ClockIcon } from '@babeard/svelte-heroicons/solid';
-	import { removeProductFromCart, cart } from '../stores/cart';
+	import { removeProductFromCart, cart, updateProductQtyInCart } from '../stores/cart';
 
 	export let additionalClass: string = '';
 
 	$: products = $cart.items.map((item) => {
 		return {
 			...item,
-			qty: 1,
 			color: 'Black',
 			inStock: Math.random() > 0.4,
 			leadTime: '3 months',
@@ -16,6 +15,12 @@
 			}`
 		};
 	});
+
+	const updateItemQty = (cartId: string, event: any) => {
+		if (!event?.target?.value) return;
+
+		updateProductQtyInCart(cartId, parseInt(event.target.value));
+	};
 
 	const removeItem = (cartId: string) => {
 		removeProductFromCart(cartId);
@@ -61,15 +66,11 @@
 							name={`quantity-${productIdx}`}
 							value={product.qty}
 							class="block max-w-full rounded-md border border-gray-300 py-1.5 text-left text-base font-medium leading-5 text-gray-700 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
+							on:change={(event) => updateItemQty(product.cartId, event)}
 						>
-							<option value={1}>1</option>
-							<option value={2}>2</option>
-							<option value={3}>3</option>
-							<option value={4}>4</option>
-							<option value={5}>5</option>
-							<option value={6}>6</option>
-							<option value={7}>7</option>
-							<option value={8}>8</option>
+							{#each [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as qtyOption}
+								<option>{qtyOption}</option>
+							{/each}
 						</select>
 
 						<button

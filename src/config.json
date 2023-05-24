@@ -58,7 +58,7 @@
 		}
 	],
 	"limitToUSA": true,
-	"showTaxes": false,
+	"showTaxes": true,
 	"socials": {
 		"facebook": "",
 		"instagram": "",

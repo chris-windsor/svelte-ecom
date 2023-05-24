@@ -1,16 +1,14 @@
 <script lang="ts">
+	import CartInvoice from '../../../components/cartInvoice.svelte';
 	import CartItems from '../../../components/cartItems.svelte';
 	import DeliveryMethods from '../../../components/deliveryMethods.svelte';
-	import { limitToUSA, showTaxes } from '../../../config.json';
-	import { cart } from '../../../stores/cart';
+	import { limitToUSA } from '../../../config.json';
 
 	const paymentMethods = [
 		{ id: 'credit-card', title: 'Credit Card' },
 		{ id: 'paypal', title: 'PayPal' },
 		{ id: 'cash', title: 'Cash/Check' }
 	];
-
-	$: selectedShippingMethod = $cart.selectedShippingMethod;
 </script>
 
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
@@ -266,30 +264,7 @@
 					<div class="ml-6 mr-6">
 						<CartItems />
 					</div>
-					<dl class="space-y-6 border-t border-gray-200 py-6 px-4 sm:px-6">
-						<div class="flex items-center justify-between">
-							<dt class="text-sm">Subtotal</dt>
-							<dd class="text-sm font-medium text-gray-900">$64.00</dd>
-						</div>
-						{#if selectedShippingMethod}
-							<div class="flex items-center justify-between">
-								<dt class="text-sm">Shipping ({selectedShippingMethod.title})</dt>
-								<dd class="text-sm font-medium text-gray-900">
-									${selectedShippingMethod.price.toFixed(2)}
-								</dd>
-							</div>
-						{/if}
-						{#if showTaxes}
-							<div class="flex items-center justify-between">
-								<dt class="text-sm">Taxes</dt>
-								<dd class="text-sm font-medium text-gray-900">$5.52</dd>
-							</div>
-						{/if}
-						<div class="flex items-center justify-between border-t border-gray-200 pt-6">
-							<dt class="text-base font-medium">Total</dt>
-							<dd class="text-base font-medium text-gray-900">$75.52</dd>
-						</div>
-					</dl>
+					<CartInvoice />
 					<div class="border-t border-gray-200 py-6 px-4 sm:px-6">
 						<button
 							class="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"

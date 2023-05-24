@@ -9,6 +9,7 @@ type Product = {
 	color: string;
 	size: string;
 	price: number;
+	qty: number;
 	inStock: boolean;
 	leadTime: string;
 	cartId: string;
@@ -45,6 +46,19 @@ export const addProductToCart = (product: Product) => {
 				...product,
 				cartId
 			})
+		};
+	});
+};
+
+export const updateProductQtyInCart = (cartId: string, newQty: number) => {
+	cart.update((cart) => {
+		const itemToUpdateIndex = cart.items.findIndex((item) => item.cartId === cartId);
+		const newCartItems = cart.items;
+		newCartItems[itemToUpdateIndex].qty = newQty;
+
+		return {
+			...cart,
+			items: newCartItems
 		};
 	});
 };
