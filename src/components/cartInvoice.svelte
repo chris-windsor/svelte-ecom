@@ -1,12 +1,14 @@
 <script lang="ts">
-	import { showTaxes } from '../config.json';
+	import { showTaxes, shippingMethods } from '../config.json';
 	import { cart } from '../stores/cart';
 
 	$: subtotal = $cart.items.reduce((acc, item) => {
 		return acc + item.price * (item.qty || 1);
 	}, 0);
 
-	$: selectedShippingMethod = $cart.selectedShippingMethod;
+	$: selectedShippingMethod = shippingMethods.find(
+		(method: any) => method.id === $cart.selectedShippingMethod
+	);
 
 	const taxRate = 0.0715;
 	$: subtotalTax = subtotal * taxRate;
@@ -23,7 +25,7 @@
 		<div class="flex items-center justify-between">
 			<dt class="text-sm">Shipping ({selectedShippingMethod.title})</dt>
 			<dd class="text-sm font-medium text-gray-900">
-				${selectedShippingMethod.price.toFixed(2)}
+				${selectedShippingMethod?.price?.toFixed(2)}
 			</dd>
 		</div>
 	{/if}

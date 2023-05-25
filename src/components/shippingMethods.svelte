@@ -7,7 +7,7 @@
 		RadioGroupOption
 	} from '@rgossiaux/svelte-headlessui';
 	import { setSelectedShippingMethod, cart } from '../stores/cart';
-	import { onMount } from 'svelte';
+	import { shippingMethods } from '../config.json';
 
 	type DeliveryMethod = {
 		id: number;
@@ -15,32 +15,17 @@
 		turnaround: string;
 		price: number;
 	};
-
-	const deliveryMethods: DeliveryMethod[] = [
-		{ id: 1, title: 'USPS First Class Mail', turnaround: '4-10 business days', price: 6.0 },
-		{ id: 3, title: 'UPS Ground', turnaround: '1-6 business days', price: 11.0 },
-		{ id: 2, title: 'USPS Priority Mail', turnaround: '1-3 business days', price: 15.0 },
-		{ id: 4, title: 'UPS 3 Day Select', turnaround: '3 business days', price: 19.0 },
-		{ id: 5, title: 'UPS 2nd Day Air', turnaround: '2 business days', price: 36.0 },
-		{ id: 6, title: 'UPS Next Day Air', turnaround: '1 business days', price: 57.0 }
-	];
-
-	let selectedMethod: any;
-	$: selectedMethod = $cart.selectedShippingMethod;
-
-	onMount(() => {
-		selectedMethod = deliveryMethods.find(
-			(method) => method.id === ($cart.selectedShippingMethod?.id || 1)
-		);
-	});
 </script>
 
 <div class="mt-10 border-t border-gray-200 pt-10">
-	<RadioGroup value={selectedMethod} on:change={(e) => setSelectedShippingMethod(e.detail)}>
+	<RadioGroup
+		value={$cart.selectedShippingMethod}
+		on:change={(e) => setSelectedShippingMethod(e.detail)}
+	>
 		<RadioGroupLabel class="text-lg font-medium text-gray-900">Delivery method</RadioGroupLabel>
 		<div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
-			{#each deliveryMethods as deliveryMethod}
-				<RadioGroupOption value={deliveryMethod} as="div" let:active let:checked>
+			{#each shippingMethods as shippingMethod}
+				<RadioGroupOption value={shippingMethod.id} as="div" let:active let:checked>
 					<div
 						class={[
 							checked ? 'border-transparent' : 'border-gray-300',
@@ -51,15 +36,15 @@
 						<span class="flex flex-1">
 							<span class="flex flex-col">
 								<RadioGroupLabel as="span" class="block text-sm font-medium text-gray-900"
-									>{deliveryMethod.title}</RadioGroupLabel
+									>{shippingMethod.title}</RadioGroupLabel
 								>
 								<RadioGroupDescription
 									as="span"
 									class="mt-1 flex items-center text-sm text-gray-500"
-									>{deliveryMethod.turnaround}</RadioGroupDescription
+									>{shippingMethod.turnaround}</RadioGroupDescription
 								>
 								<RadioGroupDescription as="span" class="mt-6 text-sm font-medium text-gray-900"
-									>${deliveryMethod.price.toFixed(2)}</RadioGroupDescription
+									>${shippingMethod.price.toFixed(2)}</RadioGroupDescription
 								>
 							</span>
 						</span>

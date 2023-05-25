@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CartInvoice from '../../../components/cartInvoice.svelte';
 	import CartItems from '../../../components/cartItems.svelte';
-	import DeliveryMethods from '../../../components/deliveryMethods.svelte';
+	import ShippingMethods from '../../../components/shippingMethods.svelte';
 	import { limitToUSA } from '../../../config.json';
 
 	const paymentMethods = [
@@ -177,7 +177,7 @@
 						</div>
 					</div>
 				</div>
-				<DeliveryMethods />
+				<ShippingMethods />
 				<div class="mt-10 border-t border-gray-200 pt-10">
 					<h2 class="text-lg font-medium text-gray-900">Payment</h2>
 					<fieldset class="mt-4">
