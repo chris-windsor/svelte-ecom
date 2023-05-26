@@ -5,9 +5,11 @@ type AuthToken = {
 	role: string;
 };
 
+const ACCOUNT_LEVEL_ROUTE_PREFIX = '/(account)';
+
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
-	if (event.route.id?.startsWith('/account') || event.route.id?.startsWith('/admin')) {
+	if (event.route.id?.startsWith(ACCOUNT_LEVEL_ROUTE_PREFIX)) {
 		const token = event.cookies.get('token');
 
 		if (!token?.length) {
@@ -16,7 +18,10 @@ export async function handle({ event, resolve }) {
 
 		const decoded_token = jwt_decode<AuthToken>(token);
 
-		if (event.route.id.startsWith('/admin') && decoded_token.role !== 'admin') {
+		if (
+			event.route.id.startsWith(ACCOUNT_LEVEL_ROUTE_PREFIX + '/admin') &&
+			decoded_token.role !== 'admin'
+		) {
 			throw redirect(302, '/account');
 		}
 	}

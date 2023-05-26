@@ -5,12 +5,21 @@ import jwt_decode from 'jwt-decode';
 type AuthToken = {
 	name: string;
 	exp: number;
+	role: string;
 };
 
 export const load = (async ({ cookies }) => {
 	const token = cookies.get('token');
 
+	if (!token?.length) {
+		throw redirect(302, '/auth/signin');
+	}
+
 	const decoded_token = jwt_decode<AuthToken>(token || '');
+
+	if (decoded_token.role !== 'admin') {
+		throw redirect(302, '/auth/signin');
+	}
 
 	const now = Date.now();
 	if (decoded_token.exp * 1000 < now) {

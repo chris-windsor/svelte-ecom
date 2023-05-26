@@ -10,6 +10,10 @@ type AuthToken = {
 export const load = (async ({ cookies }) => {
 	const token = cookies.get('token');
 
+	if (!token?.length) {
+		throw redirect(302, '/auth/signin');
+	}
+
 	const decoded_token = jwt_decode<AuthToken>(token || '');
 
 	const now = Date.now();
