@@ -44,7 +44,8 @@ export const addProductToCart = (product: Product) => {
 			...cart,
 			items: cart.items.concat({
 				...product,
-				cartId
+				cartId,
+				qty: 1
 			})
 		};
 	});

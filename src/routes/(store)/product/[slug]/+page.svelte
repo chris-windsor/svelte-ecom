@@ -4,7 +4,7 @@
 	import { CurrencyDollarIcon, GlobeAmericasIcon } from '@babeard/svelte-heroicons/outline';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 	import Breadcrumbs from '../../../../components/breadcrumbs.svelte';
-	import { addProductToCart } from '../../../../stores/cart';
+	import { cart, addProductToCart, updateProductQtyInCart } from '../../../../stores/cart';
 
 	export let data: PageData;
 
@@ -50,7 +50,12 @@
 	let selectedColor = product2.colors[1];
 
 	const addToCart = () => {
-		addProductToCart(product);
+		const existingProduct = $cart.items.find((item) => item.id === product.id);
+		if (existingProduct) {
+			updateProductQtyInCart(existingProduct.cartId, existingProduct.qty + 1);
+		} else {
+			addProductToCart(product);
+		}
 	};
 </script>
 

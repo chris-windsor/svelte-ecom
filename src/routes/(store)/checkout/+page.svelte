@@ -1,14 +1,25 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import CartInvoice from '../../../components/cartInvoice.svelte';
 	import CartItems from '../../../components/cartItems.svelte';
 	import ShippingMethods from '../../../components/shippingMethods.svelte';
 	import { limitToUSA } from '../../../config.json';
+	import { cart } from '../../../stores/cart';
+	import { goto } from '$app/navigation';
 
 	const paymentMethods = [
 		{ id: 'credit-card', title: 'Credit Card' },
 		{ id: 'paypal', title: 'PayPal' },
 		{ id: 'cash', title: 'Cash/Check' }
 	];
+
+	onMount(() => {
+		if (!$cart.items.length) {
+			goto('/cart', {
+				replaceState: true
+			});
+		}
+	});
 </script>
 
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
