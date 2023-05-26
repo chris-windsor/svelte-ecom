@@ -1,5 +1,5 @@
 <script>
-	import AccountNav from '../../../components/accountNav.svelte';
+	import AccountNav from '$lib/components/accountNav.svelte';
 </script>
 
 <AccountNav />

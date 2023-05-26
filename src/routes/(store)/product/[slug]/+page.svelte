@@ -3,8 +3,8 @@
 	import { StarIcon } from '@babeard/svelte-heroicons/solid';
 	import { CurrencyDollarIcon, GlobeAmericasIcon } from '@babeard/svelte-heroicons/outline';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
-	import Breadcrumbs from '../../../../components/breadcrumbs.svelte';
-	import { cart, addProductToCart, updateProductQtyInCart } from '../../../../stores/cart';
+	import Breadcrumbs from '$lib/components/breadcrumbs.svelte';
+	import { cart, addProductToCart, updateProductQtyInCart } from '$lib/stores/cart';
 
 	export let data: PageData;
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import CartInvoice from '../../../components/cartInvoice.svelte';
-	import CartItems from '../../../components/cartItems.svelte';
-	import ShippingMethods from '../../../components/shippingMethods.svelte';
-	import { limitToUSA } from '../../../config.json';
-	import { cart } from '../../../stores/cart';
+	import CartInvoice from '$lib/components/cartInvoice.svelte';
+	import CartItems from '$lib/components/cartItems.svelte';
+	import ShippingMethods from '$lib/components/shippingMethods.svelte';
+	import { limitToUSA } from '$lib/config.json';
+	import { cart } from '$lib/stores/cart';
 	import { goto } from '$app/navigation';
 
 	const paymentMethods = [

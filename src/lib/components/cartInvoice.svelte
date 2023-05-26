@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { showTaxes, shippingMethods } from '../config.json';
-	import { cart } from '../stores/cart';
+	import { showTaxes, shippingMethods } from '$lib/config.json';
+	import { cart } from '$lib/stores/cart';
 
 	$: subtotal = $cart.items.reduce((acc, item) => {
 		return acc + item.price * (item.qty || 1);

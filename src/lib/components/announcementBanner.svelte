@@ -1,5 +1,5 @@
 <script>
-	import { announcementBanner } from '../config.json';
+	import { announcementBanner } from '$lib/config.json';
 </script>
 
 {#if announcementBanner.active}

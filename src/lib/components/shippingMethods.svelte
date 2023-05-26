@@ -6,8 +6,8 @@
 		RadioGroupLabel,
 		RadioGroupOption
 	} from '@rgossiaux/svelte-headlessui';
-	import { setSelectedShippingMethod, cart } from '../stores/cart';
-	import { shippingMethods } from '../config.json';
+	import { setSelectedShippingMethod, cart } from '$lib/stores/cart';
+	import { shippingMethods } from '$lib/config.json';
 
 	type DeliveryMethod = {
 		id: number;

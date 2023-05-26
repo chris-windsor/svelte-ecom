@@ -1,7 +1,7 @@
 <script>
-	import CartInvoice from '../../../components/cartInvoice.svelte';
-	import CartItems from '../../../components/cartItems.svelte';
-	import { cart } from '../../../stores/cart';
+	import CartInvoice from '$lib/components/cartInvoice.svelte';
+	import CartItems from '$lib/components/cartItems.svelte';
+	import { cart } from '$lib/stores/cart';
 </script>
 
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">

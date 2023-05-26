@@ -1,5 +1,5 @@
 <script>
-	import AdminNav from '../../../components/adminNav.svelte';
+	import AdminNav from '$lib/components/adminNav.svelte';
 </script>
 
 <AdminNav />

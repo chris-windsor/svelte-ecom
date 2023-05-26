@@ -1,4 +1,4 @@
-import retriever from '../../../../utils/wretch';
+import retriever from '$lib/utils/wretch';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ params }) => {

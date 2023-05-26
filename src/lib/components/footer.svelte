@@ -1,5 +1,5 @@
 <script>
-	import { companyName, footerMapping, socials } from '../config.json';
+	import { companyName, footerMapping, socials } from '$lib/config.json';
 
 	const navigation = {
 		social: [

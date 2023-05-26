@@ -1,8 +1,8 @@
 <script>
 	import { ArrowRightOnRectangleIcon, ShoppingCartIcon } from '@babeard/svelte-heroicons/outline';
 	import AnnouncementBanner from './announcementBanner.svelte';
-	import logo from '../logo.svg';
-	import { companyName } from '../config.json';
+	import logo from '$lib/logo.svg';
+	import { companyName } from '$lib/config.json';
 
 	const navigation = [
 		{ name: 'Home', href: '/account', current: true },

@@ -11,10 +11,10 @@
 		PopoverPanel,
 		Transition
 	} from '@rgossiaux/svelte-headlessui';
-	import logo from '../logo.svg';
+	import logo from '$lib/logo.svg';
 	import AnnouncementBanner from './announcementBanner.svelte';
 	import Mobiledrawer from './mobileDrawer.svelte';
-	import { companyName } from '../config.json';
+	import { companyName } from '$lib/config.json';
 
 	const navigation = {
 		categories: [

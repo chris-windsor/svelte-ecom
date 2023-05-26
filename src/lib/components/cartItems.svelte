@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CheckIcon, ClockIcon } from '@babeard/svelte-heroicons/solid';
-	import { removeProductFromCart, cart, updateProductQtyInCart } from '../stores/cart';
+	import { removeProductFromCart, cart, updateProductQtyInCart } from '$lib/stores/cart';
 
 	export let additionalClass: string = '';
 

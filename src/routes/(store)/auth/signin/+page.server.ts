@@ -1,6 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
-import retriever from '../../../../utils/wretch.js';
-import { RESPONSE_SUCCESS_DESCRIPTOR } from '../../../../utils/constants.js';
+import retriever from '$lib/utils/wretch.js';
+import { RESPONSE_SUCCESS_DESCRIPTOR } from '$lib/utils/constants.js';
 
 type LoginResponse = {
 	token: string;
