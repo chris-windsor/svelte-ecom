@@ -12,8 +12,8 @@
 		Transition
 	} from '@rgossiaux/svelte-headlessui';
 	import logo from '$lib/logo.svg';
-	import AnnouncementBanner from './announcementBanner.svelte';
-	import Mobiledrawer from './mobileDrawer.svelte';
+	import AnnouncementBanner from '../announcementBanner.svelte';
+	import Mobiledrawer from '../mobileDrawer.svelte';
 	import { companyName } from '$lib/config.json';
 
 	const navigation = {
@@ -24,9 +24,9 @@
 					{
 						name: 'Inventory',
 						items: [
-							{ name: 'Products', href: '/admin/products' },
-							{ name: 'Shipments', href: '#' },
-							{ name: 'Returns', href: '#' }
+							{ name: 'Products', href: '/admin/inventory/products' },
+							{ name: 'Shipments', href: '/admin/inventory/shipments' },
+							{ name: 'Returns', href: '/admin/inventory/returns' }
 						]
 					},
 					{

@@ -2,7 +2,11 @@
 export default {
 	content: ['./src/**/*.{html,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			transitionProperty: {
+				height: 'height'
+			}
+		}
 	},
 	plugins: [
 		require('@tailwindcss/aspect-ratio'),

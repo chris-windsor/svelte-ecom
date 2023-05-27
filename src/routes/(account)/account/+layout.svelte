@@ -1,6 +1,6 @@
 <script>
-	import AccountNav from '$lib/components/accountNav.svelte';
+	import Navigation from '$lib/components/account/navigation.svelte';
 </script>
 
-<AccountNav />
+<Navigation />
 <slot />

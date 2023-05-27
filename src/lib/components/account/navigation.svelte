@@ -1,15 +1,21 @@
 <script>
 	import { ArrowRightOnRectangleIcon, ShoppingCartIcon } from '@babeard/svelte-heroicons/outline';
-	import AnnouncementBanner from './announcementBanner.svelte';
+	import AnnouncementBanner from '../announcementBanner.svelte';
 	import logo from '$lib/logo.svg';
 	import { companyName } from '$lib/config.json';
+	import { page } from '$app/stores';
 
 	const navigation = [
-		{ name: 'Home', href: '/account', current: true },
-		{ name: 'Orders', href: '/account/orders', current: false },
-		{ name: 'Addresses', href: '/account/addresses', current: false },
-		{ name: 'Payment Methods', href: '/account/payment-methods', current: false }
+		{ name: 'Home', href: '/account' },
+		{ name: 'Orders', href: '/account/orders' },
+		{ name: 'Addresses', href: '/account/addresses' },
+		{ name: 'Payment Methods', href: '/account/payment-methods' }
 	];
+
+	$: activeNav = navigation.map((route) => ({
+		...route,
+		current: route.href === $page.url.pathname
+	}));
 
 	const logout = async () => {};
 </script>
@@ -63,7 +69,7 @@
 					</div>
 				</div>
 				<div aria-label="Global" class="flex md:space-x-8 py-2">
-					{#each navigation as item}
+					{#each activeNav as item}
 						<a
 							aria-current={item.current ? 'page' : undefined}
 							href={item.href}
