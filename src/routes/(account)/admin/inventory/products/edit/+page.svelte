@@ -1,33 +1,76 @@
 <script lang="ts">
-	import { PhotoIcon } from '@babeard/svelte-heroicons/solid';
 	import type { PageData } from './$types';
-	import { siteAddress } from '$lib/config.json';
+	import { productDefaults, siteAddress } from '$lib/config.json';
+	import ImagePicker from '$lib/components/admin/imagePicker.svelte';
+	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
 
 	export let data: PageData;
 
-	let newProduct = {
-		name: '',
-		price: undefined,
-		stock: undefined
-	};
+	let publishStateOptions = [
+		{
+			label: 'List on store immediately',
+			value: 'immediate-publish'
+		},
+		{
+			label: 'Publish, but do not include in store results',
+			value: 'private-publish'
+		},
+		{
+			label: 'Save as draft, do not publish at all',
+			value: 'draft-publish'
+		}
+	];
+
+	let name = '';
+	$: shortURL = name
+		.split(' ')
+		.map((chunk) => chunk.trim())
+		.filter((chunk) => chunk.length)
+		.join('-')
+		.toLowerCase();
+	let description = '';
+	let selectedImage: string;
+	let price: number;
+	let maxPurchaseQty: number;
+	let manageStock = productDefaults.manageStock;
+	let stock: number;
+	let allowBackorders = productDefaults.allowBackorders;
+	let restockNotifications = productDefaults.restockNotifications;
+	let publishState = publishStateOptions[0].value;
 
 	let pending = false;
 
-	const selectFile = () => {};
+	let productImages = data.images;
+	let showUploadDialog = false;
 </script>
 
-<form>
+<ImageUploader bind:showDialog={showUploadDialog} />
+
+<form method="POST" action="?/createProduct">
 	<div class="space-y-12">
 		<div class="border-b border-gray-900/10 pb-12">
 			<h2 class="text-base font-semibold leading-7 text-gray-900">New Product</h2>
 			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-				<div class="sm:col-span-4">
+				<div class="sm:col-span-3">
+					<label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
+					<div class="mt-2.5">
+						<input
+							type="text"
+							name="name"
+							id="name"
+							class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							placeholder="Lime Green Vase"
+							bind:value={name}
+						/>
+					</div>
+				</div>
+				<div class="sm:col-span-3">
 					<label for="short-url" class="block text-sm font-medium leading-6 text-gray-900"
-						>Product Short URL</label
+						>Short URL</label
 					>
 					<div class="mt-2">
 						<div
-							class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+							class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
 						>
 							<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm"
 								>{siteAddress}/product/</span
@@ -36,13 +79,14 @@
 								type="text"
 								name="short-url"
 								id="short-url"
-								class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 truncate"
 								placeholder="lime-green-vase"
+								bind:value={shortURL}
 							/>
 						</div>
 					</div>
 				</div>
-				<div class="col-span-full">
+				<div class="sm:col-span-3">
 					<label for="description" class="block text-sm font-medium leading-6 text-gray-900"
 						>Description</label
 					>
@@ -50,137 +94,172 @@
 						<textarea
 							id="description"
 							name="description"
-							rows="3"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							rows="4"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 min-h-[36px]"
 							placeholder="A vibrant green vase that brightens any room 10x over"
+							bind:value={description}
 						/>
 					</div>
-					<p class="mt-3 text-sm leading-6 text-gray-600">
-						Provide the most enriching details about this product...
-					</p>
 				</div>
-				<div class="col-span-full">
-					<label for="primary-photo" class="block text-sm font-medium leading-6 text-gray-900"
+				<div class="sm:col-span-3">
+					<label for="primary-image" class="block text-sm font-semibold leading-6 text-gray-900"
 						>Primary photo</label
 					>
-					<div
-						class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
-					>
-						<div class="text-center">
-							<PhotoIcon class="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-							<div class="mt-4 flex text-sm leading-6 text-gray-600">
-								<label
-									for="file-upload"
-									class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-								>
-									<span>Upload an image</span>
-									<input id="file-upload" name="file-upload" type="file" class="sr-only" />
-								</label>
-								<p class="pl-1">or drag and drop</p>
-							</div>
-							<p class="text-xs leading-5 text-gray-600">PNG, JPG, WEBP up to 1MB</p>
+					<div class="mt-2">
+						<div class="border border-1 border-dashed border-gray-900 rounded p-2">
+							<ImagePicker bind:images={productImages} bind:selectedImage />
+							<input type="hidden" name="primary-image" id="primary-image" value={selectedImage} />
 						</div>
+						<a
+							class="inline-block mt-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+							on:click={() => (showUploadDialog = true)}
+							href="#"
+						>
+							Upload image
+						</a>
+					</div>
+				</div>
+				<div class="sm:col-span-1">
+					<label for="price" class="block text-sm font-semibold leading-6 text-gray-900"
+						>Price</label
+					>
+					<div class="mt-2.5">
+						<input
+							type="number"
+							name="price"
+							id="price"
+							class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							placeholder="12.99"
+							min="0"
+							step={0.01}
+							bind:value={price}
+						/>
+					</div>
+				</div>
+				<div class="sm:col-span-1">
+					<label for="max-purchase-qty" class="block text-sm font-semibold leading-6 text-gray-900"
+						>Max Purchase Qty</label
+					>
+					<div class="mt-2.5">
+						<input
+							type="number"
+							name="max-purchase-qty"
+							id="max-purchase-qty"
+							class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+							placeholder="3"
+							min="0"
+							bind:value={maxPurchaseQty}
+						/>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="border-b border-gray-900/10 pb-12">
-			<h2 class="text-base font-semibold leading-7 text-gray-900">Notifications</h2>
-			<p class="mt-1 text-sm leading-6 text-gray-600">
-				We'll always let you know about important changes, but you pick what else you want to hear
-				about.
-			</p>
 			<div class="mt-10 space-y-10">
 				<fieldset>
-					<legend class="text-sm font-semibold leading-6 text-gray-900">By Email</legend>
+					<legend class="text-sm font-semibold leading-6 text-gray-900">Inventory management</legend
+					>
 					<div class="mt-6 space-y-6">
 						<div class="relative flex gap-x-3">
 							<div class="flex h-6 items-center">
 								<input
-									id="comments"
-									name="comments"
+									id="manage-stock"
+									name="manage-stock"
 									type="checkbox"
 									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									bind:checked={manageStock}
 								/>
 							</div>
 							<div class="text-sm leading-6">
-								<label for="comments" class="font-medium text-gray-900">Comments</label>
+								<label for="manage-stock" class="font-medium text-gray-900">Manage stock</label>
+								<p class="text-gray-500">Control levels of stock for this item.</p>
+							</div>
+							{#if manageStock}
+								<div class="sm:col-span-1">
+									<label
+										for="stock"
+										class="sr-only block text-sm font-semibold leading-6 text-gray-900">Stock</label
+									>
+									<div class="mt-2.5">
+										<input
+											type="number"
+											name="stock"
+											id="stock"
+											class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+											placeholder="100"
+											bind:value={stock}
+										/>
+									</div>
+								</div>
+							{/if}
+						</div>
+						<div class="relative flex gap-x-3">
+							<div class="flex h-6 items-center">
+								<input
+									id="backorders"
+									name="backorders"
+									type="checkbox"
+									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									bind:checked={allowBackorders}
+								/>
+							</div>
+							<div class="text-sm leading-6">
+								<label for="backorders" class="font-medium text-gray-900">Allow backorders</label>
 								<p class="text-gray-500">
-									Get notified when someones posts a comment on a posting.
+									Once the stock level reaches 0, customers will be able to back-order this item.
 								</p>
 							</div>
 						</div>
 						<div class="relative flex gap-x-3">
 							<div class="flex h-6 items-center">
 								<input
-									id="candidates"
-									name="candidates"
+									id="restock-notifications"
+									name="restock-notifications"
 									type="checkbox"
 									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									bind:checked={restockNotifications}
 								/>
 							</div>
 							<div class="text-sm leading-6">
-								<label for="candidates" class="font-medium text-gray-900">Candidates</label>
-								<p class="text-gray-500">Get notified when a candidate applies for a job.</p>
-							</div>
-						</div>
-						<div class="relative flex gap-x-3">
-							<div class="flex h-6 items-center">
-								<input
-									id="offers"
-									name="offers"
-									type="checkbox"
-									class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-								/>
-							</div>
-							<div class="text-sm leading-6">
-								<label for="offers" class="font-medium text-gray-900">Offers</label>
+								<label for="restock-notifications" class="font-medium text-gray-900"
+									>Restock notifications</label
+								>
 								<p class="text-gray-500">
-									Get notified when a candidate accepts or rejects an offer.
+									Add a section to this item's listing for customers to sign-up for re-stock
+									notifications.
 								</p>
 							</div>
 						</div>
 					</div>
 				</fieldset>
 				<fieldset>
-					<legend class="text-sm font-semibold leading-6 text-gray-900">Push Notifications</legend>
+					<legend class="text-sm font-semibold leading-6 text-gray-900">Publish state</legend>
 					<p class="mt-1 text-sm leading-6 text-gray-600">
-						These are delivered via SMS to your mobile phone.
+						Where do you want this product listing to go?
 					</p>
-					<div class="mt-6 space-y-6">
-						<div class="flex items-center gap-x-3">
-							<input
-								id="push-everything"
-								name="push-notifications"
-								type="radio"
-								class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-							/>
-							<label for="push-everything" class="block text-sm font-medium leading-6 text-gray-900"
-								>Everything</label
+					<div class="mt-6 space-y-6" role="radiogroup">
+						{#each publishStateOptions as publishStateOpt}
+							<div
+								class="flex items-center gap-x-3"
+								role="radio"
+								aria-checked={publishState === publishStateOpt.value}
 							>
-						</div>
-						<div class="flex items-center gap-x-3">
-							<input
-								id="push-email"
-								name="push-notifications"
-								type="radio"
-								class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-							/>
-							<label for="push-email" class="block text-sm font-medium leading-6 text-gray-900"
-								>Same as email</label
-							>
-						</div>
-						<div class="flex items-center gap-x-3">
-							<input
-								id="push-nothing"
-								name="push-notifications"
-								type="radio"
-								class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
-							/>
-							<label for="push-nothing" class="block text-sm font-medium leading-6 text-gray-900"
-								>No push notifications</label
-							>
-						</div>
+								<input
+									id={publishStateOpt.value}
+									bind:group={publishState}
+									name="publish-state"
+									type="radio"
+									class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+									value={publishStateOpt.value}
+								/>
+								<label
+									for={publishStateOpt.value}
+									class="block text-sm font-medium leading-6 text-gray-900"
+								>
+									{publishStateOpt.label}
+								</label>
+							</div>
+						{/each}
 					</div>
 				</fieldset>
 			</div>

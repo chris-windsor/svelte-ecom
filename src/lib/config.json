@@ -58,6 +58,11 @@
 		}
 	],
 	"limitToUSA": true,
+	"productDefaults": {
+		"manageStock": true,
+		"allowBackorders": false,
+		"restockNotifications": true
+	},
 	"showTaxes": true,
 	"shippingMethods": [
 		{ "id": 1, "title": "USPS First Class Mail", "turnaround": "4-10 business days", "price": 6.0 },
