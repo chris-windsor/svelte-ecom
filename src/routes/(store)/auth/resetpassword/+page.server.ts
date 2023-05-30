@@ -1,22 +1,23 @@
 import { fail, redirect } from '@sveltejs/kit';
 import retriever from '$lib/utils/wretch.js';
 import { RESPONSE_SUCCESS_DESCRIPTOR } from '$lib/utils/constants.js';
+import type { Actions } from './$types';
 
 type ResetPasswordResponse = {
 	status: string;
 };
 
-/** @type {import('./$types').Actions} */
 export const actions = {
-	default: async ({ cookies, request }) => {
+	default: async ({ request, url }) => {
 		const data = await request.formData();
 		const password = data.get('password');
-		const confirmPassword = data.get('confirmPassword');
+
+		const token = url.searchParams.get('token');
 
 		const resp = await retriever
 			.json({
-				password,
-				confirmPassword
+				token,
+				password
 			})
 			.url('/auth/change_password')
 			.post()
@@ -28,4 +29,4 @@ export const actions = {
 
 		throw redirect(302, '/auth/signin');
 	}
-};
+} satisfies Actions;
