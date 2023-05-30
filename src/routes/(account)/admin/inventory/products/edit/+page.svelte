@@ -1,10 +1,12 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { ActionData, PageData } from './$types';
 	import { productDefaults, siteAddress } from '$lib/config.json';
 	import ImagePicker from '$lib/components/admin/imagePicker.svelte';
 	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
+	import Alert from '$lib/components/alert.svelte';
 
 	export let data: PageData;
+	export let form: ActionData;
 
 	let publishStateOptions = [
 		{
@@ -38,13 +40,19 @@
 	let restockNotifications = productDefaults.restockNotifications;
 	let publishState = publishStateOptions[0].value;
 
-	let pending = false;
-
 	let productImages = data.images;
 	let showUploadDialog = false;
 </script>
 
 <ImageUploader bind:showDialog={showUploadDialog} />
+
+{#if form && form.status === 'success'}
+	<Alert
+		type="success"
+		title="Product successfully added"
+		buttons={[{ label: 'View', href: '/product/' + form.data.product.id }]}
+	/>
+{/if}
 
 <form method="POST" action="?/createProduct">
 	<div class="space-y-12">
@@ -79,7 +87,7 @@
 								type="text"
 								name="short-url"
 								id="short-url"
-								class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 truncate"
+								class="block flex-1 border-0 bg-transparent py-1.5 pl-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 truncate"
 								placeholder="lime-green-vase"
 								bind:value={shortURL}
 							/>

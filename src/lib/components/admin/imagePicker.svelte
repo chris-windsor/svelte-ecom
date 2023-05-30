@@ -1,13 +1,8 @@
 <script lang="ts">
 	import { CheckCircleIcon } from '@babeard/svelte-heroicons/solid';
-	import {
-		RadioGroup,
-		RadioGroupDescription,
-		RadioGroupLabel,
-		RadioGroupOption
-	} from '@rgossiaux/svelte-headlessui';
+	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 
-	export let images: string[];
+	export let images: string[] = [];
 	export let selectedImage: string;
 </script>
 

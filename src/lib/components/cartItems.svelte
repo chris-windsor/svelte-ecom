@@ -55,7 +55,7 @@
 						</div>
 
 						<p class="text-right text-sm font-medium text-gray-900">
-							${product.price}/ea
+							${product.price.toFixed(2)}{product.qty > 1 ? '/ea' : ''}
 						</p>
 					</div>
 
