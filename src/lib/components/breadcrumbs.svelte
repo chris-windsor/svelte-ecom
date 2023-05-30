@@ -3,11 +3,11 @@
 </script>
 
 <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-	<ol class="flex items-center space-x-4">
+	<ol class="flex items-center space-x-2">
 		{#each product.breadcrumbs as breadcrumb}
 			<li>
 				<div class="flex items-center">
-					<a href={breadcrumb.href} class="mr-4 text-sm font-medium text-gray-900"
+					<a href={breadcrumb.href} class="mr-2 text-sm font-medium text-gray-900"
 						>{breadcrumb.name}</a
 					>
 					<svg

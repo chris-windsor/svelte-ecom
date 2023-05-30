@@ -5,6 +5,7 @@
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 	import Breadcrumbs from '$lib/components/breadcrumbs.svelte';
 	import { cart, addProductToCart, updateProductQtyInCart } from '$lib/stores/cart';
+	import { companyName } from '$lib/config.json';
 
 	export let data: PageData;
 
@@ -59,6 +60,15 @@
 	};
 </script>
 
+<svelte:head>
+	<title>{product.name} | {companyName}</title>
+	<meta name="description" content={product.description} />
+	<meta
+		property="og:image"
+		content={'https://lemonseeds.s3.us-east-2.amazonaws.com/' + product.img}
+	/>
+</svelte:head>
+
 <div class="bg-white">
 	<div class="pt-6 pb-16 sm:pb-24">
 		<Breadcrumbs product={product2} />
@@ -67,7 +77,7 @@
 				<div class="lg:col-span-5 lg:col-start-8">
 					<div class="flex justify-between">
 						<h1 class="text-xl font-medium text-gray-900">{product.name}</h1>
-						<p class="text-xl font-medium text-gray-900">${product.price}</p>
+						<p class="text-xl font-medium text-gray-900">${product.price.toFixed(2)}</p>
 					</div>
 					{#if reviews}
 						<div class="mt-4">
@@ -92,9 +102,9 @@
 									<a
 										class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
 										href="#reviews"
-										>See all
-										{reviews.totalCount} reviews</a
 									>
+										See all {reviews.totalCount} reviews
+									</a>
 								</div>
 							</div>
 						</div>
@@ -102,7 +112,6 @@
 				</div>
 				<div class="mt-8 lg:col-span-7 lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:mt-0">
 					<h2 class="sr-only">Images</h2>
-
 					<div class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-3 lg:gap-8">
 						<img
 							alt="The coolest product"
@@ -152,9 +161,9 @@
 						<div class="mt-8">
 							<div class="flex items-center justify-between">
 								<h2 class="text-sm font-medium text-gray-900">Size</h2>
-								<a class="text-sm font-medium text-indigo-600 hover:text-indigo-500" href="#sizing"
-									>See sizing chart</a
-								>
+								<a class="text-sm font-medium text-indigo-600 hover:text-indigo-500" href="#sizing">
+									See sizing chart
+								</a>
 							</div>
 							<RadioGroup
 								value={selectedSize}
@@ -189,19 +198,17 @@
 							type="submit"
 							on:click={addToCart}
 						>
-							Add to cart
+							Add {$cart.items.findIndex((item) => item.id === product.id) ? '' : 'another'} to cart
 						</button>
 					</form>
 					<div class="mt-10">
 						<h2 class="text-sm font-medium text-gray-900">Additional Details</h2>
-
 						<div class="prose prose-sm mt-4 text-gray-500">
 							{@html product2.description}
 						</div>
 					</div>
 					<div class="mt-8 border-t border-gray-200 pt-8">
 						<h2 class="text-sm font-medium text-gray-900">Why buy here?</h2>
-
 						<div class="prose prose-sm mt-4 text-gray-500">
 							<ul>
 								{#each product2.details as detail}
@@ -212,7 +219,6 @@
 					</div>
 					<section aria-labelledby="policies-heading" class="mt-10">
 						<h2 id="policies-heading" class="sr-only">Our Policies</h2>
-
 						<dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
 							{#each policies as policy}
 								<div class="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
@@ -231,8 +237,6 @@
 					</section>
 				</div>
 			</div>
-			<!-- <Reviews v-if="product.ratings" /> -->
-			<!-- <RelatedProducts v-if="relatedProducts" /> -->
 		</div>
 	</div>
 </div>
