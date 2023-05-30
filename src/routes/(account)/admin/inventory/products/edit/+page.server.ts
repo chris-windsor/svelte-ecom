@@ -1,20 +1,14 @@
-import type { PageServerLoad } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
-export const load = (async ({ cookies }) => {
-	const resp = await fetch('http://127.0.0.1:4567/api/list_files', {
-		credentials: 'include',
-		headers: {
-			cookie: `token=${cookies.get('token')}` || ''
-			// authorization: `Bearer ${cookies.get('token')}`
-		}
-	});
+export const load = (async ({ fetch }) => {
+	const resp = await fetch('http://127.0.0.1:4567/api/list_files');
 
 	const { data } = await resp.json();
 	return data;
 }) satisfies PageServerLoad;
 
 export const actions = {
-	createProduct: async ({ request, cookies }) => {
+	createProduct: async ({ fetch, request }) => {
 		const data = await request.formData();
 
 		const name = data.get('name');
@@ -32,27 +26,19 @@ export const actions = {
 				stock,
 				imageId
 			}),
-			credentials: 'include',
 			headers: {
-				'Content-Type': 'application/json',
-				cookie: `token=${cookies.get('token')}` || ''
-				// authorization: `Bearer ${cookies.get('token')}`
+				'Content-Type': 'application/json'
 			}
 		});
 
-		console.log(resp);
+		return resp.json();
 	},
-	uploadFile: async ({ request, cookies }) => {
+	uploadFile: async ({ fetch, request }) => {
 		const data = await request.formData();
 
 		await fetch('http://127.0.0.1:4567/api/upload_file', {
 			method: 'POST',
-			body: data,
-			credentials: 'include',
-			headers: {
-				cookie: `token=${cookies.get('token')}` || ''
-				// authorization: `Bearer ${cookies.get('token')}`
-			}
+			body: data
 		});
 	}
-};
+} satisfies Actions;

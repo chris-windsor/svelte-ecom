@@ -1,22 +1,25 @@
-import { redirect } from '@sveltejs/kit';
+import { dev } from '$app/environment';
+import type { AuthToken } from '$lib/peach';
+import { redirect, type HandleServerError, type HandleFetch, type Handle } from '@sveltejs/kit';
 import jwt_decode from 'jwt-decode';
-
-type AuthToken = {
-	role: string;
-};
 
 const ACCOUNT_LEVEL_ROUTE_PREFIX = '/(account)';
 
-/** @type {import('@sveltejs/kit').Handle} */
-export async function handle({ event, resolve }) {
+export const handle = (async ({ event, resolve }) => {
 	if (event.route.id?.startsWith(ACCOUNT_LEVEL_ROUTE_PREFIX)) {
 		const token = event.cookies.get('token');
 
-		if (!token?.length) {
+		if (!token || !token?.length) {
 			throw redirect(302, '/auth/signin');
 		}
 
 		const decoded_token = jwt_decode<AuthToken>(token);
+
+		const now = Date.now();
+		if (decoded_token.exp * 1000 < now) {
+			event.cookies.delete('token');
+			throw redirect(302, '/auth/signin');
+		}
 
 		if (
 			event.route.id.startsWith(ACCOUNT_LEVEL_ROUTE_PREFIX + '/admin') &&
@@ -27,11 +30,18 @@ export async function handle({ event, resolve }) {
 	}
 
 	return await resolve(event);
-}
+}) satisfies Handle;
 
-/** @type {import('@sveltejs/kit').HandleServerError} */
-export async function handleError({ error, event }) {
+export const handleFetch = (async ({ event, request, fetch }) => {
+	request.headers.set('cookie', event.request.headers.get('cookie') || '');
+	return fetch(request);
+}) satisfies HandleFetch;
+
+export const handleError = (async ({ error, event }) => {
+	if (dev) {
+		console.error(error);
+	}
 	return {
-		message: error.message
+		message: error.message + JSON.stringify(event)
 	};
-}
+}) satisfies HandleServerError;
