@@ -4,7 +4,7 @@ import { RESPONSE_SUCCESS_DESCRIPTOR } from '$lib/utils/constants.js';
 import type { Actions } from './$types';
 
 type ResetPasswordResponse = {
-	status: string;
+	status: typeof RESPONSE_SUCCESS_DESCRIPTOR;
 };
 
 export const actions = {
@@ -21,10 +21,17 @@ export const actions = {
 			})
 			.url('/auth/change_password')
 			.post()
-			.json<ResetPasswordResponse>();
+			.json<ResetPasswordResponse>()
+			.catch((err) => {
+				if (err.json) {
+					return fail(400, { message: err.json.message });
+				}
+
+				return fail(400, { message: 'Error encountered while attempting password reset' });
+			});
 
 		if (resp.status !== RESPONSE_SUCCESS_DESCRIPTOR) {
-			return fail(400);
+			return fail(400, { message: resp.data.message });
 		}
 
 		throw redirect(302, '/auth/signin');

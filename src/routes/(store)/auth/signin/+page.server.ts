@@ -1,31 +1,38 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { RESPONSE_SUCCESS_DESCRIPTOR } from '$lib/utils/constants.js';
+import { RESPONSE_SUCCESS_DESCRIPTOR, type USER_ROLE } from '$lib/utils/constants.js';
 import type { Actions } from './$types';
+import retriever from '$lib/utils/wretch';
 
 type LoginResponse = {
+	status: typeof RESPONSE_SUCCESS_DESCRIPTOR;
 	token: string;
-	status: string;
+	role: USER_ROLE;
 };
 
 export const actions = {
-	default: async ({ cookies, fetch, request }) => {
+	default: async ({ cookies, request }) => {
 		const data = await request.formData();
 		const email = data.get('email');
 		const password = data.get('password');
 
-		const res = await fetch('http://127.0.0.1:4567/api/auth/login', {
-			method: 'POST',
-			body: JSON.stringify({
+		const resp = await retriever
+			.json({
 				email,
 				password
-			}),
-			headers: [['Content-Type', 'application/json']]
-		});
+			})
+			.url('/auth/login')
+			.post()
+			.json<LoginResponse>()
+			.catch((err) => {
+				if (err.json) {
+					return fail(400, { message: err.json.message });
+				}
 
-		let resp = await res.json();
+				return fail(400, { message: 'Error encountered while attempting authentication' });
+			});
 
 		if (resp.status !== RESPONSE_SUCCESS_DESCRIPTOR) {
-			return fail(400, resp);
+			return fail(400, { message: resp.data.message });
 		}
 
 		cookies.set('token', resp.token, {

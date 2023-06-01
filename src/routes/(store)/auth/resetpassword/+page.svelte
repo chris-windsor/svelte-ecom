@@ -1,5 +1,9 @@
-<script>
+<script lang="ts">
 	import { LockClosedIcon } from '@babeard/svelte-heroicons/solid';
+	import type { ActionData } from './$types';
+	import Alert from '$lib/components/alert.svelte';
+
+	export let form: ActionData;
 
 	let password = '';
 	let confirmPassword = '';
@@ -18,6 +22,9 @@
 				</a>
 			</p>
 		</div>
+		{#if form && form.message}
+			<Alert type="error" title={form.message} />
+		{/if}
 		<form class="mt-8 space-y-6" method="POST">
 			<input name="remember" type="hidden" value="true" />
 			<div class="-space-y-px rounded-md shadow-sm">
