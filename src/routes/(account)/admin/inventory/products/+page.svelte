@@ -1,6 +1,5 @@
 <script lang="ts">
-	import ProductList from '$lib/components/admin/productList.svelte';
-	import Pagination from '$lib/components/pagination.svelte';
+	import PaginatedTable from '$lib/components/admin/paginatedTable.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -13,5 +12,4 @@
 		href="/admin/inventory/products/edit">Create new</a
 	>
 </div>
-<ProductList />
-<Pagination />
+<PaginatedTable />

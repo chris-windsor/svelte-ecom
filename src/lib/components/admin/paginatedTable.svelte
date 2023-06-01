@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { EllipsisVerticalIcon } from '@babeard/svelte-heroicons/solid';
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
+	import Pagination from '$lib/components/pagination.svelte';
 
-	const products = [
+	const rows = [
 		{
 			id: '123',
 			name: 'Lime Green Vase',
@@ -75,43 +76,44 @@
 			priceMax: 35.9
 		}
 	];
+
+	const lastPage = 7;
+	let selectedPage = 3;
 </script>
 
 <ul class="divide-y divide-gray-100">
-	{#each products as product}
+	{#each rows as row}
 		<li class="flex justify-between gap-x-6 py-5">
 			<div class="flex gap-x-4">
 				<img
 					class="h-12 w-12 flex-none rounded-full bg-gray-50"
-					src={product.imageUrl}
-					alt={product.name}
+					src={row.imageUrl}
+					alt={row.name}
 				/>
 				<div class="min-w-0 flex-auto">
 					<p class="text-sm font-semibold leading-6 text-gray-900">
-						<a href={'/admin/inventory/products/edit?id=' + product.id} class="hover:underline"
-							>{product.name}</a
+						<a href={'/admin/inventory/products/edit?id=' + row.id} class="hover:underline"
+							>{row.name}</a
 						>
 					</p>
 					<p class="mt-1 flex text-xs leading-5 text-gray-500">
-						{product.variationCount} variations
+						{row.variationCount} variations
 						<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
-						{#if product.variationCount > 1}
-							${product.priceMin.toFixed(2)}&mdash;${product.priceMax.toFixed(2)}
+						{#if row.variationCount > 1}
+							${row.priceMin.toFixed(2)}&mdash;${row.priceMax.toFixed(2)}
 						{:else}
-							${product.priceMax.toFixed(2)}
+							${row.priceMax.toFixed(2)}
 						{/if}
 						<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
-						min. qty of {product.minimumQty}
+						min. qty of {row.minimumQty}
 					</p>
 				</div>
 			</div>
 			<div class="flex items-center gap-x-6">
 				<div class="hidden sm:flex sm:flex-col sm:items-end">
-					{#if product.lastPurchased}
+					{#if row.lastPurchased}
 						<p class="mt-1 text-xs leading-5 text-gray-500">
-							Last purchased <time datetime={product.lastPurchasedDateTime}
-								>{product.lastPurchased}</time
-							>
+							Last purchased <time datetime={row.lastPurchasedDateTime}>{row.lastPurchased}</time>
 						</p>
 					{:else}
 						<div class="mt-1 flex items-center gap-x-1.5">
@@ -144,16 +146,16 @@
 									class={[
 										active ? 'bg-gray-50' : '',
 										'block px-3 py-1 text-sm leading-6 text-gray-900'
-									].join(' ')}>Edit<span class="sr-only">, {product.name}</span></a
+									].join(' ')}>Edit<span class="sr-only">, {row.name}</span></a
 								>
 							</MenuItem>
 							<MenuItem let:active>
 								<a
-									href={product.href}
+									href={row.href}
 									class={[
 										active ? 'bg-gray-50' : '',
 										'block px-3 py-1 text-sm leading-6 text-gray-900'
-									].join(' ')}>View Listing<span class="sr-only">, {product.name}</span></a
+									].join(' ')}>View Listing<span class="sr-only">, {row.name}</span></a
 								>
 							</MenuItem>
 						</MenuItems>
@@ -163,3 +165,5 @@
 		</li>
 	{/each}
 </ul>
+
+<Pagination max={lastPage} bind:current={selectedPage} />
