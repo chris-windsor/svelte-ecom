@@ -30,21 +30,21 @@
 						]
 					},
 					{
-						name: 'Discounts',
+						name: 'Marketing',
 						items: [
-							{ name: 'Coupons', href: '#' },
-							{ name: 'Sales', href: '#' },
-							{ name: 'Bundles', href: '#' },
-							{ name: 'Retention', href: '#' }
+							{ name: 'Coupons', href: '/marketing/coupons' },
+							{ name: 'Sales', href: '/marketing/sales' },
+							{ name: 'Bundles', href: '/marketing/bundles' },
+							{ name: 'Retention', href: '/marketing/retention' }
 						]
 					},
 					{
 						name: 'Shipping',
 						items: [
-							{ name: 'Pending', href: '#' },
-							{ name: 'Pickups', href: '#' },
-							{ name: 'Packages', href: '#' },
-							{ name: 'Rates', href: '#' }
+							{ name: 'Pending', href: '/admin/shipping/pending' },
+							{ name: 'Pickups', href: '/admin/shipping/pickups' },
+							{ name: 'Packages', href: '/admin/shipping/packages' },
+							{ name: 'Rates', href: '/admin/shipping/rates' }
 						]
 					}
 				]
