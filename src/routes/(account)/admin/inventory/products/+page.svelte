@@ -3,82 +3,17 @@
 	import { Menu, MenuButton, MenuItem, MenuItems, Transition } from '@rgossiaux/svelte-headlessui';
 	import type { PageData } from './$types';
 	import { EllipsisVerticalIcon } from '@babeard/svelte-heroicons/solid';
+	import { imageBucket } from '$lib/config.json';
 
 	export let data: PageData;
 
-	const rows = [
-		{
-			id: '123',
-			name: 'Lime Green Vase',
-			email: 'leslie.alexander@example.com',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-01.jpg',
-			href: '#',
-			lastPurchased: '3h ago',
-			lastPurchasedDateTime: '2023-01-23T13:23Z',
-			variationCount: 2,
-			minimumQty: 1,
-			priceMin: 54.98,
-			priceMax: 68.7
-		},
-		{
-			id: '456',
-			name: 'Grey Hiking Socks',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-04-product-01.jpg',
-			href: '#',
-			lastPurchased: '3h ago',
-			lastPurchasedDateTime: '2023-01-23T13:23Z',
-			variationCount: 5,
-			minimumQty: 1,
-			priceMin: 17.4,
-			priceMax: 21
-		},
-		{
-			id: '789',
-			name: 'Dark Blue Tee',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-04-product-02.jpg',
-			href: '#',
-			lastPurchased: null,
-			variationCount: 1,
-			minimumQty: 1,
-			priceMin: 19.79,
-			priceMax: 19.79
-		},
-		{
-			id: '098',
-			name: 'Merino Wool Sweats',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-01-product-01.jpg',
-			href: '#',
-			lastPurchased: '3h ago',
-			lastPurchasedDateTime: '2023-01-23T13:23Z',
-			variationCount: 1,
-			minimumQty: 1,
-			priceMin: 49.8,
-			priceMax: 49.8
-		},
-		{
-			id: '765',
-			name: 'Purple Bucket Hat',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-03-product-02.jpg',
-			href: '#',
-			lastPurchased: '3h ago',
-			lastPurchasedDateTime: '2023-01-23T13:23Z',
-			variationCount: 1,
-			minimumQty: 7,
-			priceMin: 11.54,
-			priceMax: 11.54
-		},
-		{
-			id: '432',
-			name: 'Cork Beach Sandals',
-			imageUrl: 'https://tailwindui.com/img/ecommerce-images/confirmation-page-01-product-02.jpg',
-			href: '#',
-			lastPurchased: null,
-			variationCount: 3,
-			minimumQty: 1,
-			priceMin: 27.63,
-			priceMax: 35.9
-		}
-	];
+	const rows = data.products.map((product: any) => ({
+		...product,
+		lastPurchased: '3h ago',
+		lastPurchasedDateTime: '2023-01-23T13:23Z',
+		variationCount: 1,
+		priceMax: product.price
+	}));
 </script>
 
 <div class="flex flex-row">
@@ -94,7 +29,7 @@
 			<div class="flex gap-x-4">
 				<img
 					class="h-12 w-12 flex-none rounded-full bg-gray-50"
-					src={row.imageUrl}
+					src={imageBucket + row.img}
 					alt={'Thumbnail for' + row.name}
 				/>
 				<div class="min-w-0 flex-auto">
@@ -111,8 +46,6 @@
 						{:else}
 							${row.priceMax.toFixed(2)}
 						{/if}
-						<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
-						min. qty of {row.minimumQty}
 					</p>
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { CheckIcon, ClockIcon } from '@babeard/svelte-heroicons/solid';
 	import { removeProductFromCart, cart, updateProductQtyInCart } from '$lib/stores/cart';
+	import { imageBucket } from '$lib/config.json';
 
 	export let additionalClass: string = '';
 
@@ -10,9 +11,7 @@
 			color: 'Black',
 			inStock: Math.random() > 0.4,
 			leadTime: '3 months',
-			imageSrc: `https://lemonseeds.s3.us-east-2.amazonaws.com/${
-				item.img !== '' ? item.img : 'unknown'
-			}`
+			imageSrc: imageBucket + (item.img !== '' ? item.img : 'unknown')
 		};
 	});
 

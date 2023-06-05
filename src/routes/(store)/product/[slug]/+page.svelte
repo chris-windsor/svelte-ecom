@@ -5,19 +5,21 @@
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 	import Breadcrumbs from '$lib/components/breadcrumbs.svelte';
 	import { cart, addProductToCart, updateProductQtyInCart } from '$lib/stores/cart';
-	import { companyName } from '$lib/config.json';
+	import { companyName, imageBucket } from '$lib/config.json';
 
 	export let data: PageData;
+	const { data: product } = data;
 
-	const { product }: any = data;
+	console.log(product.categories);
+
 	const reviews = { average: 4, totalCount: 13 };
 
 	const product2 = {
 		...product,
-		breadcrumbs: [
-			{ id: 1, name: 'Women', href: '#' },
-			{ id: 2, name: 'Clothing', href: '#' }
-		],
+		breadcrumbs: product.categories.map((category) => ({
+			...category,
+			href: '#'
+		})),
 		colors: [
 			{ name: 'Black', bgColor: 'bg-gray-900', selectedColor: 'ring-gray-900' },
 			{ name: 'Heather Grey', bgColor: 'bg-gray-400', selectedColor: 'ring-gray-400' }
@@ -63,10 +65,9 @@
 <svelte:head>
 	<title>{product.name} | {companyName}</title>
 	<meta name="description" content={product.description} />
-	<meta
-		property="og:image"
-		content={'https://lemonseeds.s3.us-east-2.amazonaws.com/' + product.img}
-	/>
+	<meta property="og:title" content={product.name} />
+	<!-- TODO: this will not work until images are proxied as JPGs -->
+	<meta property="og:image" content={imageBucket + product.img} />
 </svelte:head>
 
 <div class="bg-white">
@@ -119,7 +120,7 @@
 								product.img ? 'lg:col-span-2 lg:row-span-2' : 'hidden lg:block',
 								'rounded-lg'
 							].join(' ')}
-							src={'https://lemonseeds.s3.us-east-2.amazonaws.com/' + product.img}
+							src={imageBucket + product.img}
 						/>
 					</div>
 				</div>

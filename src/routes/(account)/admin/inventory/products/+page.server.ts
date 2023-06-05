@@ -1,5 +1,7 @@
+import retriever from '$lib/utils/wretch';
 import type { PageServerLoad } from './$types';
 
 export const load = (async () => {
-	return {};
+	const data = await retriever.url('/products').get().json();
+	return data;
 }) satisfies PageServerLoad;

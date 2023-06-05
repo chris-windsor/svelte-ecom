@@ -8,6 +8,8 @@
 	export let data: PageData;
 	export let form: ActionData;
 
+	let categories = data.categories;
+
 	let publishStateOptions = [
 		{
 			label: 'List on store immediately',
@@ -23,19 +25,22 @@
 		}
 	];
 
-	let name = '';
+	const editProduct = data.editProduct || {};
+
+	let name: string = editProduct.name || '';
 	$: shortURL = name
 		.split(' ')
-		.map((chunk) => chunk.trim())
-		.filter((chunk) => chunk.length)
+		.map((chunk: string) => chunk.trim())
+		.filter((chunk: string) => chunk.length)
 		.join('-')
 		.toLowerCase();
-	let description = '';
-	let selectedImage: string;
-	let price: number;
+	let description: string = editProduct.description || '';
+	let selectedImage: string = editProduct.img || '';
+	let price: number = editProduct.price?.toFixed(2);
 	let maxPurchaseQty: number;
+	let category: number = editProduct.category || -1;
 	let manageStock = productDefaults.manageStock;
-	let stock: number;
+	let stock: number = editProduct.stock;
 	let allowBackorders = productDefaults.allowBackorders;
 	let restockNotifications = productDefaults.restockNotifications;
 	let publishState = publishStateOptions[0].value;
@@ -50,14 +55,17 @@
 	<Alert
 		type="success"
 		title="Product successfully added"
-		buttons={[{ label: 'View', href: '/product/' + form.data.product.id }]}
+		buttons={[{ label: 'View', href: '/product/' + form.data.product.shortUrl }]}
 	/>
 {/if}
 
 <form method="POST" action="?/createProduct">
+	<input name="id" type="hidden" value={editProduct.id || ''} />
 	<div class="space-y-12">
 		<div class="border-b border-gray-900/10 pb-12">
-			<h2 class="text-base font-semibold leading-7 text-gray-900">New Product</h2>
+			<h2 class="text-base font-semibold leading-7 text-gray-900">
+				{editProduct.id ? 'Edit' : 'New'} Product
+			</h2>
 			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 				<div class="sm:col-span-3">
 					<label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
@@ -158,6 +166,28 @@
 							min="0"
 							bind:value={maxPurchaseQty}
 						/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="border-b border-gray-900/10 pb-12">
+			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+				<div class="sm:col-span-1">
+					<label for="category" class="block text-sm font-semibold leading-6 text-gray-900"
+						>Category</label
+					>
+					<div class="mt-2.5">
+						<select
+							id="category"
+							name="category"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+							bind:value={category}
+						>
+							<option value={-1} />
+							{#each categories as category}
+								<option value={category.id}>{category.label}</option>
+							{/each}
+						</select>
 					</div>
 				</div>
 			</div>

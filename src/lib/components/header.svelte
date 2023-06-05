@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import {
 		Bars3Icon,
 		MagnifyingGlassIcon,
@@ -17,69 +17,71 @@
 	import Mobiledrawer from './mobileDrawer.svelte';
 	import { cart } from '$lib/stores/cart';
 	import { companyName } from '$lib/config.json';
+	import type { ProductCategory } from '$lib/peach';
 
-	const navigation = {
+	export let categories: ProductCategory[] = [];
+
+	const navigation: any = {
 		categories: [
 			{
-				name: 'Women',
-				featured: [
-					{ name: 'Sleep', href: '#' },
-					{ name: 'Swimwear', href: '#' },
-					{ name: 'Underwear', href: '#' }
-				],
+				name: 'Categories',
+				featured: categories.map((category) => ({
+					...category,
+					href: '#'
+				})),
 				collection: [
-					{ name: 'Everything', href: '#' },
-					{ name: 'Core', href: '#' },
-					{ name: 'New Arrivals', href: '#' },
-					{ name: 'Sale', href: '#' }
+					// { name: 'Everything', href: '#' },
+					// { name: 'Core', href: '#' },
+					// { name: 'New Arrivals', href: '#' },
+					// { name: 'Sale', href: '#' }
 				],
 				categories: [
-					{ name: 'Basic Tees', href: '#' },
-					{ name: 'Artwork Tees', href: '#' },
-					{ name: 'Bottoms', href: '#' },
-					{ name: 'Underwear', href: '#' },
-					{ name: 'Accessories', href: '#' }
+					// { name: 'Basic Tees', href: '#' },
+					// { name: 'Artwork Tees', href: '#' },
+					// { name: 'Bottoms', href: '#' },
+					// { name: 'Underwear', href: '#' },
+					// { name: 'Accessories', href: '#' }
 				],
 				brands: [
-					{ name: 'Full Nelson', href: '#' },
-					{ name: 'My Way', href: '#' },
-					{ name: 'Re-Arranged', href: '#' },
-					{ name: 'Counterfeit', href: '#' },
-					{ name: 'Significant Other', href: '#' }
+					// { name: 'Full Nelson', href: '#' },
+					// { name: 'My Way', href: '#' },
+					// { name: 'Re-Arranged', href: '#' },
+					// { name: 'Counterfeit', href: '#' },
+					// { name: 'Significant Other', href: '#' }
 				]
 			},
 			{
-				name: 'Men',
+				name: 'Brands',
 				featured: [
-					{ name: 'Casual', href: '#' },
-					{ name: 'Boxers', href: '#' },
-					{ name: 'Outdoor', href: '#' }
+					// { name: 'Sleep', href: '#' },
+					// { name: 'Swimwear', href: '#' },
+					// { name: 'Underwear', href: '#' }
 				],
 				collection: [
-					{ name: 'Everything', href: '#' },
-					{ name: 'Core', href: '#' },
-					{ name: 'New Arrivals', href: '#' },
-					{ name: 'Sale', href: '#' }
+					// { name: 'Everything', href: '#' },
+					// { name: 'Core', href: '#' },
+					// { name: 'New Arrivals', href: '#' },
+					// { name: 'Sale', href: '#' }
 				],
 				categories: [
-					{ name: 'Artwork Tees', href: '#' },
-					{ name: 'Pants', href: '#' },
-					{ name: 'Accessories', href: '#' },
-					{ name: 'Boxers', href: '#' },
-					{ name: 'Basic Tees', href: '#' }
+					// { name: 'Basic Tees', href: '#' },
+					// { name: 'Artwork Tees', href: '#' },
+					// { name: 'Bottoms', href: '#' },
+					// { name: 'Underwear', href: '#' },
+					// { name: 'Accessories', href: '#' }
 				],
 				brands: [
-					{ name: 'Significant Other', href: '#' },
-					{ name: 'My Way', href: '#' },
-					{ name: 'Counterfeit', href: '#' },
-					{ name: 'Re-Arranged', href: '#' },
-					{ name: 'Full Nelson', href: '#' }
+					// { name: 'Full Nelson', href: '#' },
+					// { name: 'My Way', href: '#' },
+					// { name: 'Re-Arranged', href: '#' },
+					// { name: 'Counterfeit', href: '#' },
+					// { name: 'Significant Other', href: '#' }
 				]
 			}
 		],
 		pages: [
-			{ name: 'Company', href: '#' },
-			{ name: 'Stores', href: '#' }
+			{ name: 'New', href: '#' },
+			{ name: 'Sale', href: '#' }
 		]
 	};
 
@@ -157,7 +159,7 @@
 																			{#each category.featured as item}
 																				<li class="flex featuredItem">
 																					<a href={item.href} class="hover:text-gray-800">
-																						{item.name}
+																						{item.label}
 																					</a>
 																				</li>
 																			{/each}

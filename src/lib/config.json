@@ -57,13 +57,13 @@
 			]
 		}
 	],
+	"imageBucket": "https://lemonseeds.s3.us-east-2.amazonaws.com/",
 	"limitToUSA": true,
 	"productDefaults": {
 		"manageStock": true,
 		"allowBackorders": false,
 		"restockNotifications": true
 	},
-	"showTaxes": true,
 	"shippingMethods": [
 		{ "id": 1, "title": "USPS First Class Mail", "turnaround": "4-10 business days", "price": 6.0 },
 		{ "id": 3, "title": "UPS Ground", "turnaround": "1-6 business days", "price": 11.0 },
@@ -72,6 +72,7 @@
 		{ "id": 5, "title": "UPS 2nd Day Air", "turnaround": "2 business days", "price": 36.0 },
 		{ "id": 6, "title": "UPS Next Day Air", "turnaround": "1 business days", "price": 57.0 }
 	],
+	"showTaxes": true,
 	"siteAddress": "lemonadestand.com",
 	"socials": {
 		"facebook": "",

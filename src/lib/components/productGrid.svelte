@@ -1,13 +1,9 @@
 <script lang="ts">
-	export let data: any;
+	import { imageBucket } from '$lib/config.json';
+	import type { Product } from '$lib/peach';
 
-	const products = data.products.map((product: any) => ({
-		...product,
-		imageSrc: `https://lemonseeds.s3.us-east-2.amazonaws.com/${
-			product.img !== '' ? product.img : 'unknown'
-		}`,
-		imageAlt: 'Tall slender porcelain bottle with natural clay textured body and cork stopper.'
-	}));
+	export let pageCount: number = 1;
+	export let products: Product[];
 </script>
 
 <div>
@@ -18,13 +14,13 @@
 			class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
 		>
 			{#each products as product}
-				<a href={`/product/${product.id}`} class="group" data-sveltekit-preload-data>
+				<a href={`/product/${product.shortUrl}`} class="group" data-sveltekit-preload-data>
 					<div
 						class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8"
 					>
 						<img
-							alt={product.imageAlt}
-							src={product.imageSrc}
+							alt={product.name}
+							src={imageBucket + product.img}
 							class="h-full w-full object-contain object-center group-hover:opacity-75 mix-blend-multiply"
 						/>
 					</div>

@@ -36,7 +36,6 @@ export const actions = {
 		}
 
 		cookies.set('token', resp.token, {
-			domain: 'localhost',
 			path: '/',
 			secure: false,
 			sameSite: 'lax'

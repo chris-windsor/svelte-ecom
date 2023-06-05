@@ -8,7 +8,7 @@
 			<li>
 				<div class="flex items-center">
 					<a href={breadcrumb.href} class="mr-2 text-sm font-medium text-gray-900"
-						>{breadcrumb.name}</a
+						>{breadcrumb.label}</a
 					>
 					<svg
 						aria-hidden="true"

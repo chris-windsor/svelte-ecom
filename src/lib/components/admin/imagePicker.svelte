@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { CheckCircleIcon } from '@babeard/svelte-heroicons/solid';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
+	import { imageBucket } from '$lib/config.json';
 
 	export let images: string[] = [];
 	export let selectedImage: string;
@@ -24,9 +25,9 @@
 				>
 					<span class="flex flex-1">
 						<span class="flex flex-col">
-							<img src={'https://lemonseeds.s3.us-east-2.amazonaws.com/' + image} />
+							<img src={imageBucket + image} alt={'Uploaded image ' + image.substring(0, 7)} />
 							<RadioGroupLabel as="span" class="block text-sm font-medium text-gray-900">
-								{image.substr(0, 7)}
+								{image.substring(0, 7)}
 							</RadioGroupLabel>
 						</span>
 					</span>
