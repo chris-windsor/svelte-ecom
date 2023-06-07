@@ -22,7 +22,12 @@ export const actions = {
 		const shortUrl = data.get('short-url');
 		const description = data.get('description');
 		const price = parseFloat(data.get('price')?.toString() || '');
-		const categories = [parseInt(data.get('category')?.toString() || '')];
+		const categories = data
+			.get('categories')
+			?.toString()
+			.split(',')
+			.map((c) => parseInt(c, 10))
+			.filter(Boolean);
 		const stock = parseInt(data.get('stock')?.toString() || '');
 		const imageId = data.get('primary-image');
 

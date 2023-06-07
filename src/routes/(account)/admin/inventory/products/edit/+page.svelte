@@ -4,11 +4,13 @@
 	import ImagePicker from '$lib/components/admin/imagePicker.svelte';
 	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
 	import Alert from '$lib/components/alert.svelte';
+	import { enhance } from '$app/forms';
+	import type { ProductCategory } from '$lib/peach';
 
 	export let data: PageData;
 	export let form: ActionData;
 
-	let categories = data.categories;
+	let categories: ProductCategory[] = data.categories;
 
 	let publishStateOptions = [
 		{
@@ -35,10 +37,10 @@
 		.join('-')
 		.toLowerCase();
 	let description: string = editProduct.description || '';
-	let selectedImage: string = editProduct.img || '';
+	let selectedImageId: string = editProduct.img || '';
 	let price: number = editProduct.price?.toFixed(2);
 	let maxPurchaseQty: number;
-	let category: number = editProduct.category || -1;
+	let categoryId: number = editProduct.category || -1;
 	let manageStock = productDefaults.manageStock;
 	let stock: number = editProduct.stock;
 	let allowBackorders = productDefaults.allowBackorders;
@@ -47,6 +49,19 @@
 
 	let productImages = data.images;
 	let showUploadDialog = false;
+
+	$: selectedCategory = categories.filter((c) => c.id === categoryId)[0] ?? {};
+	$: selectedCategories = categories.reduceRight(
+		(acc: ProductCategory[], category: ProductCategory) => {
+			const currentIds = acc.map((mapCategory) => mapCategory.parentId);
+			if (currentIds.includes(category.id)) {
+				acc.push(category);
+			}
+
+			return acc;
+		},
+		[selectedCategory]
+	);
 </script>
 
 <ImageUploader bind:showDialog={showUploadDialog} />
@@ -59,8 +74,14 @@
 	/>
 {/if}
 
-<form method="POST" action="?/createProduct">
-	<input name="id" type="hidden" value={editProduct.id || ''} />
+<form
+	method="POST"
+	action="?/createProduct"
+	use:enhance={({ formData }) => {
+		formData.append('primary-image', selectedImageId);
+		formData.append('categories', selectedCategories.map((c) => c.id).join());
+	}}
+>
 	<div class="space-y-12">
 		<div class="border-b border-gray-900/10 pb-12">
 			<h2 class="text-base font-semibold leading-7 text-gray-900">
@@ -123,8 +144,7 @@
 					>
 					<div class="mt-2">
 						<div class="border border-1 border-dashed border-gray-900 rounded p-2">
-							<ImagePicker bind:images={productImages} bind:selectedImage />
-							<input type="hidden" name="primary-image" id="primary-image" value={selectedImage} />
+							<ImagePicker bind:images={productImages} bind:selectedImage={selectedImageId} />
 						</div>
 						<a
 							class="inline-block mt-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -179,9 +199,8 @@
 					<div class="mt-2.5">
 						<select
 							id="category"
-							name="category"
 							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-							bind:value={category}
+							bind:value={categoryId}
 						>
 							<option value={-1} />
 							{#each categories as category}

@@ -72,7 +72,9 @@
 
 <div class="bg-white">
 	<div class="pt-6 pb-16 sm:pb-24">
-		<Breadcrumbs product={product2} />
+		{#if product.categories.length}
+			<Breadcrumbs product={product2} />
+		{/if}
 		<div class="mx-auto mt-8 max-w-2xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
 			<div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
 				<div class="lg:col-span-5 lg:col-start-8">
