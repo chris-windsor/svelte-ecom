@@ -4,16 +4,15 @@ export type AuthToken = {
 	role: string;
 };
 
-export type ProductAttributes = {
-	id: string;
-	descriptor: string;
-	value: string;
-};
-
 // TODO: get rid of this
 export type Resp<T> = {
 	status: string;
 	data: T;
+};
+
+export type CartItem = Product & {
+	cartId: string;
+	qty: number;
 };
 
 export type Product = {
@@ -23,7 +22,8 @@ export type Product = {
 	shortUrl: string;
 	price: number;
 	stock: number;
-	attributes: ProductAttributes[];
+	categories: ProductCategory[];
+	attributes: ProductAttribute[];
 	img: string;
 };
 
@@ -42,6 +42,20 @@ export type ProductCategoriesRes = {
 	categories: ProductCategory[];
 };
 
+export type ProductAttribute = {
+	id: number;
+	label: string;
+	kind: string;
+	content: string;
+};
+
 export type ProductCreationRes = {};
 
 export type FileUploadRes = {};
+
+export type ShippingMethod = {
+	id: number;
+	title: string;
+	turnaround: string;
+	price: number;
+};

@@ -5,12 +5,13 @@
 	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
 	import Alert from '$lib/components/alert.svelte';
 	import { enhance } from '$app/forms';
-	import type { ProductCategory } from '$lib/peach';
+	import type { ProductAttribute, ProductCategory } from '$lib/peach';
 
 	export let data: PageData;
 	export let form: ActionData;
 
 	let categories: ProductCategory[] = data.categories;
+	let attributes: ProductAttribute[] = data.attributes;
 
 	let publishStateOptions = [
 		{
@@ -41,6 +42,8 @@
 	let price: number = editProduct.price?.toFixed(2);
 	let maxPurchaseQty: number;
 	let categoryId: number = editProduct.category || -1;
+	let attributeIds: string = editProduct.attributes || '';
+	let variationAttributeIds: string = editProduct.variationAttributes || '';
 	let manageStock = productDefaults.manageStock;
 	let stock: number = editProduct.stock;
 	let allowBackorders = productDefaults.allowBackorders;
@@ -80,6 +83,7 @@
 	use:enhance={({ formData }) => {
 		formData.append('primary-image', selectedImageId);
 		formData.append('categories', selectedCategories.map((c) => c.id).join());
+		formData.append('attributes', attributeIds);
 	}}
 >
 	<div class="space-y-12">
@@ -102,16 +106,16 @@
 					</div>
 				</div>
 				<div class="sm:col-span-3">
-					<label for="short-url" class="block text-sm font-medium leading-6 text-gray-900"
-						>Short URL</label
-					>
+					<label for="short-url" class="block text-sm font-medium leading-6 text-gray-900">
+						Short URL
+					</label>
 					<div class="mt-2">
 						<div
 							class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
 						>
-							<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm"
-								>{siteAddress}/product/</span
-							>
+							<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
+								{siteAddress}/product/
+							</span>
 							<input
 								type="text"
 								name="short-url"
@@ -124,9 +128,9 @@
 					</div>
 				</div>
 				<div class="sm:col-span-3">
-					<label for="description" class="block text-sm font-medium leading-6 text-gray-900"
-						>Description</label
-					>
+					<label for="description" class="block text-sm font-medium leading-6 text-gray-900">
+						Description
+					</label>
 					<div class="mt-2">
 						<textarea
 							id="description"
@@ -139,9 +143,9 @@
 					</div>
 				</div>
 				<div class="sm:col-span-3">
-					<label for="primary-image" class="block text-sm font-semibold leading-6 text-gray-900"
-						>Primary photo</label
-					>
+					<label for="primary-image" class="block text-sm font-semibold leading-6 text-gray-900">
+						Primary photo
+					</label>
 					<div class="mt-2">
 						<div class="border border-1 border-dashed border-gray-900 rounded p-2">
 							<ImagePicker bind:images={productImages} bind:selectedImage={selectedImageId} />
@@ -156,9 +160,9 @@
 					</div>
 				</div>
 				<div class="sm:col-span-1">
-					<label for="price" class="block text-sm font-semibold leading-6 text-gray-900"
-						>Price</label
-					>
+					<label for="price" class="block text-sm font-semibold leading-6 text-gray-900">
+						Price
+					</label>
 					<div class="mt-2.5">
 						<input
 							type="number"
@@ -173,9 +177,9 @@
 					</div>
 				</div>
 				<div class="sm:col-span-1">
-					<label for="max-purchase-qty" class="block text-sm font-semibold leading-6 text-gray-900"
-						>Max Purchase Qty</label
-					>
+					<label for="max-purchase-qty" class="block text-sm font-semibold leading-6 text-gray-900">
+						Max Purchase Qty
+					</label>
 					<div class="mt-2.5">
 						<input
 							type="number"
@@ -193,9 +197,9 @@
 		<div class="border-b border-gray-900/10 pb-12">
 			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 				<div class="sm:col-span-1">
-					<label for="category" class="block text-sm font-semibold leading-6 text-gray-900"
-						>Category</label
-					>
+					<label for="category" class="block text-sm font-semibold leading-6 text-gray-900">
+						Category
+					</label>
 					<div class="mt-2.5">
 						<select
 							id="category"
@@ -209,13 +213,51 @@
 						</select>
 					</div>
 				</div>
+				<div class="sm:col-span-1">
+					<label for="attributes" class="block text-sm font-semibold leading-6 text-gray-900">
+						Attributes
+					</label>
+					<div class="mt-2.5">
+						<select
+							id="attributes"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+							bind:value={attributeIds}
+							multiple
+						>
+							{#each attributes.filter((attr) => attr.kind === 'static') as attribute}
+								<option value={attribute.id}>{attribute.label}</option>
+							{/each}
+						</select>
+					</div>
+				</div>
+				<div class="sm:col-span-1">
+					<label
+						for="variation-attributes"
+						class="block text-sm font-semibold leading-6 text-gray-900"
+					>
+						Variation Attributes
+					</label>
+					<div class="mt-2.5">
+						<select
+							id="variation-attributes"
+							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+							bind:value={variationAttributeIds}
+							multiple
+						>
+							{#each attributes.filter((attr) => attr.kind !== 'static') as attribute}
+								<option value={attribute.id}>{attribute.label}</option>
+							{/each}
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="border-b border-gray-900/10 pb-12">
 			<div class="mt-10 space-y-10">
 				<fieldset>
-					<legend class="text-sm font-semibold leading-6 text-gray-900">Inventory management</legend
-					>
+					<legend class="text-sm font-semibold leading-6 text-gray-900">
+						Inventory management
+					</legend>
 					<div class="mt-6 space-y-6">
 						<div class="relative flex gap-x-3">
 							<div class="flex h-6 items-center">
@@ -278,9 +320,9 @@
 								/>
 							</div>
 							<div class="text-sm leading-6">
-								<label for="restock-notifications" class="font-medium text-gray-900"
-									>Restock notifications</label
-								>
+								<label for="restock-notifications" class="font-medium text-gray-900">
+									Restock notifications
+								</label>
 								<p class="text-gray-500">
 									Add a section to this item's listing for customers to sign-up for re-stock
 									notifications.
@@ -327,7 +369,8 @@
 		<button
 			type="submit"
 			class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-			>Save</button
 		>
+			Save
+		</button>
 	</div>
 </form>

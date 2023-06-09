@@ -8,7 +8,6 @@
 	$: products = $cart.items.map((item) => {
 		return {
 			...item,
-			color: 'Black',
 			inStock: Math.random() > 0.4,
 			leadTime: '3 months',
 			imageSrc: imageBucket + (item.img !== '' ? item.img : 'unknown')
@@ -36,28 +35,30 @@
 					class="h-24 w-24 rounded-lg object-contain object-center sm:h-32 sm:w-32"
 				/>
 			</div>
-
 			<div class="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
 				<div>
 					<div class="flex justify-between sm:grid sm:grid-cols-2">
 						<div class="pr-6">
 							<h3 class="text-sm">
 								<a
-									href={'/product/' + product.id}
+									href={'/product/' + product.shortUrl}
 									class="font-medium text-gray-700 hover:text-gray-800">{product.name}</a
 								>
 							</h3>
-							<p class="mt-1 text-sm text-gray-500">{product.color}</p>
-							{#if product.size}
-								<p class="mt-1 text-sm text-gray-500">{product.size}</p>
-							{/if}
+							<p class="mt-1 text-sm text-gray-500">
+								{#each product.attributes as attribute}
+									{#if attribute.kind === 'static'}
+										{attribute.label}
+									{:else if attribute.kind === 'list'}
+										{attribute.label}: {attribute.content}
+									{/if}
+								{/each}
+							</p>
 						</div>
-
 						<p class="text-right text-sm font-medium text-gray-900">
 							${product.price.toFixed(2)}{product.qty > 1 ? '/ea' : ''}
 						</p>
 					</div>
-
 					<div class="mt-4 flex items-center sm:absolute sm:top-0 sm:left-1/2 sm:mt-0 sm:block">
 						<label for={`quantity-${productIdx}`} class="sr-only">Quantity, {product.name}</label>
 						<select
@@ -71,7 +72,6 @@
 								<option>{qtyOption}</option>
 							{/each}
 						</select>
-
 						<button
 							class="ml-4 text-sm font-medium text-indigo-600 hover:text-indigo-500 sm:ml-0 sm:mt-3"
 							type="button"
@@ -81,7 +81,6 @@
 						</button>
 					</div>
 				</div>
-
 				<p class="mt-4 flex space-x-2 text-sm text-gray-700">
 					{#if product.inStock}
 						<CheckIcon aria-hidden="true" class="h-5 w-5 flex-shrink-0 text-green-500" />

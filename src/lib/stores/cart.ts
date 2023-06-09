@@ -1,29 +1,9 @@
 import { type Writable, writable } from 'svelte/store';
 import { persist, createSessionStorage } from '@macfja/svelte-persistent-store';
-
-type Product = {
-	id: string;
-	name: string;
-	description: string;
-	img: string;
-	color: string;
-	size: string;
-	price: number;
-	qty: number;
-	inStock: boolean;
-	leadTime: string;
-	cartId: string;
-};
-
-type ShippingMethod = {
-	id: number;
-	title: string;
-	turnaround: string;
-	price: number;
-};
+import type { CartItem, Product, ShippingMethod } from '$lib/peach';
 
 type Cart = Writable<{
-	items: Product[];
+	items: CartItem[];
 	selectedShippingMethod: ShippingMethod | null;
 }>;
 

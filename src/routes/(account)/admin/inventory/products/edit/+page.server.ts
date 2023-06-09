@@ -11,6 +11,10 @@ export const load = (async ({ fetch }) => {
 	const { categories } = await categoriesRes.json();
 	completeResponse.categories = categories;
 
+	const attributesRes = await fetch('http://127.0.0.1:4567/api/product/attributes');
+	const { attributes } = await attributesRes.json();
+	completeResponse.attributes = attributes;
+
 	return completeResponse;
 }) satisfies PageServerLoad;
 
@@ -28,6 +32,12 @@ export const actions = {
 			.split(',')
 			.map((c) => parseInt(c, 10))
 			.filter(Boolean);
+		const attributes = data
+			.get('attributes')
+			?.toString()
+			.split(',')
+			.map((c) => parseInt(c, 10))
+			.filter(Boolean);
 		const stock = parseInt(data.get('stock')?.toString() || '');
 		const imageId = data.get('primary-image');
 
@@ -39,6 +49,7 @@ export const actions = {
 				description,
 				price,
 				categories,
+				attributes,
 				stock,
 				imageId
 			}),
