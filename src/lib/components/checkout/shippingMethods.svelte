@@ -22,8 +22,10 @@
 		value={$cart.selectedShippingMethod}
 		on:change={(e) => setSelectedShippingMethod(e.detail)}
 	>
-		<RadioGroupLabel class="text-lg font-medium text-gray-900">Delivery method</RadioGroupLabel>
-		<div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+		<RadioGroupLabel class="text-lg font-medium text-gray-900" for="shippingMethod">
+			Delivery method
+		</RadioGroupLabel>
+		<div class="hidden mt-4 sm:grid grid-cols-2 gap-2">
 			{#each shippingMethods as shippingMethod}
 				<RadioGroupOption value={shippingMethod.id} as="div" let:active let:checked>
 					<div
@@ -64,4 +66,19 @@
 			{/each}
 		</div>
 	</RadioGroup>
+	<div class="grid sm:hidden">
+		<div class="mt-2.5">
+			<select
+				id="shippingMethod"
+				class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs text-lg sm:text-sm sm:leading-6"
+				bind:value={$cart.selectedShippingMethod}
+			>
+				{#each shippingMethods as shippingMethod}
+					<option value={shippingMethod.id}
+						>{shippingMethod.title} – ${shippingMethod.price} ({shippingMethod.turnaround})</option
+					>
+				{/each}
+			</select>
+		</div>
+	</div>
 </div>

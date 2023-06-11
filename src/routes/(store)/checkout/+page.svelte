@@ -29,7 +29,7 @@
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
 	<div class="mx-auto max-w-2xl lg:max-w-none">
 		<h1 class="sr-only">Checkout</h1>
-		<form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16">
+		<form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16" method="POST">
 			<div>
 				{#each beforeAllFieldsPlugins as pluginComponent}
 					<svelte:component this={pluginComponent} {cart} />
@@ -47,6 +47,7 @@
 								class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 								name="email-address"
 								type="email"
+								inputmode="email"
 							/>
 						</div>
 					</div>

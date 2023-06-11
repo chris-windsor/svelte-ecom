@@ -1,5 +1,10 @@
 <script lang="ts">
+	import CreditCardMaskedInput from '../inputs/creditCardMaskedInput.svelte';
+
 	const paymentMethods = [{ id: 'credit-card', title: 'Credit Card' }];
+
+	let creditCardNumber = '';
+	$: isAmex = creditCardNumber.startsWith('34') || creditCardNumber.startsWith('37');
 </script>
 
 <div class="mt-10 border-t border-gray-200 pt-10">
@@ -25,17 +30,11 @@
 			</div>
 		</fieldset>
 	{/if}
-	<div class="mt-6 grid grid-cols-4 gap-y-6 gap-x-4">
+	<div class="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-y-6 gap-x-4">
 		<div class="col-span-2">
 			<label class="block text-sm font-medium text-gray-700" for="card-number"> Card number </label>
 			<div class="mt-1">
-				<input
-					id="card-number"
-					autocomplete="cc-number"
-					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="card-number"
-					type="text"
-				/>
+				<CreditCardMaskedInput bind:value={creditCardNumber} />
 			</div>
 		</div>
 		<div class="col-span-1">
@@ -49,10 +48,13 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="expiration-date"
 					type="text"
+					placeholder="MM/YY"
+					maxlength="5"
+					inputmode="numeric"
 				/>
 			</div>
 		</div>
-		<div>
+		<div class="col-span-1">
 			<label class="block text-sm font-medium text-gray-700" for="cvc">CVC</label>
 			<div class="mt-1">
 				<input
@@ -61,10 +63,13 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="cvc"
 					type="text"
+					maxlength={isAmex || !creditCardNumber.length ? 4 : 3}
+					placeholder={creditCardNumber.length ? (isAmex ? '· · · ·' : '· · ·') : ''}
+					inputmode="numeric"
 				/>
 			</div>
 		</div>
-		<div class="col-span-4">
+		<div class="col-span-2 sm:col-span-4">
 			<label class="block text-sm font-medium text-gray-700" for="name-on-card">
 				Name on card
 			</label>
