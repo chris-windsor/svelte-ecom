@@ -8,6 +8,10 @@
 	import { getCheckoutPlugins } from '$lib/plugins/pluginManager';
 	import PaymentMethods from '$lib/components/checkout/paymentMethods.svelte';
 	import ShippingInformation from '$lib/components/checkout/shippingInformation.svelte';
+	import type { ActionData } from './$types';
+	import { enhance } from '$app/forms';
+
+	export let form: ActionData;
 
 	onMount(() => {
 		if (!$cart.items.length) {
@@ -29,7 +33,13 @@
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
 	<div class="mx-auto max-w-2xl lg:max-w-none">
 		<h1 class="sr-only">Checkout</h1>
-		<form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16" method="POST">
+		<form
+			class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
+			method="POST"
+			use:enhance={({ formData }) => {
+				formData.set('orderItems', $cart.items.map((item) => `${item.id};${item.qty}`).join(','));
+			}}
+		>
 			<div>
 				{#each beforeAllFieldsPlugins as pluginComponent}
 					<svelte:component this={pluginComponent} {cart} />
@@ -45,7 +55,7 @@
 								id="email-address"
 								autocomplete="email"
 								class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-								name="email-address"
+								name="emailAddress"
 								type="email"
 								inputmode="email"
 							/>

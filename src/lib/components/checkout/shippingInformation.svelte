@@ -12,7 +12,7 @@
 					id="first-name"
 					autocomplete="given-name"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="first-name"
+					name="firstName"
 					type="text"
 				/>
 			</div>
@@ -24,7 +24,7 @@
 					id="last-name"
 					autocomplete="family-name"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="last-name"
+					name="lastName"
 					type="text"
 				/>
 			</div>
@@ -47,7 +47,7 @@
 					id="street-address"
 					autocomplete="street-address"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="street-address"
+					name="streetAddress1"
 					type="text"
 				/>
 			</div>
@@ -61,7 +61,7 @@
 					id="street-address-2"
 					autocomplete="street-address-2"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="street-address-2"
+					name="streetAddress2"
 					type="text"
 				/>
 			</div>
@@ -104,7 +104,7 @@
 					id="region"
 					autocomplete="address-level1"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="region"
+					name="state"
 					type="text"
 				/>
 			</div>
@@ -118,7 +118,7 @@
 					id="postal-code"
 					autocomplete="postal-code"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="postal-code"
+					name="zipCode"
 					type="text"
 				/>
 			</div>
@@ -130,7 +130,7 @@
 					id="phone"
 					autocomplete="tel"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="phone"
+					name="phoneNumber"
 					type="text"
 					inputmode="tel"
 				/>

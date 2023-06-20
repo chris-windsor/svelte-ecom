@@ -137,7 +137,7 @@
 	id="card-number"
 	autocomplete="cc-number"
 	class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-	name="card-number"
+	name="ccNumber"
 	type="text"
 	inputmode="numeric"
 	maxLength={mask.length}

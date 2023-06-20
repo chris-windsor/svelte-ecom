@@ -1,10 +1,23 @@
 <script lang="ts">
-	import CreditCardMaskedInput from '../inputs/creditCardMaskedInput.svelte';
+	import CreditCardMaskedInput from '$lib/components/inputs/creditCardMaskedInput.svelte';
+	import PaymentAutofill from '$lib/developer/paymentAutofill.svelte';
+	import { dev } from '$app/environment';
 
 	const paymentMethods = [{ id: 'credit-card', title: 'Credit Card' }];
 
 	let creditCardNumber = '';
+	let creditCardExp = '';
+	let creditCardCvv = '';
+	let creditCardName = '';
 	$: isAmex = creditCardNumber.startsWith('34') || creditCardNumber.startsWith('37');
+
+	function dev__setCardDetails(details: any) {
+		const { cardNumber, cardExp, cardCvv, cardName } = details;
+		creditCardNumber = cardNumber || creditCardNumber;
+		creditCardExp = cardExp || creditCardExp;
+		creditCardCvv = cardCvv || creditCardCvv;
+		creditCardName = cardName || creditCardName;
+	}
 </script>
 
 <div class="mt-10 border-t border-gray-200 pt-10">
@@ -46,11 +59,12 @@
 					id="expiration-date"
 					autocomplete="cc-exp"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="expiration-date"
+					name="ccExpiry"
 					type="text"
 					placeholder="MM/YY"
 					maxlength="5"
 					inputmode="numeric"
+					bind:value={creditCardExp}
 				/>
 			</div>
 		</div>
@@ -61,11 +75,12 @@
 					id="cvc"
 					autocomplete="csc"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="cvc"
+					name="ccSecurityCode"
 					type="text"
 					maxlength={isAmex || !creditCardNumber.length ? 4 : 3}
 					placeholder={creditCardNumber.length ? (isAmex ? '· · · ·' : '· · ·') : ''}
 					inputmode="numeric"
+					bind:value={creditCardCvv}
 				/>
 			</div>
 		</div>
@@ -78,10 +93,14 @@
 					id="name-on-card"
 					autocomplete="cc-name"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-					name="name-on-card"
+					name="ccName"
 					type="text"
+					bind:value={creditCardName}
 				/>
 			</div>
 		</div>
 	</div>
+	{#if dev}
+		<PaymentAutofill setCardDetails={dev__setCardDetails} />
+	{/if}
 </div>
