@@ -11,14 +11,14 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 
+	export let id = '';
+	export let autocomplete = '';
+	export let name = '';
+	export let placeholder = '';
 	export let value = '';
+	export let mask = '';
 
 	const maskCharacter = 'x';
-
-	let mask: string;
-	$: mask =
-		// Different mask for AMEX vs others
-		value.startsWith('34') || value.startsWith('37') ? 'xxxx-xxxxxx-xxxxx' : 'xxxx-xxxx-xxxx-xxxx';
 
 	function maskValue(value: string) {
 		let masked = '';
@@ -134,14 +134,15 @@
 </script>
 
 <input
-	id="card-number"
-	autocomplete="cc-number"
 	class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-	name="ccNumber"
 	type="text"
 	inputmode="numeric"
 	maxLength={mask.length}
 	on:input={handleInput}
 	on:blur={handleInput}
+	{id}
+	{autocomplete}
+	{name}
+	{placeholder}
 	{value}
 />

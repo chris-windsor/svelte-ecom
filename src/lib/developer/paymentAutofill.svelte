@@ -5,7 +5,7 @@
 		if (type === 'amex') {
 			setCardDetails({
 				cardName: 'George Washington',
-				cardNumber: '370000000000002',
+				cardNumber: '3700-000000-00002',
 				cardExp: '12/25',
 				cardCvv: '900'
 			});
