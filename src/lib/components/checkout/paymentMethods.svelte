@@ -36,9 +36,9 @@
 							name="payment-type"
 							type="radio"
 						/>
-						<label for={paymentMethod.id} class="ml-3 block text-sm font-medium text-gray-700"
-							>{paymentMethod.title}</label
-						>
+						<label for={paymentMethod.id} class="ml-3 block text-sm font-medium text-gray-700">
+							{paymentMethod.title}
+						</label>
 					</div>
 				{/each}
 			</div>
