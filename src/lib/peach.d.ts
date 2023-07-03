@@ -25,6 +25,7 @@ export type Product = {
 	categories: ProductCategory[];
 	attributes: ProductAttribute[];
 	img: string;
+	reviews: ProductReviewSummary;
 };
 
 export type ProductGridRes = {
@@ -47,6 +48,11 @@ export type ProductAttribute = {
 	label: string;
 	kind: string;
 	content: string;
+};
+
+export type ProductReviewSummary = {
+	average: number;
+	totalCount: number;
 };
 
 export type ProductCreationRes = {};
