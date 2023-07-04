@@ -12,8 +12,8 @@
 		Transition
 	} from '@rgossiaux/svelte-headlessui';
 	import logo from '$lib/logo.svg';
-	import AnnouncementBanner from '../announcementBanner.svelte';
-	import Mobiledrawer from '../mobileDrawer.svelte';
+	import AnnouncementBanner from '$lib/components/announcementBanner.svelte';
+	import MobileDrawer from '$lib/components/mobileDrawer.svelte';
 	import { companyName } from '$lib/config.json';
 
 	const navigation = {
@@ -85,7 +85,7 @@
 	let show = false;
 </script>
 
-<Mobiledrawer {show} {navigation} />
+<MobileDrawer {show} {navigation} />
 
 <header class="relative">
 	<nav aria-label="Top">

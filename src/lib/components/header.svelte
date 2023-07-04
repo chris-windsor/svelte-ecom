@@ -13,8 +13,8 @@
 		Transition
 	} from '@rgossiaux/svelte-headlessui';
 	import logo from '$lib/logo.svg';
-	import AnnouncementBanner from './announcementBanner.svelte';
-	import Mobiledrawer from './mobileDrawer.svelte';
+	import AnnouncementBanner from '$lib/components/announcementBanner.svelte';
+	import MobileDrawer from '$lib/components/mobileDrawer.svelte';
 	import { cart } from '$lib/stores/cart';
 	import { companyName } from '$lib/config.json';
 	import type { ProductCategory } from '$lib/peach';
@@ -92,7 +92,7 @@
 	let show = false;
 </script>
 
-<Mobiledrawer {show} {navigation} />
+<MobileDrawer {show} {navigation} />
 
 <header class="relative">
 	<nav aria-label="Top">

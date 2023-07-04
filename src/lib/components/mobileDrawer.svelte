@@ -87,7 +87,7 @@
 												>
 													{#each category.featured as item}
 														<li class="flex">
-															<a href={item.href} class="text-gray-500">{item.name} </a>
+															<a href={item.href} class="text-gray-500">{item.label} </a>
 														</li>
 													{/each}
 												</ul>

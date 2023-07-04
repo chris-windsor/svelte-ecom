@@ -1,6 +1,6 @@
 <script>
 	import { ArrowRightOnRectangleIcon, ShoppingCartIcon } from '@babeard/svelte-heroicons/outline';
-	import AnnouncementBanner from '../announcementBanner.svelte';
+	import AnnouncementBanner from '$lib/components/announcementBanner.svelte';
 	import logo from '$lib/logo.svg';
 	import { companyName } from '$lib/config.json';
 	import { page } from '$app/stores';
