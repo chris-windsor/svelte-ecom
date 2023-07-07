@@ -11,6 +11,7 @@
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
 	import Alert from '$lib/components/alert.svelte';
+	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
 
 	export let form: ActionData;
 
@@ -29,7 +30,11 @@
 		afterDelivery: afterDeliveryFieldsPlugins,
 		afterPayment: afterPaymentFieldsPlugins
 	} = getCheckoutPlugins();
+
+	let isProcessing = false;
 </script>
+
+<BlockingLoadingIndicator open={isProcessing} />
 
 <main class="mx-auto max-w-7xl px-4 pt-16 pb-24 sm:px-6 lg:px-8">
 	<div class="mx-auto max-w-2xl lg:max-w-none">
@@ -38,8 +43,10 @@
 			class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16"
 			method="POST"
 			use:enhance={({ formData }) => {
+				isProcessing = true;
 				formData.set('orderItems', $cart.items.map((item) => `${item.id};${item.qty}`).join(','));
 				return async ({ update }) => {
+					isProcessing = false;
 					await update();
 				};
 			}}

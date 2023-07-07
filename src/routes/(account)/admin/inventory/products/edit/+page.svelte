@@ -6,6 +6,7 @@
 	import Alert from '$lib/components/alert.svelte';
 	import { enhance } from '$app/forms';
 	import type { ProductAttribute, ProductCategory } from '$lib/peach';
+	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -65,7 +66,11 @@
 		},
 		[selectedCategory]
 	);
+
+	let isProcessing = false;
 </script>
+
+<BlockingLoadingIndicator open={isProcessing} />
 
 <ImageUploader bind:showDialog={showUploadDialog} />
 
@@ -81,9 +86,14 @@
 	method="POST"
 	action="?/createProduct"
 	use:enhance={({ formData }) => {
+		isProcessing = true;
 		formData.append('primary-image', selectedImageId);
 		formData.append('categories', selectedCategories.map((c) => c.id).join());
 		formData.append('attributes', attributeIds);
+		return async ({ update }) => {
+			isProcessing = false;
+			await update();
+		};
 	}}
 >
 	<div class="space-y-12">
