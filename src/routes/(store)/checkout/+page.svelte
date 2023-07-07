@@ -10,6 +10,7 @@
 	import ShippingInformation from '$lib/components/checkout/shippingInformation.svelte';
 	import type { ActionData } from './$types';
 	import { enhance } from '$app/forms';
+	import Alert from '$lib/components/alert.svelte';
 
 	export let form: ActionData;
 
@@ -38,6 +39,9 @@
 			method="POST"
 			use:enhance={({ formData }) => {
 				formData.set('orderItems', $cart.items.map((item) => `${item.id};${item.qty}`).join(','));
+				return async ({ update }) => {
+					await update();
+				};
 			}}
 		>
 			<div>
@@ -87,6 +91,15 @@
 					</div>
 					<CartInvoice />
 					<div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+						{#if form && form.status === 'fail'}
+							<div class="mb-6">
+								<Alert
+									type="error"
+									title="An error was encountered while attempting to complete your order"
+									details={[form.message]}
+								/>
+							</div>
+						{/if}
 						<button
 							class="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
 							type="submit"

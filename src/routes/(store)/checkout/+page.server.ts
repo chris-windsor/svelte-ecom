@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
 
 export const actions = {
@@ -58,6 +59,10 @@ export const actions = {
 			}
 		});
 
-		return resp.json();
+		if (resp.status === 200) {
+			throw redirect(303, '/checkout/success');
+		} else {
+			return resp.json();
+		}
 	}
 } satisfies Actions;
