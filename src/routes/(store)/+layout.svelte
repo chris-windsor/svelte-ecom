@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
+	import StoreHeader from '$lib/components/navigation/storeHeader.svelte';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
@@ -7,5 +7,5 @@
 	const { categories } = productCategories;
 </script>
 
-<Header {categories} />
+<StoreHeader {categories} />
 <slot />

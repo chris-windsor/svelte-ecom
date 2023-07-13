@@ -73,63 +73,32 @@
 							{#each navigation.categories as category, categoryIdx}
 								<TabPanel class="space-y-12 px-4 pt-10 pb-6">
 									<div class="grid grid-cols-1 items-start gap-y-10 gap-x-6">
-										<div class="grid grid-cols-1 gap-y-10 gap-x-6">
-											<div>
-												<p
-													id={`mobile-featured-heading-${categoryIdx}`}
-													class="font-medium text-gray-900"
-												>
-													Featured
-												</p>
-												<ul
-													aria-labelledby={`mobile-featured-heading-${categoryIdx}`}
-													class="mt-6 space-y-6"
-												>
-													{#each category.featured as item}
-														<li class="flex">
-															<a href={item.href} class="text-gray-500">{item.label} </a>
-														</li>
-													{/each}
-												</ul>
+										{#each [[0, 2], [2, 4]] as [start, end]}
+											<div class="grid grid-cols-1 gap-y-10 gap-x-6">
+												{#each category.groups.slice(start, end) as group, groupIdx}
+													<div>
+														<p
+															id={`mobile-drawer-heading-${categoryIdx}-${groupIdx}`}
+															class="font-medium text-gray-900"
+														>
+															{group.name}
+														</p>
+														<ul
+															aria-labelledby={`desktop-drawer-heading-${categoryIdx}-${groupIdx}`}
+															class="mt-6 space-y-6 sm:mt-4 sm:space-y-4"
+														>
+															{#each group.items as item}
+																<li class="flex featuredItem">
+																	<a href={item.href} class="hover:text-gray-800">
+																		{item.name}
+																	</a>
+																</li>
+															{/each}
+														</ul>
+													</div>
+												{/each}
 											</div>
-											<div>
-												<p id="mobile-categories-heading" class="font-medium text-gray-900">
-													Categories
-												</p>
-												<ul aria-labelledby="mobile-categories-heading" class="mt-6 space-y-6">
-													{#each category.categories as item}
-														<li class="flex">
-															<a href={item.href} class="text-gray-500">{item.name} </a>
-														</li>
-													{/each}
-												</ul>
-											</div>
-										</div>
-										<div class="grid grid-cols-1 gap-y-10 gap-x-6">
-											<div>
-												<p id="mobile-collection-heading" class="font-medium text-gray-900">
-													Collection
-												</p>
-												<ul aria-labelledby="mobile-collection-heading" class="mt-6 space-y-6">
-													{#each category.collection as item}
-														<li class="flex">
-															<a href={item.href} class="text-gray-500">{item.name} </a>
-														</li>
-													{/each}
-												</ul>
-											</div>
-
-											<div>
-												<p id="mobile-brand-heading" class="font-medium text-gray-900">Brands</p>
-												<ul aria-labelledby="mobile-brand-heading" class="mt-6 space-y-6">
-													{#each category.brands as item}
-														<li class="flex">
-															<a href={item.href} class="text-gray-500">{item.name} </a>
-														</li>
-													{/each}
-												</ul>
-											</div>
-										</div>
+										{/each}
 									</div>
 								</TabPanel>
 							{/each}
