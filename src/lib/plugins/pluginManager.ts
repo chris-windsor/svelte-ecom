@@ -1,6 +1,9 @@
+import LemonadeAttribute from './admin/lemonadeAttribute.svelte';
+import stateRestrictions from './checkout/stateRestrictions';
 import StoreSearch from './checkout/storeSearch.svelte';
 
 type PluginList = ConstructorOfATypedSvelteComponent[];
+type RuleController = Function;
 
 type CheckoutPluginMap = {
 	beforeAll: PluginList;
@@ -8,6 +11,11 @@ type CheckoutPluginMap = {
 	afterShipping: PluginList;
 	afterPayment: PluginList;
 	afterDelivery: PluginList;
+	ruleControllers: RuleController[];
+};
+
+type AdminPluginMap = {
+	attributeModifiers: PluginList;
 };
 
 export function getCheckoutPlugins(): CheckoutPluginMap {
@@ -16,7 +24,14 @@ export function getCheckoutPlugins(): CheckoutPluginMap {
 		afterContact: [],
 		afterShipping: [StoreSearch],
 		afterDelivery: [],
-		afterPayment: []
+		afterPayment: [],
+		ruleControllers: [stateRestrictions]
+	};
+}
+
+export function getAdminPlugins(): AdminPluginMap {
+	return {
+		attributeModifiers: [LemonadeAttribute]
 	};
 }
 

@@ -12,8 +12,17 @@
 	import { enhance } from '$app/forms';
 	import Alert from '$lib/components/alert.svelte';
 	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
+	import type { Cart, Customer } from '$lib/peach';
+	import { customer } from '$lib/stores/customer';
 
 	export let form: ActionData;
+	let checkoutCartState: Cart;
+	let checkoutCustomerState: Customer;
+
+	type CheckoutOverrides = {
+		options: any;
+		errors: string[];
+	};
 
 	onMount(() => {
 		if (!$cart.items.length) {
@@ -21,6 +30,9 @@
 				replaceState: true
 			});
 		}
+
+		cart.subscribe((newCart: Cart) => (checkoutCartState = newCart));
+		customer.subscribe((newCustomerState: Customer) => (checkoutCustomerState = newCustomerState));
 	});
 
 	const {
@@ -28,8 +40,32 @@
 		afterContact: afterContactFieldsPlugins,
 		afterShipping: afterShippingFieldsPlugins,
 		afterDelivery: afterDeliveryFieldsPlugins,
-		afterPayment: afterPaymentFieldsPlugins
+		afterPayment: afterPaymentFieldsPlugins,
+		ruleControllers
 	} = getCheckoutPlugins();
+
+	let overrides: CheckoutOverrides;
+	const getOverrides = (checkoutCartState: Cart, checkoutCustomerState: Customer) => {
+		const ruleResults: CheckoutOverrides = {
+			errors: [],
+			options: {}
+		};
+
+		for (const controller of ruleControllers) {
+			const { errors, options } = controller({
+				cart: checkoutCartState,
+				customer: checkoutCustomerState
+			});
+
+			ruleResults.options = {
+				...ruleResults.options,
+				...options
+			};
+			ruleResults.errors = ruleResults.errors.concat(errors);
+		}
+		return ruleResults;
+	};
+	$: overrides = getOverrides(checkoutCartState, checkoutCustomerState);
 
 	let isProcessing = false;
 </script>
@@ -53,7 +89,7 @@
 		>
 			<div>
 				{#each beforeAllFieldsPlugins as pluginComponent}
-					<svelte:component this={pluginComponent} {cart} />
+					<svelte:component this={pluginComponent} />
 				{/each}
 				<div class={beforeAllFieldsPlugins.length ? 'mt-10 border-t border-gray-200 pt-10' : ''}>
 					<h2 class="text-lg font-medium text-gray-900">Contact information</h2>
@@ -69,24 +105,25 @@
 								name="emailAddress"
 								type="email"
 								inputmode="email"
+								bind:value={$customer.email}
 							/>
 						</div>
 					</div>
 				</div>
 				{#each afterContactFieldsPlugins as pluginComponent}
-					<svelte:component this={pluginComponent} {cart} />
+					<svelte:component this={pluginComponent} />
 				{/each}
 				<ShippingInformation />
 				{#each afterShippingFieldsPlugins as pluginComponent}
-					<svelte:component this={pluginComponent} {cart} />
+					<svelte:component this={pluginComponent} />
 				{/each}
 				<ShippingMethods />
 				{#each afterDeliveryFieldsPlugins as pluginComponent}
-					<svelte:component this={pluginComponent} {cart} />
+					<svelte:component this={pluginComponent} />
 				{/each}
 				<PaymentMethods />
 				{#each afterPaymentFieldsPlugins as pluginComponent}
-					<svelte:component this={pluginComponent} {cart} />
+					<svelte:component this={pluginComponent} />
 				{/each}
 			</div>
 			<div class="mt-10 lg:mt-0">
@@ -107,9 +144,19 @@
 								/>
 							</div>
 						{/if}
+						{#if overrides.errors?.length}
+							<div class="mb-6">
+								<Alert
+									type="warning"
+									title="Please ackknowledge the following issues before completeing your order"
+									details={overrides.errors}
+								/>
+							</div>
+						{/if}
 						<button
-							class="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+							class="w-full rounded-md border border-transparent bg-indigo-600 py-3 px-4 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
 							type="submit"
+							disabled={overrides.options.disableCheckout}
 						>
 							Confirm order
 						</button>

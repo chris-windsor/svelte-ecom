@@ -48,6 +48,14 @@ export type ProductAttribute = {
 	label: string;
 	kind: string;
 	content: string;
+	options: ProductAttributeOption[];
+};
+
+export type ProductAttributeOption = {
+	attributeId: number;
+	id: number;
+	label: string;
+	content: string;
 };
 
 export type ProductReviewSummary = {
@@ -64,4 +72,22 @@ export type ShippingMethod = {
 	title: string;
 	turnaround: string;
 	price: number;
+};
+
+export type Cart = {
+	items: CartItem[];
+	selectedShippingMethod: ShippingMethod | null;
+};
+
+export type Customer = {
+	email: string;
+	firstName: string;
+	lastName: string;
+	company: string;
+	address: string;
+	address2: string;
+	city: string;
+	state: string;
+	zipCode: string;
+	phoneNumber: string;
 };

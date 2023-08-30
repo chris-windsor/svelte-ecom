@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { customer } from '$lib/stores/customer';
 	import { limitToUSA } from '$lib/config.json';
 </script>
 
@@ -14,6 +15,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="firstName"
 					type="text"
+					bind:value={$customer.firstName}
 				/>
 			</div>
 		</div>
@@ -26,6 +28,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="lastName"
 					type="text"
+					bind:value={$customer.lastName}
 				/>
 			</div>
 		</div>
@@ -37,6 +40,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="company"
 					type="text"
+					bind:value={$customer.company}
 				/>
 			</div>
 		</div>
@@ -45,10 +49,11 @@
 			<div class="mt-1">
 				<input
 					id="street-address"
-					autocomplete="street-address"
+					autocomplete="address-line1"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="streetAddress1"
 					type="text"
+					bind:value={$customer.address}
 				/>
 			</div>
 		</div>
@@ -59,10 +64,11 @@
 			<div class="mt-1">
 				<input
 					id="street-address-2"
-					autocomplete="street-address-2"
+					autocomplete="address-line2"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="streetAddress2"
 					type="text"
+					bind:value={$customer.address2}
 				/>
 			</div>
 		</div>
@@ -75,6 +81,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="city"
 					type="text"
+					bind:value={$customer.city}
 				/>
 			</div>
 		</div>
@@ -106,6 +113,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="state"
 					type="text"
+					bind:value={$customer.state}
 				/>
 			</div>
 		</div>
@@ -120,6 +128,7 @@
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="zipCode"
 					type="text"
+					bind:value={$customer.zipCode}
 				/>
 			</div>
 		</div>
@@ -133,6 +142,7 @@
 					name="phoneNumber"
 					type="text"
 					inputmode="tel"
+					bind:value={$customer.phoneNumber}
 				/>
 			</div>
 		</div>
