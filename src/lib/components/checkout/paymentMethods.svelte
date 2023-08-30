@@ -8,7 +8,7 @@
 
 	let creditCardNumber = '';
 	let creditCardExp = '';
-	let creditCardCvv = '';
+	let creditCardCsc = '';
 	let creditCardName = '';
 	$: isAmex = creditCardNumber.startsWith('34') || creditCardNumber.startsWith('37');
 
@@ -16,7 +16,7 @@
 		const { cardNumber, cardExp, cardCvv, cardName } = details;
 		creditCardNumber = cardNumber || creditCardNumber;
 		creditCardExp = cardExp || creditCardExp;
-		creditCardCvv = cardCvv || creditCardCvv;
+		creditCardCsc = cardCvv || creditCardCsc;
 		creditCardName = cardName || creditCardName;
 	}
 </script>
@@ -53,25 +53,25 @@
 		</div>
 		<div class="col-span-1">
 			<label class="block text-sm font-medium text-gray-700" for="expiration-date">
-				Expiry date
+				Expiration date
 			</label>
 			<div class="mt-1">
 				<CreditCardExpirationInput bind:value={creditCardExp} />
 			</div>
 		</div>
 		<div class="col-span-1">
-			<label class="block text-sm font-medium text-gray-700" for="cvc">CVC</label>
+			<label class="block text-sm font-medium text-gray-700" for="csc">CSC/CVV</label>
 			<div class="mt-1">
 				<input
-					id="cvc"
-					autocomplete="csc"
+					id="csc"
+					autocomplete="cc-csc"
 					class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 					name="ccSecurityCode"
 					type="text"
 					maxlength={isAmex || !creditCardNumber.length ? 4 : 3}
 					placeholder={creditCardNumber.length ? (isAmex ? '· · · ·' : '· · ·') : ''}
 					inputmode="numeric"
-					bind:value={creditCardCvv}
+					bind:value={creditCardCsc}
 				/>
 			</div>
 		</div>

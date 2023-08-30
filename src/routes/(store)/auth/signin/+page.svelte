@@ -29,7 +29,6 @@
 			<Alert type="error" title={form.message} />
 		{/if}
 		<form class="mt-8 space-y-6" method="POST">
-			<input name="remember" type="hidden" value="true" />
 			<div class="-space-y-px rounded-md shadow-sm">
 				<div>
 					<label class="sr-only" for="email-address">Email address</label>
