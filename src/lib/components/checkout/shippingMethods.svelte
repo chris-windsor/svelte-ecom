@@ -6,24 +6,14 @@
 		RadioGroupLabel,
 		RadioGroupOption
 	} from '@rgossiaux/svelte-headlessui';
-	import { setSelectedShippingMethod, cart } from '$lib/stores/cart';
+	import { cart } from '$lib/stores/cart';
 	import { shippingMethods } from '$lib/config.json';
-
-	type DeliveryMethod = {
-		id: number;
-		title: string;
-		turnaround: string;
-		price: number;
-	};
 </script>
 
 <div class="mt-10 border-t border-gray-200 pt-10">
-	<RadioGroup
-		value={$cart.selectedShippingMethod}
-		on:change={(e) => setSelectedShippingMethod(e.detail)}
-	>
+	<RadioGroup bind:value={$cart.selectedShippingMethod}>
 		<RadioGroupLabel class="text-lg font-medium text-gray-900" for="shippingMethod">
-			Delivery method
+			Shipping method
 		</RadioGroupLabel>
 		<div class="hidden mt-4 sm:grid grid-cols-2 gap-2">
 			{#each shippingMethods as shippingMethod}
@@ -75,7 +65,7 @@
 			>
 				{#each shippingMethods as shippingMethod}
 					<option value={shippingMethod.id}
-						>{shippingMethod.title} – ${shippingMethod.price} ({shippingMethod.turnaround})</option
+						>{shippingMethod.title} &mdash; ${shippingMethod.price} ({shippingMethod.turnaround})</option
 					>
 				{/each}
 			</select>

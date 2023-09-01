@@ -7,7 +7,7 @@
 	export let selectedImage: string;
 </script>
 
-<RadioGroup value={selectedImage} on:change={(e) => (selectedImage = e.detail)}>
+<RadioGroup bind:value={selectedImage}>
 	{#if !images.length}
 		<RadioGroupLabel class="text-base font-semibold leading-6 text-gray-900">
 			No images found on the server

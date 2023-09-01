@@ -49,7 +49,7 @@
 			</a>
 		{/if}
 	</div>
-	<RadioGroup value={selectedOption} on:change={(e) => (selectedOption = e.detail)} class="mt-2">
+	<RadioGroup bind:value={selectedOption} class="mt-2">
 		<RadioGroupLabel class="sr-only">Choose a {title}</RadioGroupLabel>
 		<div
 			class={variant === 'rounded'
