@@ -44,7 +44,7 @@
 	let maxPurchaseQty: number;
 	let categoryId: number = editProduct.category || -1;
 	let attributeIds: string = editProduct.attributes || '';
-	let variationAttributeIds: string = editProduct.variationAttributes || '';
+	let variationAttributeIds: string[] = editProduct.variationAttributes || '';
 	let manageStock = productDefaults.manageStock;
 	let stock: number = editProduct.stock;
 	let allowBackorders = productDefaults.allowBackorders;
@@ -68,6 +68,40 @@
 	);
 
 	let isProcessing = false;
+
+	function generateCombinations(
+		parentIds: string | any[],
+		attributes: any[],
+		currentCombination: any[],
+		index: number
+	): string[] {
+		if (index === parentIds.length) {
+			return [currentCombination.slice() as any];
+		}
+
+		const parentId = parentIds[index];
+		const parentAttributes = attributes.filter((attr) => parseInt(attr.split(':')[0]) === parentId);
+
+		let combinations: string[] = [];
+		for (const attr of parentAttributes) {
+			currentCombination.push(attr);
+			combinations = combinations.concat(
+				generateCombinations(parentIds, attributes, currentCombination, index + 1)
+			);
+			currentCombination.pop();
+		}
+
+		return combinations;
+	}
+
+	let combinationList: any = [];
+
+	function generateAllVariations() {
+		const parentIds = Array.from(
+			new Set(variationAttributeIds.map((attr) => parseInt(attr.split(':')[0])))
+		);
+		combinationList = generateCombinations(parentIds, variationAttributeIds, [], 0);
+	}
 </script>
 
 <BlockingLoadingIndicator open={isProcessing} />
@@ -255,11 +289,107 @@
 							multiple
 						>
 							{#each attributes.filter((attr) => attr.kind !== 'static') as attribute}
-								<option value={attribute.id}>{attribute.label}</option>
+								<option value={attribute.id} disabled>{attribute.label}</option>
+								{#each attribute.options as attr_opt}
+									<option value={attribute.id + ':' + attr_opt.id}>– {attr_opt.label}</option>
+								{/each}
 							{/each}
 						</select>
 					</div>
 				</div>
+			</div>
+		</div>
+		<div class="border-b border-gray-900/10 pb-12">
+			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+				<div class="sm:col-span-6">
+					<label
+						for="generate-variations"
+						class="block text-sm font-semibold leading-6 text-gray-900"
+					>
+						Variation Editor
+					</label>
+					{variationAttributeIds}
+					<button
+						type="button"
+						id="generate-variations"
+						class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+						on:click={generateAllVariations}
+					>
+						generate all variations
+					</button>
+				</div>
+				{#each combinationList as combination}
+					<div class="sm:col-span-6">
+						{#each combination as combinationOption}
+							{@const comboIds = combinationOption.split(':')}
+							{@const comboParent = attributes.find((attr) => attr.id === parseInt(comboIds[0]))}
+							{@const comboChild = comboParent?.options.find(
+								(opt) => opt.id === parseInt(comboIds[1])
+							)}
+							{comboParent?.label}.{comboChild?.label}&rarr;
+						{/each}
+					</div>
+					<div class="sm:col-span-1">
+						<label
+							for={'variation.' + combination + '.sku'}
+							class="block text-sm font-semibold leading-6 text-gray-900"
+						>
+							SKU
+						</label>
+						<div class="mt-2.5">
+							<input
+								type="text"
+								name={'variation.' + combination + '.sku'}
+								id={'variation.' + combination + '.sku'}
+								class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								placeholder=""
+								min="0"
+								step={0.01}
+								bind:value={price}
+							/>
+						</div>
+					</div>
+					<div class="sm:col-span-1">
+						<label
+							for={'variation.' + combination + '.price'}
+							class="block text-sm font-semibold leading-6 text-gray-900"
+						>
+							Price
+						</label>
+						<div class="mt-2.5">
+							<input
+								type="number"
+								name={'variation.' + combination + '.price'}
+								id={'variation.' + combination + '.price'}
+								class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								placeholder="12.99"
+								min="0"
+								step={0.01}
+								bind:value={price}
+							/>
+						</div>
+					</div>
+					<div class="sm:col-span-1">
+						<label
+							for={'variation.' + combination + '.stock'}
+							class="block text-sm font-semibold leading-6 text-gray-900"
+						>
+							Stock
+						</label>
+						<div class="mt-2.5">
+							<input
+								type="number"
+								name={'variation.' + combination + '.stock'}
+								id={'variation.' + combination + '.stock'}
+								class="block w-full rounded-md border-0 px-3.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								placeholder="100"
+								min="0"
+								step={1}
+								bind:value={price}
+							/>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</div>
 		<div class="border-b border-gray-900/10 pb-12">
