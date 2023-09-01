@@ -27,11 +27,13 @@
 	{#each rows as row}
 		<li class="flex justify-between gap-x-6 py-5">
 			<div class="flex gap-x-4">
-				<img
-					class="h-12 w-12 flex-none rounded-full bg-gray-50"
-					src={imageBucket + row.img}
-					alt={'Thumbnail for' + row.name}
-				/>
+				<div class="bg-gray-50 rounded-full">
+					<img
+						class="h-12 w-12 flex-none object-contain mix-blend-multiply"
+						src={imageBucket + row.img}
+						alt={'Thumbnail for' + row.name}
+					/>
+				</div>
 				<div class="min-w-0 flex-auto">
 					<p class="text-sm font-semibold leading-6 text-gray-900">
 						<a href={'/admin/inventory/products/edit?id=' + row.id} class="hover:underline"

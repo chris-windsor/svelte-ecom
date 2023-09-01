@@ -25,7 +25,7 @@ export const actions = {
 		const label = data.get('label');
 		const parentId = parseInt(data.get('parentId')?.toString() || '');
 
-		// TODO: if ID is defined, update attribute rather than creating it
+		// TODO: if ID is defined, update category rather than creating it
 		const resp = await fetch('http://127.0.0.1:4567/api/product/category', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -36,10 +36,6 @@ export const actions = {
 				'Content-Type': 'application/json'
 			}
 		});
-
-		const raw = await resp.text();
-
-		console.log(raw);
 
 		return resp.json();
 	}

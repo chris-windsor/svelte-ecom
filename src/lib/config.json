@@ -10,19 +10,19 @@
 			"subset": [
 				{
 					"title": "Returns & Exchanges",
-					"url": "#"
+					"url": "/returns"
 				},
 				{
 					"title": "Product Help",
-					"url": "#"
+					"url": "/help"
 				},
 				{
 					"title": "Payments",
-					"url": "#"
+					"url": "/payments"
 				},
 				{
 					"title": "Shipping",
-					"url": "#"
+					"url": "/shipping"
 				}
 			]
 		},
@@ -31,15 +31,15 @@
 			"subset": [
 				{
 					"title": "About us",
-					"url": "#"
+					"url": "/about"
 				},
 				{
 					"title": "Blog",
-					"url": "#"
+					"url": "/blog"
 				},
 				{
 					"title": "Press",
-					"url": "#"
+					"url": "/press"
 				}
 			]
 		},
@@ -48,11 +48,11 @@
 			"subset": [
 				{
 					"title": "Privacy Policy",
-					"url": "#"
+					"url": "/privacy-policy"
 				},
 				{
 					"title": "Terms & Conditions",
-					"url": "#"
+					"url": "/terms-and-conditions"
 				}
 			]
 		}

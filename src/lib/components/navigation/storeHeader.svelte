@@ -99,9 +99,9 @@
 					aria-hidden="true"
 					class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
 				/>
-				<span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800"
-					>{cartSize}</span
-				>
+				<span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+					{cartSize}
+				</span>
 				<span class="sr-only">items in cart, view bag</span>
 			</a>
 		</div>
