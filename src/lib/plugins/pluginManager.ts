@@ -1,4 +1,3 @@
-import LemonadeAttribute from './admin/lemonadeAttribute.svelte';
 import stateRestrictions from './checkout/stateRestrictions';
 import StoreSearch from './checkout/storeSearch.svelte';
 
@@ -31,7 +30,7 @@ export function getCheckoutPlugins(): CheckoutPluginMap {
 
 export function getAdminPlugins(): AdminPluginMap {
 	return {
-		attributeModifiers: [LemonadeAttribute]
+		attributeModifiers: []
 	};
 }
 
