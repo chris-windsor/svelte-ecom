@@ -1,18 +1,18 @@
+import { PUBLIC_SERVER_ADDRESS } from '$env/static/public';
+import { getAttributes, getCategories } from '$lib/services/store';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load = (async ({ fetch }) => {
 	const completeResponse: any = {};
 
-	const upladedImagesRes = await fetch('http://127.0.0.1:4567/api/list_files');
+	const upladedImagesRes = await fetch(PUBLIC_SERVER_ADDRESS + '/list_files');
 	const { data: uploadedImages } = await upladedImagesRes.json();
 	completeResponse.images = uploadedImages.images;
 
-	const categoriesRes = await fetch('http://127.0.0.1:4567/api/product/categories');
-	const { categories } = await categoriesRes.json();
+	const { categories } = await getCategories();
 	completeResponse.categories = categories;
 
-	const attributesRes = await fetch('http://127.0.0.1:4567/api/product/attributes');
-	const { attributes } = await attributesRes.json();
+	const { attributes } = await getAttributes();
 	completeResponse.attributes = attributes;
 
 	return completeResponse;

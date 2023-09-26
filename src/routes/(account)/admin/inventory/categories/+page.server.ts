@@ -1,3 +1,5 @@
+import { PUBLIC_SERVER_ADDRESS } from '$env/static/public';
+import { getCategories } from '$lib/services/store';
 import retriever from '$lib/utils/wretch';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -9,9 +11,7 @@ export const load = (async ({ fetch, url }) => {
 		const data: any = await retriever.url(`/category/${editId}`).get().json();
 		completeResponse.editCategory = data.product;
 	}
-
-	const resp = await fetch('http://127.0.0.1:4567/api/product/categories');
-	const { categories } = await resp.json();
+	const { categories } = await getCategories();
 	completeResponse.categories = categories;
 
 	return completeResponse;
@@ -26,7 +26,7 @@ export const actions = {
 		const parentId = parseInt(data.get('parentId')?.toString() || '');
 
 		// TODO: if ID is defined, update category rather than creating it
-		const resp = await fetch('http://127.0.0.1:4567/api/product/category', {
+		const resp = await fetch(PUBLIC_SERVER_ADDRESS + '/product/category', {
 			method: 'POST',
 			body: JSON.stringify({
 				label,

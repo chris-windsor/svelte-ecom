@@ -1,3 +1,4 @@
+import { PUBLIC_SERVER_ADDRESS } from '$env/static/public';
 import retriever from '$lib/utils/wretch';
 import type { Actions, PageServerLoad } from './$types';
 
@@ -33,7 +34,7 @@ export const actions = {
 			}, []);
 
 		// TODO: if ID is defined, update attribute rather than creating it
-		const resp = await fetch('http://127.0.0.1:4567/api/product/attribute', {
+		const resp = await fetch(PUBLIC_SERVER_ADDRESS + '/product/attribute', {
 			method: 'POST',
 			body: JSON.stringify({
 				label,

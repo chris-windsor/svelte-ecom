@@ -58,6 +58,10 @@ export type ProductAttributeOption = {
 	content: string;
 };
 
+export type ProductAttributesRes = {
+	attributes: ProductAttribute[];
+};
+
 export type ProductReviewSummary = {
 	average: number;
 	totalCount: number;

@@ -1,12 +1,8 @@
-import type { ProductCategoriesRes } from '$lib/peach';
-import retriever from '$lib/utils/wretch';
+import { getCategories } from '$lib/services/store';
 import type { LayoutServerLoad } from './$types';
 
 export const load = (async () => {
-	const productCategories = await retriever
-		.url('/product/categories')
-		.get()
-		.json<ProductCategoriesRes>();
+	const productCategories = getCategories();
 
 	return {
 		productCategories

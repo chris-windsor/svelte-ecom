@@ -1,7 +1,8 @@
+import { PUBLIC_SERVER_ADDRESS } from '$env/static/public';
 import wretch from 'wretch';
 import { throttlingCache } from 'wretch/middlewares';
 
-const retriever = wretch('http://127.0.0.1:4567/api');
+const retriever = wretch(PUBLIC_SERVER_ADDRESS);
 
 retriever.middlewares([
 	throttlingCache({

@@ -1,5 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { processOrder } from '$lib/services/store';
 
 export const actions = {
 	default: async ({ request, fetch }) => {
@@ -47,17 +48,7 @@ export const actions = {
 			};
 		});
 
-		const resp = await fetch('http://127.0.0.1:4567/api/process_order', {
-			method: 'POST',
-			body: JSON.stringify({
-				customerDetails,
-				paymentDetails,
-				orderItems
-			}),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
+		const resp: any = await processOrder(customerDetails, paymentDetails, orderItems);
 
 		if (resp.status === 200) {
 			throw redirect(303, '/checkout/success');
