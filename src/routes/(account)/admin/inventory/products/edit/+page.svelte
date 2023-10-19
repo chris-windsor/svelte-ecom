@@ -67,41 +67,39 @@
 		[selectedCategory]
 	);
 
-	let isProcessing = false;
+	let combinationList: any = [];
 
-	function generateCombinations(
-		parentIds: string | any[],
-		attributes: any[],
-		currentCombination: any[],
-		index: number
-	): string[] {
-		if (index === parentIds.length) {
-			return [currentCombination.slice() as any];
-		}
+	/* 
+		Thanks ChatGPT for this absurdity
+		3 nested loops is always hyper-optimized
+	*/
+	function getAllCombinations(attributes: string[]) {
+		const getParentId = (attr: string) => parseInt(attr.split(':')[0]);
+		const parentIds = Array.from(new Set(attributes.map(getParentId)));
 
-		const parentId = parentIds[index];
-		const parentAttributes = attributes.filter((attr) => parseInt(attr.split(':')[0]) === parentId);
+		const combinations: string[][] = [[]];
+		for (const parentId of parentIds) {
+			const parentAttributes = attributes.filter((attr) => getParentId(attr) === parentId);
+			const newCombinations = [];
 
-		let combinations: string[] = [];
-		for (const attr of parentAttributes) {
-			currentCombination.push(attr);
-			combinations = combinations.concat(
-				generateCombinations(parentIds, attributes, currentCombination, index + 1)
-			);
-			currentCombination.pop();
+			for (const combination of combinations) {
+				for (const attr of parentAttributes) {
+					newCombinations.push([...combination, attr]);
+				}
+			}
+
+			combinations.length = 0;
+			combinations.push(...newCombinations);
 		}
 
 		return combinations;
 	}
 
-	let combinationList: any = [];
-
 	function generateAllVariations() {
-		const parentIds = Array.from(
-			new Set(variationAttributeIds.map((attr) => parseInt(attr.split(':')[0])))
-		);
-		combinationList = generateCombinations(parentIds, variationAttributeIds, [], 0);
+		combinationList = getAllCombinations(variationAttributeIds);
 	}
+
+	let isProcessing = false;
 </script>
 
 <BlockingLoadingIndicator open={isProcessing} />
@@ -284,15 +282,16 @@
 					<div class="mt-2.5">
 						<select
 							id="variation-attributes"
-							class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+							class="block w-full h-[300px] rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
 							bind:value={variationAttributeIds}
 							multiple
 						>
 							{#each attributes.filter((attr) => attr.kind !== 'static') as attribute}
-								<option value={attribute.id} disabled>{attribute.label}</option>
-								{#each attribute.options as attr_opt}
-									<option value={attribute.id + ':' + attr_opt.id}>– {attr_opt.label}</option>
-								{/each}
+								<optgroup label={attribute.label}>
+									{#each attribute.options as attr_opt}
+										<option value={attribute.id + ':' + attr_opt.id}>{attr_opt.label}</option>
+									{/each}
+								</optgroup>
 							{/each}
 						</select>
 					</div>
