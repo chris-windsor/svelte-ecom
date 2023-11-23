@@ -4,7 +4,7 @@
 		ShoppingCartIcon,
 		UserIcon
 	} from '@babeard/svelte-heroicons/outline';
-	import type { ProductCategory } from '$lib/peach';
+	import type { ProductCategory } from '$lib/appTypes';
 	import { cart } from '$lib/stores/cart';
 	import AnnouncementBanner from '$lib/components/announcementBanner.svelte';
 	import BaseHeader from '$lib/components/navigation/baseHeader.svelte';

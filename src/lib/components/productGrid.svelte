@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { imageBucket } from '$lib/config.json';
-	import type { Product } from '$lib/peach';
+	import type { Product } from '$lib/appTypes';
 
 	export let pageCount: number = 1;
 	export let products: Product[];

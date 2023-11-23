@@ -1,4 +1,4 @@
-import type { Cart, Customer } from '$lib/peach';
+import type { Cart, Customer } from '$lib/appTypes';
 
 type ControllerData = {
 	cart: Cart;

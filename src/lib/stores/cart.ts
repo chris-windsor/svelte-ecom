@@ -1,6 +1,6 @@
 import { type Writable, writable } from 'svelte/store';
 import { persist, createSessionStorage } from '@macfja/svelte-persistent-store';
-import type { Cart, Product } from '$lib/peach';
+import type { Cart, Product } from '$lib/appTypes';
 
 type CartStore = Writable<Cart>;
 

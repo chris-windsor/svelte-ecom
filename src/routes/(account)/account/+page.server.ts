@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
 import jwt_decode from 'jwt-decode';
-import type { AuthToken } from '$lib/peach';
+import type { AuthToken } from '$lib/appTypes';
 
 export const load = (async ({ cookies }) => {
 	const token = cookies.get('token');

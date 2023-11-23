@@ -5,7 +5,7 @@
 	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
 	import Alert from '$lib/components/alert.svelte';
 	import { enhance } from '$app/forms';
-	import type { ProductAttribute, ProductCategory } from '$lib/peach';
+	import type { ProductAttribute, ProductCategory } from '$lib/appTypes';
 	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
 
 	export let data: PageData;

@@ -1,4 +1,4 @@
-import type { Product, Resp } from '$lib/peach';
+import type { Product, Resp } from '$lib/appTypes';
 import retriever from '$lib/utils/wretch';
 import type { PageServerLoad } from './$types';
 

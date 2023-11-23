@@ -1,4 +1,4 @@
-import type { Customer } from '$lib/peach';
+import type { Customer } from '$lib/appTypes';
 import { createSessionStorage, persist } from '@macfja/svelte-persistent-store';
 import { writable, type Writable } from 'svelte/store';
 

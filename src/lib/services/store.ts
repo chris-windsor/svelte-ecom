@@ -1,4 +1,4 @@
-import type { ProductAttributesRes, ProductCategoriesRes, ProductGridRes } from '$lib/peach';
+import type { ProductAttributesRes, ProductCategoriesRes, ProductGridRes } from '$lib/appTypes';
 import retriever from '$lib/utils/wretch';
 
 export async function getProducts() {

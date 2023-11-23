@@ -12,7 +12,7 @@
 	import { enhance } from '$app/forms';
 	import Alert from '$lib/components/alert.svelte';
 	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
-	import type { Cart, Customer } from '$lib/peach';
+	import type { Cart, Customer } from '$lib/appTypes';
 	import { customer } from '$lib/stores/customer';
 
 	export let form: ActionData;

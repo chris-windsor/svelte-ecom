@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import type { AuthToken } from '$lib/peach';
+import type { AuthToken } from '$lib/appTypes';
 import { redirect, type HandleServerError, type HandleFetch, type Handle } from '@sveltejs/kit';
 import jwt_decode from 'jwt-decode';
 

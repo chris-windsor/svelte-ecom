@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ProductReviewSummary } from '$lib/peach';
+	import type { ProductReviewSummary } from '$lib/appTypes';
 	import { StarIcon } from '@babeard/svelte-heroicons/solid';
 
 	export let reviews: ProductReviewSummary;
