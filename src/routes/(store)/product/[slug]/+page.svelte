@@ -98,6 +98,11 @@
 				<div class="mt-8 lg:col-span-5">
 					<form>
 						<div class="grid gap-8">
+							{#each product.attributes.filter((attribute) => attribute.kind === 'static' && attribute.visibleOnListing) as attribute}
+								<span class="bg-gray-100 rounded-sm p-1">
+									{attribute.label}
+								</span>
+							{/each}
 							<OptionSelector
 								title={'Color'}
 								options={product.colors}

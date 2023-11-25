@@ -43,12 +43,15 @@ export type ProductCategoriesRes = {
 	categories: ProductCategory[];
 };
 
+export type ProductAttributeKind = 'static' | 'list' | 'color';
+
 export type ProductAttribute = {
 	id: number;
 	label: string;
-	kind: string;
+	kind: ProductAttributeKind;
 	content: string;
 	options: ProductAttributeOption[];
+	visibleOnListing: boolean;
 };
 
 export type ProductAttributeOption = {
