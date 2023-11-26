@@ -58,3 +58,12 @@ export const setSelectedShippingMethod = (newMethod: any) => {
 		};
 	});
 };
+
+export const clearCart = () => {
+	cart.update((cart) => {
+		return {
+			items: [],
+			selectedShippingMethod: null
+		};
+	});
+};
