@@ -14,8 +14,8 @@
 						name: 'Inventory',
 						items: [
 							{ name: 'Products', href: '/admin/inventory/products' },
-							{ name: 'Shipments', href: '/admin/inventory/shipments' },
-							{ name: 'Returns', href: '/admin/inventory/returns' }
+							{ name: 'Attributes', href: '/admin/inventory/attributes' },
+							{ name: 'Categories', href: '/admin/inventory/categories' }
 						]
 					},
 					{
@@ -23,14 +23,14 @@
 						items: [
 							{ name: 'Coupons', href: '/marketing/coupons' },
 							{ name: 'Sales', href: '/marketing/sales' },
-							{ name: 'Bundles', href: '/marketing/bundles' },
-							{ name: 'Retention', href: '/marketing/retention' }
+							{ name: 'Bundles', href: '/marketing/bundles' }
 						]
 					},
 					{
 						name: 'Shipping',
 						items: [
-							{ name: 'Pending', href: '/admin/shipping/pending' },
+							{ name: 'Shipments', href: '/admin/inventory/shipments' },
+							{ name: 'Returns', href: '/admin/inventory/returns' },
 							{ name: 'Pickups', href: '/admin/shipping/pickups' },
 							{ name: 'Packages', href: '/admin/shipping/packages' },
 							{ name: 'Rates', href: '/admin/shipping/rates' }
@@ -61,8 +61,8 @@
 					{
 						name: 'Products',
 						items: [
-							{ name: 'Top', href: '#' },
-							{ name: 'Stock Value', href: '#' }
+							{ name: 'Stock Value', href: '#' },
+							{ name: 'Popularity', href: '#' }
 						]
 					}
 				]

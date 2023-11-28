@@ -88,9 +88,13 @@
 																					>
 																						{#each group.items as item}
 																							<li class="flex featuredItem">
-																								<a href={item.href} class="hover:text-gray-800">
+																								<PopoverButton
+																									as="a"
+																									href={item.href}
+																									class="hover:text-gray-800"
+																								>
 																									{item.name}
-																								</a>
+																								</PopoverButton>
 																							</li>
 																						{/each}
 																					</ul>
@@ -109,8 +113,9 @@
 											<a
 												href={page.href}
 												class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
-												>{page.name}</a
 											>
+												{page.name}
+											</a>
 										{/each}
 									</div>
 								</PopoverGroup>
