@@ -1,69 +1,70 @@
 import { PUBLIC_SERVER_ADDRESS } from '$env/static/public';
 import { getAttributes, getCategories } from '$lib/services/store';
 import type { Actions, PageServerLoad } from './$types';
+import { z } from 'zod';
+import { message, superValidate } from 'sveltekit-superforms/server';
+
+const productSchema = z.object({
+	id: z.string().uuid(),
+	name: z.string().default(''),
+	shortUrl: z.string().default(''),
+	primaryImageId: z.string(),
+	description: z.string(),
+	price: z.number(),
+	stock: z.number(),
+	maxPurchaseQty: z.number(),
+	sku: z.string(),
+	category: z.number(),
+	attributes: z.array(z.number()),
+	variationAttributes: z.array(z.number()),
+	manageStock: z.boolean().default(true),
+	allowBackOrders: z.boolean(),
+	restockNotifications: z.boolean(),
+	publishState: z.string(),
+	variations: z.array(
+		z.object({
+			stock: z.number(),
+			price: z.number(),
+			sku: z.string(),
+			label: z.string()
+		})
+	)
+});
 
 export const load = (async ({ fetch }) => {
-	const completeResponse: any = {};
-
 	const upladedImagesRes = await fetch(PUBLIC_SERVER_ADDRESS + '/list_files');
-	const { data: uploadedImages } = await upladedImagesRes.json();
-	completeResponse.images = uploadedImages.images;
+	const { data: images = [] } = await upladedImagesRes.json();
 
-	const { categories } = await getCategories();
-	completeResponse.categories = categories;
+	const { categories = [] } = await getCategories();
+	const { attributes = [] } = await getAttributes();
 
-	const { attributes } = await getAttributes();
-	completeResponse.attributes = attributes;
+	const form = await superValidate(productSchema);
 
-	return completeResponse;
+	return { form, categories, attributes, images };
 }) satisfies PageServerLoad;
 
 export const actions = {
-	createProduct: async ({ fetch, request }) => {
-		const data = await request.formData();
+	createProduct: async ({ request, fetch }) => {
+		const form = await superValidate(request, productSchema);
 
-		const name = data.get('name');
-		const shortUrl = data.get('short-url');
-		const description = data.get('description');
-		const price = parseFloat(data.get('price')?.toString() || '');
-		const categories = data
-			.get('categories')
-			?.toString()
-			.split(',')
-			.map((c) => parseInt(c, 10))
-			.filter(Boolean);
-		const attributes = data
-			.get('attributes')
-			?.toString()
-			.split(',')
-			.map((c) => parseInt(c, 10))
-			.filter(Boolean);
-		const stock = parseInt(data.get('stock')?.toString() || '');
-		const imageId = data.get('primary-image');
+		if (!form.valid) {
+			return message(form, 'Product schema not fulfilled');
+		}
 
-		const resp = await fetch('http://127.0.0.1:4567/api/product', {
+		const resp = await fetch(PUBLIC_SERVER_ADDRESS + '/product', {
 			method: 'POST',
-			body: JSON.stringify({
-				name,
-				shortUrl,
-				description,
-				price,
-				categories,
-				attributes,
-				stock,
-				imageId
-			}),
+			body: JSON.stringify({}),
 			headers: {
 				'Content-Type': 'application/json'
 			}
 		});
 
-		return resp.json();
+		return message(form, 'Product created?!?');
 	},
 	uploadFile: async ({ fetch, request }) => {
 		const data = await request.formData();
 
-		await fetch('http://127.0.0.1:4567/api/upload_file', {
+		await fetch(PUBLIC_SERVER_ADDRESS + '/upload_file', {
 			method: 'POST',
 			body: data
 		});
