@@ -15,7 +15,7 @@
 	export let type: SupportedInputType = 'text';
 	export let value: any = '';
 
-	const inputClass = prefix.length
+	$: inputClass = prefix.length
 		? 'flex-1 border-0 bg-transparent py-1.5 pl-1 text-white focus:ring-0 sm:text-sm sm:leading-6'
 		: 'block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6';
 </script>

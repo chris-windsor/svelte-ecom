@@ -263,28 +263,14 @@
 							{$form.variations[index]?.label}
 						</span>
 						<div class="sm:col-span-2">
-							<label
-								for={'variation' + index + '.sku'}
-								class="block text-sm font-semibold leading-6 text-white"
-							>
-								SKU
-							</label>
-							<div class="mt-2.5">
-								<div
-									class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600"
-								>
-									<span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-										{$form.sku}
-									</span>
-									<input
-										type="text"
-										name={'variations[' + index + '][sku]'}
-										id={'variation.' + index + '.sku'}
-										class="block flex-1 border-0 bg-transparent py-1.5 pl-0 text-white placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 truncate"
-										bind:value={$form.variations[index].sku}
-									/>
-								</div>
-							</div>
+							<LabelledInput
+								id={'variation.' + index + '.sku'}
+								label="SKU"
+								name={'variation.' + index + '.sku'}
+								placeholder="asd"
+								prefix={$form.sku}
+								bind:value={$form.variations[index].sku}
+							/>
 						</div>
 						<div class="sm:col-span-1">
 							<LabelledInput
