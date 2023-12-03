@@ -38,7 +38,7 @@
 				leaveTo="-translate-x-full"
 			>
 				<DialogOverlay
-					class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl"
+					class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-stone-900 pb-12 shadow-xl"
 				>
 					<div class="flex px-4 pt-5 pb-2">
 						<button
@@ -51,7 +51,7 @@
 						</button>
 					</div>
 					<TabGroup as="div" class="mt-2">
-						<div class="border-b border-gray-200">
+						<div class="border-b border-stone-700">
 							<TabList class="-mb-px flex space-x-8 px-4">
 								{#each navigation.categories as category}
 									<Tab let:selected>
@@ -59,7 +59,7 @@
 											class={[
 												selected
 													? 'text-indigo-600 border-indigo-600'
-													: 'text-gray-900 border-transparent',
+													: 'text-white border-transparent',
 												'flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium'
 											].join(' ')}
 										>
@@ -79,7 +79,7 @@
 													<div>
 														<p
 															id={`mobile-drawer-heading-${categoryIdx}-${groupIdx}`}
-															class="font-medium text-gray-900"
+															class="font-medium text-white"
 														>
 															{group.name}
 														</p>
@@ -104,10 +104,10 @@
 							{/each}
 						</TabPanels>
 					</TabGroup>
-					<div class="space-y-6 border-t border-gray-200 py-6 px-4">
+					<div class="space-y-6 border-t border-stone-700 py-6 px-4">
 						{#each navigation.pages as page}
 							<div class="flow-root">
-								<a href={page.href} class="-m-2 block p-2 font-medium text-gray-900">{page.name}</a>
+								<a href={page.href} class="-m-2 block p-2 font-medium text-white">{page.name}</a>
 							</div>
 						{/each}
 					</div>

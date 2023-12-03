@@ -73,7 +73,7 @@
 </script>
 
 <BaseHeader {navigation}>
-	<a slot="leftButton" class="ml-2 p-2 text-gray-400 hover:text-gray-500" href="/">
+	<a slot="leftButton" class="ml-2 p-2 text-white hover:text-gray-300" href="/">
 		<span class="sr-only">Search</span>
 		<MagnifyingGlassIcon aria-hidden="true" class="h-6 w-6" />
 	</a>
@@ -81,7 +81,7 @@
 	<div slot="rightButtons" class="flex items-center lg:ml-8">
 		<div class="flex space-x-8">
 			<div class="hidden lg:flex">
-				<a class="-m-2 p-2 text-gray-400 hover:text-gray-500" href="/">
+				<a class="-m-2 p-2 text-white hover:text-gray-300" href="/">
 					<span class="sr-only">Search</span>
 					<MagnifyingGlassIcon aria-hidden="true" class="h-6 w-6" />
 				</a>
@@ -93,7 +93,7 @@
 				<span class="sr-only">Log out</span>
 				<ArrowRightOnRectangleIcon
 					aria-hidden="true"
-					class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+					class="h-6 w-6 flex-shrink-0 text-white group-hover:text-gray-300"
 				/>
 			</a>
 		</div>

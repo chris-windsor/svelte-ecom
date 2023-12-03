@@ -14,7 +14,7 @@
 <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
 	<div class="w-full max-w-md space-y-8">
 		<div>
-			<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+			<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-white">
 				Create your account
 			</h2>
 			<p class="mt-2 text-center text-sm text-gray-600">
@@ -36,7 +36,7 @@
 					<input
 						id="name"
 						autocomplete="name"
-						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 						name="name"
 						placeholder="Name"
 						required={true}
@@ -49,7 +49,7 @@
 					<input
 						id="email-address"
 						autocomplete="email"
-						class="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						class="relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 						name="email"
 						placeholder="Email"
 						required={true}
@@ -62,7 +62,7 @@
 					<input
 						id="password"
 						autocomplete="current-password"
-						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 						name="password"
 						placeholder="Password"
 						required={true}

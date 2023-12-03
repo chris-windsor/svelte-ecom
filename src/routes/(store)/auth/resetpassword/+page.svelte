@@ -13,7 +13,7 @@
 <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
 	<div class="w-full max-w-md space-y-8">
 		<div>
-			<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">New Password</h2>
+			<h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-white">New Password</h2>
 			<p class="mt-2 text-center text-sm text-gray-600">
 				Or
 				{' '}
@@ -33,7 +33,7 @@
 					<input
 						id="password"
 						autocomplete="email"
-						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 						name="email"
 						placeholder="Password"
 						required={true}
@@ -45,7 +45,7 @@
 					<label class="sr-only" for="password-confirm">Confirm Password</label>
 					<input
 						id="password-confirm"
-						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
 						name="password"
 						placeholder="Confirm Password"
 						required={true}

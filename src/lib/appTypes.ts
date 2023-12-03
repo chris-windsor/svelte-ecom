@@ -1,3 +1,12 @@
+export type SupportedInputType =
+	| 'text'
+	| 'textarea'
+	| 'password'
+	| 'number'
+	| 'checkbox'
+	| 'radio'
+	| 'select';
+
 export type AuthToken = {
 	name: string;
 	exp: number;

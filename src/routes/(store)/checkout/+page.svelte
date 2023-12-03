@@ -91,8 +91,8 @@
 				{#each beforeAllFieldsPlugins as pluginComponent}
 					<svelte:component this={pluginComponent} />
 				{/each}
-				<div class={beforeAllFieldsPlugins.length ? 'mt-10 border-t border-gray-200 pt-10' : ''}>
-					<h2 class="text-lg font-medium text-gray-900">Contact information</h2>
+				<div class={beforeAllFieldsPlugins.length ? 'mt-10 border-t border-stone-700 pt-10' : ''}>
+					<h2 class="text-lg font-medium text-white">Contact information</h2>
 					<div class="mt-4">
 						<label class="block text-sm font-medium text-gray-700" for="email-address">
 							Email address
@@ -127,14 +127,14 @@
 				{/each}
 			</div>
 			<div class="mt-10 lg:mt-0">
-				<h2 class="text-lg font-medium text-gray-900">Order summary</h2>
-				<div class="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
+				<h2 class="text-lg font-medium text-white">Order summary</h2>
+				<div class="mt-4 rounded-lg border border-stone-700 bg-stone-900 shadow-sm">
 					<h3 class="sr-only">Items in your cart</h3>
 					<div class="ml-6 mr-6">
 						<CartItems />
 					</div>
 					<CartInvoice />
-					<div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+					<div class="border-t border-stone-700 py-6 px-4 sm:px-6">
 						{#if form && form.status === 'fail'}
 							<div class="mb-6">
 								<Alert
@@ -148,7 +148,7 @@
 							<div class="mb-6">
 								<Alert
 									type="warning"
-									title="Please ackknowledge the following issues before completeing your order"
+									title="Please acknowledge the following issues before completing your order"
 									details={overrides.errors}
 								/>
 							</div>

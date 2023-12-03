@@ -91,7 +91,7 @@
 </script>
 
 <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900">Order History</h1>
+	<h1 class="text-3xl font-bold tracking-tight text-white">Order History</h1>
 	{#each orders as order}
 		<OrderInvoice {order} />
 	{/each}

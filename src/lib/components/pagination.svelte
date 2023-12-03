@@ -5,7 +5,7 @@
 	export let current: number;
 </script>
 
-<nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
+<nav class="flex items-center justify-between border-t border-stone-700 px-4 sm:px-0">
 	<div class="-mt-px flex w-0 flex-1">
 		<a
 			href="#"

@@ -24,9 +24,9 @@
 <header class="relative">
 	<nav aria-label="Top">
 		<slot name="banner" />
-		<div class="bg-white">
+		<div class="bg-stone-900">
 			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				<div class="border-b border-gray-200">
+				<div class="border-b border-stone-700">
 					<div class="flex h-16 items-center justify-between">
 						<div class="hidden lg:flex lg:items-center">
 							<a href="/" data-sveltekit-preload-data>
@@ -45,7 +45,7 @@
 														class={[
 															open
 																? 'border-indigo-600 text-indigo-600'
-																: 'border-transparent text-gray-700 hover:text-gray-800',
+																: 'border-transparent text-white hover:text-gray-300',
 															'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out'
 														].join(' ')}
 													>
@@ -65,9 +65,9 @@
 													>
 														<div
 															aria-hidden="true"
-															class="absolute inset-0 top-1/2 bg-white shadow"
+															class="absolute inset-0 top-1/2 bg-stone-900 shadow"
 														/>
-														<div class="relative bg-white">
+														<div class="relative bg-stone-900">
 															<div class="mx-auto max-w-7xl px-8">
 																<div
 																	class="grid grid-cols-2 items-start gap-y-10 gap-x-8 pt-10 pb-12"
@@ -78,7 +78,7 @@
 																				<div>
 																					<p
 																						id={`desktop-featured-heading-${categoryIdx}-${groupIdx}`}
-																						class="font-medium text-gray-900"
+																						class="font-medium text-white"
 																					>
 																						{group.name}
 																					</p>
@@ -91,7 +91,7 @@
 																								<PopoverButton
 																									as="a"
 																									href={item.href}
-																									class="hover:text-gray-800"
+																									class="text-gray-300 hover:text-white"
 																								>
 																									{item.name}
 																								</PopoverButton>
@@ -112,7 +112,7 @@
 										{#each navigation.pages as page}
 											<a
 												href={page.href}
-												class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+												class="flex items-center text-sm font-medium text-white hover:text-gray-300"
 											>
 												{page.name}
 											</a>
@@ -122,7 +122,7 @@
 							</div>
 							<div class="flex flex-1 items-center lg:hidden">
 								<button
-									class="-ml-2 rounded-md bg-white p-2 text-gray-400"
+									class="-ml-2 rounded-md bg-stone-900 p-2 text-white"
 									type="button"
 									on:click={() => (mobileDrawerOpen = true)}
 								>

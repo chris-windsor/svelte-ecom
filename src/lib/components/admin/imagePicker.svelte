@@ -9,7 +9,7 @@
 
 <RadioGroup bind:value={selectedImage}>
 	{#if !images.length}
-		<RadioGroupLabel class="text-base font-semibold leading-6 text-gray-900">
+		<RadioGroupLabel class="text-base font-semibold leading-6 text-white">
 			No images found on the server
 		</RadioGroupLabel>
 	{/if}
@@ -20,13 +20,13 @@
 					class={[
 						checked ? 'border-transparent' : 'border-gray-300',
 						active ? 'border-indigo-600 ring-2 ring-indigo-600' : '',
-						'relative flex cursor-pointer rounded-lg border bg-white p-4 shadow-sm focus:outline-none'
+						'relative flex cursor-pointer rounded-lg border bg-stone-900 p-4 shadow-sm focus:outline-none'
 					].join(' ')}
 				>
 					<span class="flex flex-1">
 						<span class="flex flex-col">
 							<img src={imageBucket + image} alt={'Uploaded image ' + image.substring(0, 7)} />
-							<RadioGroupLabel as="span" class="block text-sm font-medium text-gray-900">
+							<RadioGroupLabel as="span" class="block text-sm font-medium text-white">
 								{image.substring(0, 7)}
 							</RadioGroupLabel>
 						</span>

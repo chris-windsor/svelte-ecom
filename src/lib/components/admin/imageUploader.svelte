@@ -65,12 +65,12 @@
 	<DialogOverlay class="fixed inset-0 bg-gray-300/50" />
 	<span class="inline-block h-screen align-middle" aria-hidden="true">​</span>
 	<div
-		class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+		class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-stone-900 shadow-xl rounded-2xl"
 	>
 		<DialogTitle>Upload a new file!</DialogTitle>
 		<DialogDescription>
 			<div class="sm:col-span-3">
-				<label for="primary-photo" class="block text-sm font-medium leading-6 text-gray-900">
+				<label for="primary-photo" class="block text-sm font-medium leading-6 text-white">
 					Primary photo
 				</label>
 				<form id="upload-form" action="?/uploadFile" method="POST" enctype="multipart/form-data">
@@ -84,7 +84,7 @@
 							<div class="mt-4 flex text-sm leading-6 text-gray-600">
 								<label
 									for="file-upload"
-									class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+									class="relative cursor-pointer rounded-md bg-stone-900 font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
 								>
 									<span>Upload an image</span>
 									<input

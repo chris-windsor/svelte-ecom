@@ -30,21 +30,21 @@
 
 <div class="mx-auto max-w-7xl py-8 sm:py-10 px-6 lg:px-8">
 	<div class="mx-auto max-w-2xl lg:text-center">
-		<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+		<p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
 			Howdy {data.name}!
 		</p>
-		<p class="mt-6 text-lg leading-8 text-gray-600">Look at how good you are doing today!</p>
+		<p class="mt-6 text-lg leading-8 text-gray-300">Look at how good you are doing today!</p>
 	</div>
 	<div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-		<h3 class="text-lg font-medium leading-6 text-gray-900">Last 30 days</h3>
+		<h3 class="text-lg font-medium leading-6 text-gray-300">Last 30 days</h3>
 		<dl
-			class="mt-5 grid grid-cols-1 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-y-0 md:divide-x"
+			class="mt-5 grid grid-cols-1 divide-y divide-stone-700 overflow-hidden rounded-lg bg-stone-900 shadow md:grid-cols-3 md:divide-y-0 md:divide-x"
 		>
 			{#each stats as item}
 				<div class="px-4 py-5 sm:p-6">
-					<dt class="text-base font-normal text-gray-900">{item.name}</dt>
+					<dt class="text-base font-normal text-gray-400">{item.name}</dt>
 					<dd class="mt-1 flex items-baseline justify-between md:block lg:flex">
-						<div class="flex items-baseline text-2xl font-semibold text-indigo-600">
+						<div class="flex items-baseline text-2xl font-semibold text-indigo-800">
 							{item.stat}
 							<span class="ml-2 text-sm font-medium text-gray-500">from {item.previousStat}</span>
 						</div>

@@ -6,15 +6,15 @@ import { message, superValidate } from 'sveltekit-superforms/server';
 
 const productSchema = z.object({
 	id: z.string().uuid(),
-	name: z.string().default(''),
-	shortUrl: z.string().default(''),
+	name: z.string(),
+	shortUrl: z.string(),
 	primaryImageId: z.string(),
 	description: z.string(),
 	price: z.number(),
 	stock: z.number(),
 	maxPurchaseQty: z.number(),
 	sku: z.string(),
-	category: z.number(),
+	category: z.number().default(-1),
 	attributes: z.array(z.number()),
 	variationAttributes: z.array(z.number()),
 	manageStock: z.boolean().default(true),

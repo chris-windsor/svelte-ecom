@@ -49,7 +49,7 @@
 
 <div class="mx-auto max-w-7xl py-8 sm:py-10 px-6 lg:px-8">
 	<div class="mx-auto max-w-2xl lg:text-center">
-		<p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+		<p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
 			{greeting()}
 		</p>
 		<p class="mt-6 text-lg leading-8 text-gray-600">
@@ -61,7 +61,7 @@
 		<dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
 			{#each features as feature}
 				<div class="flex flex-col">
-					<dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+					<dt class="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
 						<svelte:component
 							this={feature.icon}
 							aria-hidden="true"

@@ -3,7 +3,7 @@ import type { Actions } from './$types';
 import { processOrder } from '$lib/services/store';
 
 export const actions = {
-	default: async ({ request, fetch }) => {
+	default: async ({ request }) => {
 		const data = await request.formData();
 
 		const emailAddress = data.get('emailAddress');
@@ -49,6 +49,7 @@ export const actions = {
 		});
 
 		const resp: any = await processOrder(customerDetails, paymentDetails, orderItems);
+		console.debug(resp);
 
 		if (resp.status === 200) {
 			throw redirect(303, '/checkout/success');

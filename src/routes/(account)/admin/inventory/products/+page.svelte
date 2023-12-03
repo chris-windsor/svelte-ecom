@@ -17,7 +17,7 @@
 </script>
 
 <div class="flex flex-row">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900">Product list</h1>
+	<h1 class="text-3xl font-bold tracking-tight text-white">Product list</h1>
 	<a
 		class="flex w-fit items-center justify-center rounded-md bg-indigo-600 py-1.5 px-3 text-base font-semibold leading-7 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:text-sm sm:leading-6 ml-4"
 		href="/admin/inventory/products/edit">Create new</a
@@ -35,7 +35,7 @@
 					/>
 				</div>
 				<div class="min-w-0 flex-auto">
-					<p class="text-sm font-semibold leading-6 text-gray-900">
+					<p class="text-sm font-semibold leading-6 text-white">
 						<a href={'/admin/inventory/products/edit?id=' + row.id} class="hover:underline"
 							>{row.name}</a
 						>
@@ -67,7 +67,7 @@
 					{/if}
 				</div>
 				<Menu as="div" class="relative flex-none">
-					<MenuButton class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900">
+					<MenuButton class="-m-2.5 block p-2.5 text-gray-500 hover:text-white">
 						<span class="sr-only">Open options</span>
 						<EllipsisVerticalIcon class="h-5 w-5" aria-hidden="true" />
 					</MenuButton>
@@ -80,14 +80,14 @@
 						leaveTo="transform opacity-0 scale-50"
 					>
 						<MenuItems
-							class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+							class="absolute right-0 z-10 mt-2 w-32 origin-top-right rounded-md bg-stone-900 py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
 						>
 							<MenuItem let:active>
 								<a
 									href="#"
 									class={[
 										active ? 'bg-gray-50' : '',
-										'block px-3 py-1 text-sm leading-6 text-gray-900'
+										'block px-3 py-1 text-sm leading-6 text-white'
 									].join(' ')}>Edit<span class="sr-only">, {row.name}</span></a
 								>
 							</MenuItem>
@@ -96,7 +96,7 @@
 									href={row.href}
 									class={[
 										active ? 'bg-gray-50' : '',
-										'block px-3 py-1 text-sm leading-6 text-gray-900'
+										'block px-3 py-1 text-sm leading-6 text-white'
 									].join(' ')}>View Listing<span class="sr-only">, {row.name}</span></a
 								>
 							</MenuItem>

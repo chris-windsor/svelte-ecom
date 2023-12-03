@@ -3,5 +3,7 @@
 	import Footer from '$lib/components/footer.svelte';
 </script>
 
-<slot />
+<main class="flex-grow flex-col">
+	<slot />
+</main>
 <Footer />

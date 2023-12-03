@@ -69,19 +69,19 @@
 	};
 </script>
 
-<footer aria-labelledby="footer-heading" class="bg-white">
+<footer aria-labelledby="footer-heading" class="bg-stone-900 w-full mt-auto">
 	<h2 id="footer-heading" class="sr-only">Footer</h2>
-	<div class="mx-auto max-w-7xl px-6 pb-8 pt-20 sm:pt-24 lg:px-8 lg:pt-32">
+	<div class="mx-auto max-w-7xl px-6 pb-8 pt-12 sm:pt-14 lg:px-8 lg:pt-20">
 		<div class="lg:grid lg:grid-cols-3 lg:gap-8">
 			<div class="grid-cols-2 gap-8 lg:col-span-2">
 				<div class="md:grid md:grid-cols-3 md:gap-8">
 					{#each footerMapping as section}
 						<div class="mt-10 md:mt-0">
-							<h3 class="text-sm font-semibold leading-6 text-gray-900">{section.sectionHeader}</h3>
+							<h3 class="text-sm font-semibold leading-6 text-white">{section.sectionHeader}</h3>
 							<ul class="mt-6 space-y-4">
 								{#each section.subset as item}
 									<li>
-										<a href={item.url} class="text-sm leading-6 text-gray-600 hover:text-gray-900"
+										<a href={item.url} class="text-sm leading-6 text-gray-300 hover:text-white"
 											>{item.title}</a
 										>
 									</li>
@@ -92,8 +92,8 @@
 				</div>
 			</div>
 			<div class="mt-10 lg:mt-0">
-				<h3 class="text-sm font-semibold leading-6 text-gray-900">Subscribe to our newsletter</h3>
-				<p class="mt-2 text-sm leading-6 text-gray-600">
+				<h3 class="text-sm font-semibold leading-6 text-white">Subscribe to our newsletter</h3>
+				<p class="mt-2 text-sm leading-6 text-gray-400">
 					The hottest deals, latest news, and greatest resources, sent to your inbox weekly.
 				</p>
 				<form class="mt-6 sm:flex sm:max-w-md">
@@ -101,7 +101,7 @@
 					<input
 						id="email-address"
 						autocomplete="email"
-						class="w-full min-w-0 appearance-none rounded-md border-gray-300 bg-white px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base leading-7 text-gray-900 placeholder-gray-400 shadow-sm focus:border-indigo-600 focus:ring-indigo-600 sm:w-64 sm:text-sm sm:leading-6 xl:w-full"
+						class="w-full min-w-0 appearance-none rounded-md border-gray-300 bg-stone-900 px-[calc(theme(spacing.3)-1px)] py-[calc(theme(spacing[1.5])-1px)] text-base leading-7 text-gray-300 placeholder-gray-400 shadow-sm focus:border-indigo-600 focus:ring-indigo-600 sm:w-64 sm:text-sm sm:leading-6 xl:w-full"
 						name="email-address"
 						placeholder="Enter your email"
 						required={true}
@@ -119,17 +119,17 @@
 			</div>
 		</div>
 		<div
-			class="mt-16 border-t border-gray-900/10 pt-8 sm:mt-20 md:flex md:items-center md:justify-between lg:mt-24"
+			class="mt-10 border-t border-gray-900/10 pt-8 sm:mt-12 md:flex md:items-center md:justify-between lg:mt-14"
 		>
 			<div class="flex space-x-6 md:order-2">
 				{#each navigation.social as item}
-					<a href={item.href} class="text-gray-400 hover:text-gray-500">
+					<a href={item.href} class="text-gray-500 hover:text-gray-400">
 						<span class="sr-only">{item.name}</span>
 						<component :is="item.icon" aria-hidden="true" class="h-6 w-6" />
 					</a>
 				{/each}
 			</div>
-			<p class="mt-8 text-xs leading-5 text-gray-500 md:order-1 md:mt-0">
+			<p class="mt-8 text-xs leading-5 text-gray-400 md:order-1 md:mt-0">
 				&copy; 2023 {companyName}. All rights reserved.
 			</p>
 		</div>

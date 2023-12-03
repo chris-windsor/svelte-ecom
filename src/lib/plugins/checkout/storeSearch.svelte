@@ -13,8 +13,8 @@
 </script>
 
 {#if $cart.items.filter((item) => item.attributes.find((attribute) => attribute.id === 4)).length}
-	<div class="mt-10 border-t border-gray-200 pt-10">
-		<h2 class="text-lg font-medium text-gray-900">Select a store for pickup</h2>
+	<div class="mt-10 border-t border-stone-700 pt-10">
+		<h2 class="text-lg font-medium text-white">Select a store for pickup</h2>
 		<div class="mt-4">
 			<label class="block text-sm font-medium text-gray-700" for="store-search">
 				Preferred Store

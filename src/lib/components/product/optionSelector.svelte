@@ -20,7 +20,7 @@
 
 <Dialog open={helpPopupOpen} class="fixed inset-0 z-40">
 	<DialogOverlay
-		class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl m-auto"
+		class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-stone-900 pb-12 shadow-xl m-auto"
 	>
 		<div class="flex px-4 pt-5 pb-2">
 			<button
@@ -38,7 +38,7 @@
 
 <div>
 	<div class="flex items-center justify-between">
-		<h2 class="text-sm font-medium text-gray-900">{title}</h2>
+		<h2 class="text-sm font-medium text-white">{title}</h2>
 		{#if $$slots.helpPopup || link.length}
 			<a
 				class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
@@ -69,7 +69,7 @@
 							variant === 'rounded' && !active && checked ? 'ring-2' : '',
 							variant === 'block' && checked
 								? 'bg-indigo-600 border-transparent text-white hover:bg-indigo-700'
-								: 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50',
+								: 'bg-stone-900 border-stone-700 text-white hover:bg-gray-50',
 							variant === 'rounded'
 								? '-m-0.5 relative p-0.5 rounded-full flex items-center justify-center focus:outline-none'
 								: 'border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1'

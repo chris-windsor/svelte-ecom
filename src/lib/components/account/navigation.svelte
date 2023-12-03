@@ -28,9 +28,9 @@
 <header class="relative">
 	<nav aria-label="Top">
 		<AnnouncementBanner />
-		<div class="bg-white">
+		<div class="bg-stone-900">
 			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				<div class="border-b border-gray-200">
+				<div class="border-b border-stone-700">
 					<div class="flex h-16 items-center justify-between">
 						<div class="hidden lg:flex lg:items-center">
 							<a href="/" data-sveltekit-preload-data>
@@ -79,8 +79,8 @@
 							aria-current={item.current ? 'page' : undefined}
 							href={item.href}
 							class={[
-								'text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium',
-								item.current ? 'bg-gray-100 text-gray-900 hover:bg-gray-100' : ''
+								'text-white hover:bg-gray-50 hover:text-white rounded-md py-2 px-3 inline-flex items-center text-sm font-medium',
+								item.current ? 'bg-gray-100 text-white hover:bg-gray-100' : ''
 							].join(' ')}
 							>{item.name}
 						</a>

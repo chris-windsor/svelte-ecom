@@ -7,7 +7,7 @@
 		{#each product.breadcrumbs as breadcrumb}
 			<li>
 				<div class="flex items-center">
-					<a href={breadcrumb.href} class="mr-2 text-sm font-medium text-gray-900"
+					<a href={breadcrumb.href} class="mr-2 text-sm font-medium text-white"
 						>{breadcrumb.label}</a
 					>
 					<svg

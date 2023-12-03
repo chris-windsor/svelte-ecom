@@ -10,29 +10,29 @@
 	let show = false;
 </script>
 
-<div class="mt-4 border-b border-gray-200 pb-5 text-sm sm:flex sm:justify-between">
+<div class="mt-4 border-b border-stone-700 pb-5 text-sm sm:flex sm:justify-between">
 	<dl class="flex">
 		<dt class="text-gray-500">Order number&nbsp;</dt>
-		<dd class="font-medium text-gray-900">W086438695</dd>
+		<dd class="font-medium text-white">W086438695</dd>
 		<dt>
 			<span class="sr-only">Date</span>
 			<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
 		</dt>
-		<dd class="font-medium text-gray-900">
+		<dd class="font-medium text-white">
 			<time datetime="2021-03-22">March 22, 2021</time>
 		</dd>
 		<dt>
 			<span class="sr-only">Item count</span>
 			<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
 		</dt>
-		<dd class="font-medium text-gray-900">
+		<dd class="font-medium text-white">
 			<time datetime="2021-03-22">2 items</time>
 		</dd>
 		<dt>
 			<span class="sr-only">Total cost</span>
 			<span aria-hidden="true" class="mx-2 text-gray-400">&middot;</span>
 		</dt>
-		<dd class="font-medium text-gray-900">
+		<dd class="font-medium text-white">
 			<time datetime="2021-03-22">$78.92</time>
 		</dd>
 	</dl>
@@ -78,18 +78,18 @@
 							</div>
 						</div>
 						<div class="mt-6 sm:col-span-7 sm:mt-0 md:row-end-1">
-							<h3 class="text-lg font-medium text-gray-900">
+							<h3 class="text-lg font-medium text-white">
 								<a href={product.href}>{product.name}</a>
 							</h3>
-							<p class="mt-1 font-medium text-gray-900">{product.price}</p>
+							<p class="mt-1 font-medium text-white">{product.price}</p>
 							<p class="mt-3 text-gray-500">{product.description}</p>
 						</div>
 						<div class="sm:col-span-12 md:col-span-7">
 							<dl
-								class="grid grid-cols-1 gap-y-8 border-b border-gray-200 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10"
+								class="grid grid-cols-1 gap-y-8 border-b border-stone-700 py-8 sm:grid-cols-2 sm:gap-x-6 sm:py-6 md:py-10"
 							>
 								<div>
-									<dt class="font-medium text-gray-900">Delivery address</dt>
+									<dt class="font-medium text-white">Delivery address</dt>
 									<dd class="mt-3 text-gray-500">
 										<span class="block">{product.address[0]}</span>
 										<span class="block">{product.address[1]}</span>
@@ -97,7 +97,7 @@
 									</dd>
 								</div>
 								<div>
-									<dt class="font-medium text-gray-900">Shipping updates</dt>
+									<dt class="font-medium text-white">Shipping updates</dt>
 									<dd class="mt-3 space-y-3 text-gray-500">
 										<p>{product.email}</p>
 										<p>{product.phone}</p>
@@ -107,7 +107,7 @@
 									</dd>
 								</div>
 							</dl>
-							<p class="mt-6 font-medium text-gray-900 md:mt-10">
+							<p class="mt-6 font-medium text-white md:mt-10">
 								{product.status} on
 								<time datetime={product.datetime}>{product.date}</time>
 							</p>
@@ -143,7 +143,7 @@
 			>
 				<dl class="grid grid-cols-1 gap-6 text-sm sm:grid-cols-3 md:gap-x-8 lg:col-span-8 lg:pl-8">
 					<div>
-						<dt class="font-medium text-gray-900">Billing address</dt>
+						<dt class="font-medium text-white">Billing address</dt>
 						<dd class="mt-3 text-gray-500">
 							<span class="block">Floyd Miles</span>
 							<span class="block">7363 Cynthia Pass</span>
@@ -151,7 +151,7 @@
 						</dd>
 					</div>
 					<div>
-						<dt class="font-medium text-gray-900">Shipping address</dt>
+						<dt class="font-medium text-white">Shipping address</dt>
 						<dd class="mt-3 text-gray-500">
 							<span class="block">Floyd Miles</span>
 							<span class="block">4351 Main St</span>
@@ -159,7 +159,7 @@
 						</dd>
 					</div>
 					<div>
-						<dt class="font-medium text-gray-900">Payment information</dt>
+						<dt class="font-medium text-white">Payment information</dt>
 						<dd class="mt-3 flex">
 							<div>
 								<svg
@@ -179,7 +179,7 @@
 								<p class="sr-only">Visa</p>
 							</div>
 							<div class="ml-4">
-								<p class="text-gray-900">Ending with 4242</p>
+								<p class="text-white">Ending with 4242</p>
 								<p class="text-gray-600">Expires 02 / 24</p>
 							</div>
 						</dd>
@@ -189,18 +189,18 @@
 				<dl class="mt-8 divide-y divide-gray-200 text-sm lg:col-span-4 lg:mt-0 lg:pr-8">
 					<div class="flex items-center justify-between pb-4">
 						<dt class="text-gray-600">Subtotal</dt>
-						<dd class="font-medium text-gray-900">$72</dd>
+						<dd class="font-medium text-white">$72</dd>
 					</div>
 					<div class="flex items-center justify-between py-4">
 						<dt class="text-gray-600">Shipping</dt>
-						<dd class="font-medium text-gray-900">$5</dd>
+						<dd class="font-medium text-white">$5</dd>
 					</div>
 					<div class="flex items-center justify-between py-4">
 						<dt class="text-gray-600">Tax</dt>
-						<dd class="font-medium text-gray-900">$6.16</dd>
+						<dd class="font-medium text-white">$6.16</dd>
 					</div>
 					<div class="flex items-center justify-between pt-4">
-						<dt class="font-medium text-gray-900">Order total</dt>
+						<dt class="font-medium text-white">Order total</dt>
 						<dd class="font-medium text-indigo-600">$83.16</dd>
 					</div>
 				</dl>

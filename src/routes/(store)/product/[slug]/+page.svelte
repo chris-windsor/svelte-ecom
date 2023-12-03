@@ -66,7 +66,7 @@
 	<meta property="og:image" content={imageBucket + rawProductData.img} />
 </svelte:head>
 
-<div class="bg-white">
+<div class="bg-stone-900">
 	<div class="pt-6 pb-16 sm:pb-24">
 		{#if rawProductData.categories.length}
 			<Breadcrumbs {product} />
@@ -75,8 +75,8 @@
 			<div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
 				<div class="lg:col-span-5 lg:col-start-8">
 					<div class="flex justify-between">
-						<h1 class="text-xl font-medium text-gray-900">{rawProductData.name}</h1>
-						<p class="text-xl font-medium text-gray-900">${rawProductData.price.toFixed(2)}</p>
+						<h1 class="text-xl font-medium text-white">{rawProductData.name}</h1>
+						<p class="text-xl font-medium text-white">${rawProductData.price.toFixed(2)}</p>
 					</div>
 					{#if rawProductData.reviews}
 						<ReviewSummary reviews={rawProductData.reviews} />
@@ -126,13 +126,13 @@
 						</button>
 					</form>
 					<div class="mt-10">
-						<h2 class="text-sm font-medium text-gray-900">Description</h2>
+						<h2 class="text-sm font-medium text-white">Description</h2>
 						<div class="prose prose-sm mt-4 text-gray-500">
 							{@html rawProductData.description}
 						</div>
 					</div>
-					<div class="mt-8 border-t border-gray-200 pt-8">
-						<h2 class="text-sm font-medium text-gray-900">Additional Details</h2>
+					<div class="mt-8 border-t border-stone-700 pt-8">
+						<h2 class="text-sm font-medium text-white">Additional Details</h2>
 						<div class="prose prose-sm mt-4 text-gray-500">
 							<ul>
 								{#each product.details as detail}
@@ -145,14 +145,14 @@
 						<h2 id="policies-heading" class="sr-only">Our Policies</h2>
 						<dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
 							{#each policies as policy}
-								<div class="rounded-lg border border-gray-200 bg-gray-50 p-6 text-center">
+								<div class="rounded-lg border border-stone-700 bg-gray-50 p-6 text-center">
 									<dt>
 										<svelte:component
 											this={policy.icon}
 											aria-hidden="true"
 											class="mx-auto h-6 w-6 flex-shrink-0 text-gray-400"
 										/>
-										<span class="mt-4 text-sm font-medium text-gray-900">{policy.name}</span>
+										<span class="mt-4 text-sm font-medium text-white">{policy.name}</span>
 									</dt>
 									<dd class="mt-1 text-sm text-gray-500">{policy.description}</dd>
 								</div>

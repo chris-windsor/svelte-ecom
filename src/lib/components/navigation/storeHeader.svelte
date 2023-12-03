@@ -72,7 +72,7 @@
 <BaseHeader {navigation}>
 	<AnnouncementBanner slot="banner" />
 
-	<a slot="leftButton" class="ml-2 p-2 text-gray-400 hover:text-gray-500" href="/">
+	<a slot="leftButton" class="ml-2 p-2 text-white hover:text-gray-300" href="/">
 		<span class="sr-only">Search</span>
 		<MagnifyingGlassIcon aria-hidden="true" class="h-6 w-6" />
 	</a>
@@ -80,13 +80,13 @@
 	<div slot="rightButtons" class="flex items-center lg:ml-8">
 		<div class="flex space-x-8">
 			<div class="hidden lg:flex">
-				<a class="-m-2 p-2 text-gray-400 hover:text-gray-500" href="/">
+				<a class="-m-2 p-2 text-white hover:text-gray-300" href="/">
 					<span class="sr-only">Search</span>
 					<MagnifyingGlassIcon aria-hidden="true" class="h-6 w-6" />
 				</a>
 			</div>
 			<div class="flex">
-				<a class="-m-2 p-2 text-gray-400 hover:text-gray-500" href="/account">
+				<a class="-m-2 p-2 text-white hover:text-gray-300" href="/account">
 					<span class="sr-only">Account</span>
 					<UserIcon aria-hidden="true" class="h-6 w-6" />
 				</a>
@@ -97,9 +97,9 @@
 			<a class="group -m-2 flex items-center p-2" href="/cart">
 				<ShoppingCartIcon
 					aria-hidden="true"
-					class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+					class="h-6 w-6 flex-shrink-0 text-white group-hover:text-gray-300"
 				/>
-				<span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+				<span class="ml-2 text-sm font-medium text-white group-hover:text-gray-300">
 					{cartSize}
 				</span>
 				<span class="sr-only">items in cart, view bag</span>

@@ -21,8 +21,8 @@
 	}
 </script>
 
-<div class="mt-10 border-t border-gray-200 pt-10">
-	<h2 class="text-lg font-medium text-gray-900">Payment</h2>
+<div class="mt-10 border-t border-stone-700 pt-10">
+	<h2 class="text-lg font-medium text-white">Payment</h2>
 	{#if paymentMethods.length > 1}
 		<fieldset class="mt-4">
 			<legend class="sr-only">Payment type</legend>
