@@ -74,6 +74,15 @@
 			/>
 		</div>
 	{:else}
-		<input {autocomplete} {id} {name} {placeholder} class={inputClass} type="text" bind:value />
+		<input
+			{autocomplete}
+			{id}
+			{name}
+			{placeholder}
+			class={inputClass}
+			type="text"
+			bind:value
+			on:change
+		/>
 	{/if}
 </InputWrapper>

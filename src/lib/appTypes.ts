@@ -42,6 +42,10 @@ export type ProductGridRes = {
 	products: Product[];
 };
 
+export type ProductImage = {
+	hash: string;
+};
+
 export type ProductCategory = {
 	id: number;
 	label: string;

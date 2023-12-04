@@ -2,40 +2,20 @@
 	import type { PageData } from './$types';
 	import { siteAddress } from '$lib/config.json';
 	import ImageUploader from '$lib/components/admin/imageUploader.svelte';
-	import type { ProductAttribute, ProductCategory } from '$lib/appTypes';
+	import type { ProductAttribute, ProductCategory, ProductImage } from '$lib/appTypes';
 	import BlockingLoadingIndicator from '$lib/components/blockingLoadingIndicator.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import LabelledInput from '$lib/components/forms/labelledInput.svelte';
+	import ImagePicker from '$lib/components/admin/imagePicker.svelte';
+	import { publishStateOptions } from '$lib/appConstants';
 
 	export let data: PageData;
 	const { form, enhance, message } = superForm(data.form, { dataType: 'json' });
 
-	let productImages = data.images;
+	let productImages: ProductImage[] = data.images;
 	let categories: ProductCategory[] = data.categories;
 	let attributes: ProductAttribute[] = data.attributes;
-	let publishStateOptions = [
-		{
-			label: 'List on store immediately',
-			value: 'immediate-publish'
-		},
-		{
-			label: 'Publish, but do not include in store results',
-			subLabel: 'This is kind of a pointless option.',
-			value: 'private-publish'
-		},
-		{
-			label: 'Save as draft, do not publish at all',
-			value: 'draft-publish'
-		}
-	];
-
-	// $: shortURL = name
-	// 	.split(' ')
-	// 	.map((chunk: string) => chunk.trim())
-	// 	.filter((chunk: string) => chunk.length)
-	// 	.join('-')
-	// 	.toLowerCase();
 
 	function generateAllVariations() {
 		const variationAttributes = $form.variationAttributes.map(String);
@@ -149,7 +129,7 @@
 					</label>
 					<div class="mt-2">
 						<div class="border border-1 border-dashed border-gray-900 rounded p-2">
-							<!-- <ImagePicker images={productImages} selectedImage={''} /> -->
+							<ImagePicker images={productImages} bind:selectedImage={$form.primaryImageId} />
 						</div>
 						<a
 							class="inline-block mt-2 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

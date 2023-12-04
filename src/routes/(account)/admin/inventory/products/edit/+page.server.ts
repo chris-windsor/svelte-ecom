@@ -32,8 +32,10 @@ const productSchema = z.object({
 });
 
 export const load = (async ({ fetch }) => {
-	const upladedImagesRes = await fetch(PUBLIC_SERVER_ADDRESS + '/list_files');
-	const { data: images = [] } = await upladedImagesRes.json();
+	const availableImages = await fetch(PUBLIC_SERVER_ADDRESS + '/list_files');
+	const {
+		data: { images = [] }
+	} = await availableImages.json();
 
 	const { categories = [] } = await getCategories();
 	const { attributes = [] } = await getAttributes();

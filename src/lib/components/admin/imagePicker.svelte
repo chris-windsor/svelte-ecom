@@ -2,8 +2,9 @@
 	import { CheckCircleIcon } from '@babeard/svelte-heroicons/solid';
 	import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@rgossiaux/svelte-headlessui';
 	import { imageBucket } from '$lib/config.json';
+	import type { ProductImage } from '$lib/appTypes';
 
-	export let images: string[] = [];
+	export let images: ProductImage[] = [];
 	export let selectedImage: string;
 </script>
 
@@ -15,7 +16,7 @@
 	{/if}
 	<div class="grid grid-cols-3 gap-y-2 sm:grid-cols-4 sm:gap-x-2">
 		{#each images as image}
-			<RadioGroupOption as="div" value={image} let:active let:checked>
+			<RadioGroupOption as="div" value={image.hash} let:active let:checked>
 				<div
 					class={[
 						checked ? 'border-transparent' : 'border-gray-300',
@@ -25,9 +26,12 @@
 				>
 					<span class="flex flex-1">
 						<span class="flex flex-col">
-							<img src={imageBucket + image} alt={'Uploaded image ' + image.substring(0, 7)} />
+							<img
+								src={imageBucket + image.hash}
+								alt={'Uploaded image ' + image.hash.substring(0, 7)}
+							/>
 							<RadioGroupLabel as="span" class="block text-sm font-medium text-white">
-								{image.substring(0, 7)}
+								{image.hash.substring(0, 7)}
 							</RadioGroupLabel>
 						</span>
 					</span>
