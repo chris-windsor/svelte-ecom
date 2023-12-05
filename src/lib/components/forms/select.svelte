@@ -1,5 +1,6 @@
 <script lang="ts">
 	export let autocomplete: string = '';
+	export let constraints: any;
 	export let id: string;
 	export let multiple: boolean = false;
 	export let name: string;
@@ -10,11 +11,20 @@
 </script>
 
 {#if multiple}
-	<select {autocomplete} {id} {name} multiple class={inputClass} bind:value on:change>
+	<select
+		{autocomplete}
+		{id}
+		{name}
+		multiple
+		class={inputClass}
+		{...constraints}
+		bind:value
+		on:change
+	>
 		<slot />
 	</select>
 {:else}
-	<select {autocomplete} {id} {name} class={inputClass} bind:value on:change>
+	<select {autocomplete} {id} {name} class={inputClass} {...constraints} bind:value on:change>
 		<slot />
 	</select>
 {/if}

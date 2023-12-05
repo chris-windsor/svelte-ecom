@@ -4,6 +4,7 @@
 	import Select from './select.svelte';
 
 	export let autocomplete: string = '';
+	export let constraints: any = {};
 	export let checked: boolean = false;
 	export let id: string;
 	export let group: string = '';
@@ -24,12 +25,13 @@
 	<label for={id} class="block text-sm font-medium leading-6 text-white">{label}</label>
 	<div class="mt-2">
 		{#if type === 'select'}
-			<Select {autocomplete} {id} {multiple} {name} bind:value on:change>
+			<Select {autocomplete} {constraints} {id} {multiple} {name} bind:value on:change>
 				<slot />
 			</Select>
 		{:else}
 			<Input
 				{autocomplete}
+				{constraints}
 				{id}
 				{min}
 				{name}
@@ -48,6 +50,7 @@
 	<div class="relative flex gap-x-3 mt-2">
 		<Input
 			{autocomplete}
+			{constraints}
 			{id}
 			{min}
 			{name}
