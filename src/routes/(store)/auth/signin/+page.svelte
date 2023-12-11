@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { LockClosedIcon } from '@babeard/svelte-heroicons/solid';
-	import type { ActionData } from './$types';
+	import type { PageData } from './$types';
 	import Alert from '$lib/components/alert.svelte';
+	import LabelledInput from '$lib/components/forms/labelledInput.svelte';
+	import { superForm } from 'sveltekit-superforms/client';
+	import { page } from '$app/stores';
 
-	export let form: ActionData;
+	export let data: PageData;
+	const { form, enhance, message, errors, constraints } = superForm(data.form);
 
-	let emailAddress = 'test@chriswindsor.dev';
-	let password = '123';
-	let remember = false;
 	let pending = false;
 </script>
 
@@ -25,48 +26,36 @@
 				</a>
 			</p>
 		</div>
-		{#if form && form.message}
-			<Alert type="error" title={form.message} />
+		{#if message && $page.status >= 400}
+			<Alert type="error" title={message} />
 		{/if}
-		<form class="mt-8 space-y-6" method="POST">
-			<div class="-space-y-px rounded-md shadow-sm">
-				<div>
-					<label class="sr-only" for="email-address">Email address</label>
-					<input
-						id="email-address"
-						autocomplete="email"
-						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						name="email"
-						placeholder="Email address"
-						required={true}
-						type="email"
-						bind:value={emailAddress}
-					/>
-				</div>
-				<div>
-					<label class="sr-only" for="password">Password</label>
-					<input
-						id="password"
-						autocomplete="current-password"
-						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-white placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-						name="password"
-						placeholder="Password"
-						required={true}
-						type="password"
-						bind:value={password}
-					/>
-				</div>
+		<form class="mt-8 space-y-4" method="POST" use:enhance>
+			<div class="space-y-2">
+				<LabelledInput
+					constraints={$constraints.email}
+					id="email"
+					label="Email Address"
+					name="email"
+					bind:value={$form.email}
+				/>
+				<LabelledInput
+					constraints={$constraints.password}
+					id="password"
+					label="Password"
+					name="password"
+					type="password"
+					bind:value={$form.password}
+				/>
 			</div>
 			<div class="flex items-center justify-between">
 				<div class="flex items-center">
-					<input
-						id="remember-me"
-						class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-						name="remember-me"
+					<LabelledInput
+						id="remember"
+						label="Remember me"
+						name="remember"
 						type="checkbox"
-						bind:checked={remember}
+						bind:checked={$form.remember}
 					/>
-					<label class="ml-2 block text-sm text-white" for="remember-me">Remember me</label>
 				</div>
 				<div class="text-sm">
 					<a

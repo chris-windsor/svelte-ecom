@@ -23,31 +23,29 @@
 
 {#if ['text', 'textarea', 'number', 'password', 'select'].includes(type) && label.length}
 	<label for={id} class="block text-sm font-medium leading-6 text-white">{label}</label>
-	<div class="mt-2">
-		{#if type === 'select'}
-			<Select {autocomplete} {constraints} {id} {multiple} {name} bind:value on:change>
-				<slot />
-			</Select>
-		{:else}
-			<Input
-				{autocomplete}
-				{constraints}
-				{id}
-				{min}
-				{name}
-				{placeholder}
-				{prefix}
-				{rows}
-				{step}
-				{type}
-				bind:value
-				on:change
-			/>
-		{/if}
-	</div>
+	{#if type === 'select'}
+		<Select {autocomplete} {constraints} {id} {multiple} {name} bind:value on:change>
+			<slot />
+		</Select>
+	{:else}
+		<Input
+			{autocomplete}
+			{constraints}
+			{id}
+			{min}
+			{name}
+			{placeholder}
+			{prefix}
+			{rows}
+			{step}
+			{type}
+			bind:value
+			on:change
+		/>
+	{/if}
 {/if}
 {#if ['checkbox', 'radio'].includes(type) && (label.length || subLabel.length)}
-	<div class="relative flex gap-x-3 mt-2">
+	<div class="relative flex gap-x-3">
 		<Input
 			{autocomplete}
 			{constraints}

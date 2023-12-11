@@ -1,13 +1,27 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { RESPONSE_SUCCESS_DESCRIPTOR, type USER_ROLE } from '$lib/utils/constants.js';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 import retriever from '$lib/utils/wretch';
+import { z } from 'zod';
+import { superValidate } from 'sveltekit-superforms/server';
 
 type LoginResponse = {
 	status: typeof RESPONSE_SUCCESS_DESCRIPTOR;
 	token: string;
 	role: USER_ROLE;
 };
+
+const loginSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8),
+	remember: z.boolean().default(false)
+});
+
+export const load = (async () => {
+	const form = await superValidate(loginSchema);
+
+	return { form };
+}) satisfies PageServerLoad;
 
 export const actions = {
 	default: async ({ cookies, request }) => {
