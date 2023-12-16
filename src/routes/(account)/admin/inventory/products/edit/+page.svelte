@@ -9,9 +9,13 @@
 	import LabelledInput from '$lib/components/forms/labelledInput.svelte';
 	import ImagePicker from '$lib/components/admin/imagePicker.svelte';
 	import { publishStateOptions } from '$lib/appConstants';
+	import { page } from '$app/stores';
+	import Alert from '$lib/components/alert.svelte';
 
 	export let data: PageData;
-	const { form, enhance, message } = superForm(data.form, { dataType: 'json' });
+	const { form, enhance, message, errors, constraints } = superForm(data.form, {
+		dataType: 'json'
+	});
 
 	let productImages: ProductImage[] = data.images;
 	let categories: ProductCategory[] = data.categories;
@@ -79,23 +83,31 @@
 
 <ImageUploader bind:showDialog={showUploadDialog} />
 
-<!-- {#if $form}
+{#if $message && $page.status === 200}
 	<Alert
 		type="success"
 		title="Product successfully added"
 		buttons={[{ label: 'View', href: '/product/' + $form.shortUrl }]}
 	/>
-{/if} -->
+{/if}
 
-<form method="POST">
+<form action="?/createProduct" method="POST" use:enhance>
 	<div class="space-y-12">
 		<div class="border-b border-gray-900/10 pb-12">
 			<h2 class="text-base font-semibold leading-7 text-white">
 				{$form.id ? 'Edit' : 'New'} Product
 			</h2>
+			{#if message && $page.status >= 400}
+				<Alert
+					type="error"
+					title="Error when creating product"
+					details={Object.entries($errors).map(([field, err]) => `${field} — ${err}`)}
+				/>
+			{/if}
 			<div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 				<div class="sm:col-span-3">
 					<LabelledInput
+						constraints={$constraints.name}
 						id="name"
 						label="Name"
 						name="name"
@@ -105,6 +117,7 @@
 				</div>
 				<div class="sm:col-span-3">
 					<LabelledInput
+						constraints={$constraints.shortUrl}
 						id="short-url"
 						label="Short URL"
 						name="short-url"
@@ -143,6 +156,7 @@
 				{#if !$form.variations.length}
 					<div class="sm:col-span-1">
 						<LabelledInput
+							constraints={$constraints.price}
 							id="price"
 							label="Price"
 							min={0}
@@ -291,7 +305,6 @@
 						<LabelledInput
 							id="manage-stock"
 							label="Manage Stock"
-							min={0}
 							name="manage-stock"
 							subLabel="Control levels of stock for this item."
 							type="checkbox"

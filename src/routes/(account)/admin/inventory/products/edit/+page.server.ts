@@ -5,25 +5,31 @@ import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 const productSchema = z.object({
-	id: z.string().uuid(),
-	name: z.string(),
-	shortUrl: z.string(),
+	id: z.string().uuid().optional(),
+	name: z.string().min(3).max(100),
+	shortUrl: z
+		.string()
+		.min(3)
+		.regex(new RegExp(/^[a-z0-9]+((-[a-z0-9]+)+)?$/)),
 	primaryImageId: z.string(),
 	description: z.string(),
 	price: z.number(),
-	stock: z.number(),
+	stock: z.number().min(0),
 	maxPurchaseQty: z.number(),
 	sku: z.string(),
 	category: z.number().default(-1),
 	attributes: z.array(z.number()),
 	variationAttributes: z.array(z.number()),
+	upc: z.string(),
+	real_weight: z.number().nonnegative(),
+	ship_weight: z.number().nonnegative(),
 	manageStock: z.boolean().default(true),
 	allowBackOrders: z.boolean(),
 	restockNotifications: z.boolean(),
 	publishState: z.string(),
 	variations: z.array(
 		z.object({
-			stock: z.number(),
+			stock: z.number().min(0),
 			price: z.number(),
 			sku: z.string(),
 			label: z.string()
@@ -55,7 +61,7 @@ export const actions = {
 
 		const resp = await fetch(PUBLIC_SERVER_ADDRESS + '/product', {
 			method: 'POST',
-			body: JSON.stringify({}),
+			body: JSON.stringify(form.data),
 			headers: {
 				'Content-Type': 'application/json'
 			}
