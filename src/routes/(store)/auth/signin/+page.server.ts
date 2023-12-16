@@ -56,9 +56,9 @@ export const actions = {
 		});
 
 		if (resp.role === 'admin') {
-			throw redirect(303, '/admin');
+			redirect(303, '/admin');
 		}
 
-		throw redirect(303, '/account');
+		redirect(303, '/account');
 	}
 } satisfies Actions;

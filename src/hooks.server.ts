@@ -10,22 +10,22 @@ export const handle = (async ({ event, resolve }) => {
 		const token = event.cookies.get('token');
 
 		if (!token || !token?.length) {
-			throw redirect(302, '/auth/signin');
+			redirect(302, '/auth/signin');
 		}
 
 		const decoded_token = jwt_decode<AuthToken>(token);
 
 		const now = Date.now();
 		if (decoded_token.exp * 1000 < now) {
-			event.cookies.delete('token');
-			throw redirect(302, '/auth/signin');
+			event.cookies.delete('token', { path: '/' });
+			redirect(302, '/auth/signin');
 		}
 
 		if (
 			event.route.id.startsWith(ACCOUNT_LEVEL_ROUTE_PREFIX + '/admin') &&
 			decoded_token.role !== 'admin'
 		) {
-			throw redirect(302, '/account');
+			redirect(302, '/account');
 		}
 	}
 

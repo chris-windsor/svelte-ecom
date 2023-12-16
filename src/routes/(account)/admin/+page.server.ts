@@ -8,7 +8,7 @@ export const load = (async ({ cookies }) => {
 	const decoded_token = jwt_decode<AuthToken>(token || '');
 
 	if (decoded_token.role !== 'admin') {
-		throw redirect(302, '/auth/signin');
+		redirect(302, '/auth/signin');
 	}
 
 	return {

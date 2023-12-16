@@ -52,7 +52,7 @@ export const actions = {
 		console.debug(resp);
 
 		if (resp.status === 200) {
-			throw redirect(303, '/checkout/success');
+			redirect(303, '/checkout/success');
 		} else {
 			return resp.json();
 		}

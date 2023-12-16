@@ -34,6 +34,6 @@ export const actions = {
 			return fail(400, { message: resp.data.message });
 		}
 
-		throw redirect(302, '/auth/signin');
+		redirect(302, '/auth/signin');
 	}
 } satisfies Actions;
